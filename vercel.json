@@ -1,0 +1,4 @@
+{
+  "buildCommand": "pnpm story:build",
+  "outputDirectory": ".histoire/dist"
+}
