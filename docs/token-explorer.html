@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>maru-ui — デザイントークン探索</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;900&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Kosugi+Maru&family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f8fdf9;
+    --bg-card: #ffffff;
+    --text: #1a2e1f;
+    --text-muted: #6b8f74;
+    --border: #d4eed9;
+    --primary: #bbffcc;
+    --primary-dark: #2d7a45;
+    --shadow: 0 2px 20px rgba(45, 122, 69, 0.06);
+    --shadow-hover: 0 8px 32px rgba(45, 122, 69, 0.12);
+  }
+
+  body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    padding: 48px 32px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(187, 255, 204, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  .header h1 .dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin-left: 4px;
+    vertical-align: middle;
+    box-shadow: 0 0 12px rgba(187, 255, 204, 0.6);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+
+  .header p {
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-size: 0.95rem;
+    position: relative;
+  }
+
+  /* Main Layout */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title .icon {
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+
+  /* Color Palette */
+  .color-scales {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .color-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .color-row-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .color-chips {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .color-chip {
+    width: 72px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 6px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    position: relative;
+  }
+
+  .color-chip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  }
+
+  .color-chip .label {
+    font-size: 0.55rem;
+    opacity: 0.8;
+  }
+
+  .color-chip .hex {
+    font-size: 0.55rem;
+    font-weight: 600;
+  }
+
+  .color-chip.light-text .label,
+  .color-chip.light-text .hex { color: #fff; }
+  .color-chip.dark-text .label,
+  .color-chip.dark-text .hex { color: #1a2e1f; }
+
+  /* Spacing */
+  .spacing-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .spacing-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .spacing-name {
+    width: 40px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .spacing-bar {
+    height: 28px;
+    background: linear-gradient(135deg, var(--primary), #8fe8a8);
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .spacing-bar:hover {
+    filter: brightness(0.95);
+  }
+
+  .spacing-value {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    width: 50px;
+    flex-shrink: 0;
+  }
+
+  /* Radius */
+  .radius-demo {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .radius-item {
+    width: 100px;
+    height: 100px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--border);
+  }
+
+  .radius-item:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .radius-item .name {
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .radius-item .val {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+
+  /* Font Comparison */
+  .font-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .font-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .font-card:hover,
+  .font-card.active {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .font-card.active {
+    background: linear-gradient(135deg, #f0fff4, #ffffff);
+  }
+
+  .font-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .font-card-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+  }
+
+  .font-card-tag {
+    font-size: 0.65rem;
+    background: var(--primary);
+    color: var(--primary-dark);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .font-sample-large {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .font-sample-body {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .font-sample-small {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  .font-weights {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .font-weight-chip {
+    font-size: 0.7rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: #f0f7f2;
+    color: var(--text-muted);
+  }
+
+  /* Shadow */
+  .shadow-demo {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .shadow-item {
+    width: 120px;
+    height: 120px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .shadow-item .name {
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .shadow-item .val {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  /* Preview Area */
+  .preview-section {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border);
+  }
+
+  .preview-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Mini Components Preview */
+  .mini-components {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .mini-btn {
+    padding: 10px 24px;
+    border-radius: 14px;
+    border: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mini-btn.primary {
+    background: var(--primary);
+    color: var(--primary-dark);
+  }
+
+  .mini-btn.primary:hover {
+    background: #a8f5b8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(187, 255, 204, 0.5);
+  }
+
+  .mini-btn.outline {
+    background: transparent;
+    color: var(--primary-dark);
+    border: 2px solid var(--border);
+  }
+
+  .mini-btn.outline:hover {
+    border-color: var(--primary);
+    background: #f0fff4;
+  }
+
+  .mini-btn.ghost {
+    background: transparent;
+    color: var(--text-muted);
+  }
+
+  .mini-btn.ghost:hover {
+    background: #f0f7f2;
+    color: var(--text);
+  }
+
+  .mini-btn.round {
+    border-radius: 50px;
+  }
+
+  .mini-card {
+    background: #f8fdf9;
+    border-radius: 20px;
+    padding: 20px;
+    width: 220px;
+    border: 1px solid var(--border);
+  }
+
+  .mini-card-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #8fe8a8);
+    margin-bottom: 12px;
+  }
+
+  .mini-card h4 {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .mini-card p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .mini-input {
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 2px solid var(--border);
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s ease;
+    background: var(--bg);
+    width: 200px;
+  }
+
+  .mini-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(187, 255, 204, 0.3);
+  }
+
+  .mini-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .mini-badge.success {
+    background: #e6ffe6;
+    color: #2d7a45;
+  }
+
+  .mini-badge.warning {
+    background: #fff8e6;
+    color: #8a6d1b;
+  }
+
+  .mini-badge.error {
+    background: #ffe6e6;
+    color: #7a2d2d;
+  }
+
+  .mini-badge.info {
+    background: #e6f0ff;
+    color: #2d4a7a;
+  }
+
+  .mini-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 16px;
+    background: var(--text);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    width: fit-content;
+  }
+
+  .mini-toast .toast-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
+  }
+
+  /* Comparison Switch */
+  .theme-switch {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .theme-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 2px solid var(--border);
+    background: var(--bg-card);
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-muted);
+  }
+
+  .theme-btn:hover {
+    border-color: var(--primary);
+  }
+
+  .theme-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+  }
+
+  /* Typography Scale */
+  .type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .type-item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f7f2;
+  }
+
+  .type-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .type-meta {
+    width: 80px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .type-meta .size {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+  }
+
+  .type-meta .name {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+  }
+
+  /* Dark Mode Preview */
+  .dark-preview {
+    background: #0f1a12;
+    border-radius: 24px;
+    padding: 32px;
+    margin-top: 24px;
+    color: #e0f5e5;
+  }
+
+  .dark-preview .preview-title {
+    color: #8aaa92;
+  }
+
+  .dark-preview .mini-btn.primary {
+    background: #2d7a45;
+    color: #bbffcc;
+  }
+
+  .dark-preview .mini-btn.outline {
+    border-color: #2d4a35;
+    color: #8fe8a8;
+  }
+
+  .dark-preview .mini-card {
+    background: #162119;
+    border-color: #2d4a35;
+  }
+
+  .dark-preview .mini-card p {
+    color: #8aaa92;
+  }
+
+  .dark-preview .mini-input {
+    background: #162119;
+    border-color: #2d4a35;
+    color: #e0f5e5;
+  }
+
+  .dark-preview .mini-toast {
+    background: #e0f5e5;
+    color: #0f1a12;
+  }
+
+  .dark-preview .mini-badge.success {
+    background: #1a3d24;
+    color: #8fe8a8;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header h1 { font-size: 1.8rem; }
+    .color-chip { width: 56px; height: 48px; }
+    .mini-components { flex-direction: column; }
+    .radius-demo { gap: 10px; }
+    .radius-item { width: 80px; height: 80px; }
+    .shadow-demo { gap: 12px; }
+    .shadow-item { width: 100px; height: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>maru-ui<span class="dot"></span></h1>
+  <p>デザイントークン探索 — やわらかく、まるく、つかいやすく</p>
+</div>
+
+<div class="main">
+
+  <!-- Font Selector -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">字</span>
+      フォント候補
+    </div>
+    <div class="font-comparison">
+
+      <div class="font-card active" onclick="selectFont(this, `'M PLUS Rounded 1c'`)">
+        <div class="font-card-header">
+          <span class="font-card-name">M PLUS Rounded 1c</span>
+          <span class="font-card-tag">おすすめ</span>
+        </div>
+        <div class="font-sample-large" style="font-family: 'M PLUS Rounded 1c'">
+          まんまる まる まるる
+        </div>
+        <div class="font-sample-body" style="font-family: 'M PLUS Rounded 1c'">
+          やわらかいデザインで、毎日つかいたくなるUIをつくろう。The quick brown fox jumps over the lazy dog. 0123456789
+        </div>
+        <div class="font-weights">
+          <span class="font-weight-chip" style="font-family: 'M PLUS Rounded 1c'; font-weight: 300">Light 300</span>
+          <span class="font-weight-chip" style="font-family: 'M PLUS Rounded 1c'; font-weight: 400">Regular 400</span>
+          <span class="font-weight-chip" style="font-family: 'M PLUS Rounded 1c'; font-weight: 500">Medium 500</span>
+          <span class="font-weight-chip" style="font-family: 'M PLUS Rounded 1c'; font-weight: 700">Bold 700</span>
+          <span class="font-weight-chip" style="font-family: 'M PLUS Rounded 1c'; font-weight: 900">Black 900</span>
+        </div>
+      </div>
+
+      <div class="font-card" onclick="selectFont(this, `'Zen Maru Gothic'`)">
+        <div class="font-card-header">
+          <span class="font-card-name">Zen Maru Gothic</span>
+          <span class="font-card-tag">筆っぽさ</span>
+        </div>
+        <div class="font-sample-large" style="font-family: 'Zen Maru Gothic'">
+          まんまる まる まるる
+        </div>
+        <div class="font-sample-body" style="font-family: 'Zen Maru Gothic'">
+          やわらかいデザインで、毎日つかいたくなるUIをつくろう。The quick brown fox jumps over the lazy dog. 0123456789
+        </div>
+        <div class="font-weights">
+          <span class="font-weight-chip" style="font-family: 'Zen Maru Gothic'; font-weight: 300">Light 300</span>
+          <span class="font-weight-chip" style="font-family: 'Zen Maru Gothic'; font-weight: 400">Regular 400</span>
+          <span class="font-weight-chip" style="font-family: 'Zen Maru Gothic'; font-weight: 500">Medium 500</span>
+          <span class="font-weight-chip" style="font-family: 'Zen Maru Gothic'; font-weight: 700">Bold 700</span>
+          <span class="font-weight-chip" style="font-family: 'Zen Maru Gothic'; font-weight: 900">Black 900</span>
+        </div>
+      </div>
+
+      <div class="font-card" onclick="selectFont(this, `'Kosugi Maru'`)">
+        <div class="font-card-header">
+          <span class="font-card-name">Kosugi Maru</span>
+          <span class="font-card-tag">シンプル</span>
+        </div>
+        <div class="font-sample-large" style="font-family: 'Kosugi Maru'">
+          まんまる まる まるる
+        </div>
+        <div class="font-sample-body" style="font-family: 'Kosugi Maru'">
+          やわらかいデザインで、毎日つかいたくなるUIをつくろう。The quick brown fox jumps over the lazy dog. 0123456789
+        </div>
+        <div class="font-weights">
+          <span class="font-weight-chip" style="font-family: 'Kosugi Maru'; font-weight: 400">Regular 400</span>
+        </div>
+      </div>
+
+      <div class="font-card" onclick="selectFont(this, `'Nunito'`)">
+        <div class="font-card-header">
+          <span class="font-card-name">Nunito（英字特化）</span>
+          <span class="font-card-tag">英字がまるい</span>
+        </div>
+        <div class="font-sample-large" style="font-family: 'Nunito'">
+          maru-ui components
+        </div>
+        <div class="font-sample-body" style="font-family: 'Nunito'">
+          A soft and rounded typeface that pairs beautifully with Japanese round fonts. MButton MCard MGrid 0123456789
+        </div>
+        <div class="font-weights">
+          <span class="font-weight-chip" style="font-family: 'Nunito'; font-weight: 300">Light 300</span>
+          <span class="font-weight-chip" style="font-family: 'Nunito'; font-weight: 400">Regular 400</span>
+          <span class="font-weight-chip" style="font-family: 'Nunito'; font-weight: 600">SemiBold 600</span>
+          <span class="font-weight-chip" style="font-family: 'Nunito'; font-weight: 700">Bold 700</span>
+          <span class="font-weight-chip" style="font-family: 'Nunito'; font-weight: 900">Black 900</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Colors -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">●</span>
+      カラーパレット
+    </div>
+    <div class="color-scales">
+
+      <div class="color-row">
+        <div class="color-row-label">Primary (Green)</div>
+        <div class="color-chips">
+          <div class="color-chip dark-text" style="background: #f0fff4"><span class="label">50</span><span class="hex">#f0fff4</span></div>
+          <div class="color-chip dark-text" style="background: #dcffe6"><span class="label">100</span><span class="hex">#dcffe6</span></div>
+          <div class="color-chip dark-text" style="background: #bbffcc"><span class="label">200</span><span class="hex">#bbffcc</span></div>
+          <div class="color-chip dark-text" style="background: #8fe8a8"><span class="label">300</span><span class="hex">#8fe8a8</span></div>
+          <div class="color-chip dark-text" style="background: #5ecc7a"><span class="label">400</span><span class="hex">#5ecc7a</span></div>
+          <div class="color-chip light-text" style="background: #3aad58"><span class="label">500</span><span class="hex">#3aad58</span></div>
+          <div class="color-chip light-text" style="background: #2d8a45"><span class="label">600</span><span class="hex">#2d8a45</span></div>
+          <div class="color-chip light-text" style="background: #2d7a45"><span class="label">700</span><span class="hex">#2d7a45</span></div>
+          <div class="color-chip light-text" style="background: #1e5c32"><span class="label">800</span><span class="hex">#1e5c32</span></div>
+          <div class="color-chip light-text" style="background: #0f3a1d"><span class="label">900</span><span class="hex">#0f3a1d</span></div>
+          <div class="color-chip light-text" style="background: #0a2614"><span class="label">950</span><span class="hex">#0a2614</span></div>
+        </div>
+      </div>
+
+      <div class="color-row">
+        <div class="color-row-label">Gray (Green-tinted)</div>
+        <div class="color-chips">
+          <div class="color-chip dark-text" style="background: #f8fdf9"><span class="label">50</span><span class="hex">#f8fdf9</span></div>
+          <div class="color-chip dark-text" style="background: #f0f7f2"><span class="label">100</span><span class="hex">#f0f7f2</span></div>
+          <div class="color-chip dark-text" style="background: #d4eed9"><span class="label">200</span><span class="hex">#d4eed9</span></div>
+          <div class="color-chip dark-text" style="background: #b0d9b8"><span class="label">300</span><span class="hex">#b0d9b8</span></div>
+          <div class="color-chip dark-text" style="background: #8aaa92"><span class="label">400</span><span class="hex">#8aaa92</span></div>
+          <div class="color-chip light-text" style="background: #6b8f74"><span class="label">500</span><span class="hex">#6b8f74</span></div>
+          <div class="color-chip light-text" style="background: #4d6b55"><span class="label">600</span><span class="hex">#4d6b55</span></div>
+          <div class="color-chip light-text" style="background: #3a5442"><span class="label">700</span><span class="hex">#3a5442</span></div>
+          <div class="color-chip light-text" style="background: #2a3d30"><span class="label">800</span><span class="hex">#2a3d30</span></div>
+          <div class="color-chip light-text" style="background: #1a2e1f"><span class="label">900</span><span class="hex">#1a2e1f</span></div>
+          <div class="color-chip light-text" style="background: #0f1a12"><span class="label">950</span><span class="hex">#0f1a12</span></div>
+        </div>
+      </div>
+
+      <div class="color-row">
+        <div class="color-row-label">Semantic</div>
+        <div class="color-chips">
+          <div class="color-chip dark-text" style="background: #bbffcc"><span class="label">success</span><span class="hex">#bbffcc</span></div>
+          <div class="color-chip dark-text" style="background: #fff3b0"><span class="label">warning</span><span class="hex">#fff3b0</span></div>
+          <div class="color-chip dark-text" style="background: #ffb0b0"><span class="label">error</span><span class="hex">#ffb0b0</span></div>
+          <div class="color-chip dark-text" style="background: #b0d4ff"><span class="label">info</span><span class="hex">#b0d4ff</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Typography Scale -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">A</span>
+      タイポグラフィスケール
+    </div>
+    <div class="type-scale" id="typeScale">
+      <div class="type-item">
+        <div class="type-meta"><span class="size">2.5rem</span><br><span class="name">display</span></div>
+        <div style="font-size: 2.5rem; font-weight: 900; line-height: 1.2">まるいせかい</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta"><span class="size">2rem</span><br><span class="name">h1</span></div>
+        <div style="font-size: 2rem; font-weight: 700; line-height: 1.3">見出しレベル1</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta"><span class="size">1.5rem</span><br><span class="name">h2</span></div>
+        <div style="font-size: 1.5rem; font-weight: 700; line-height: 1.4">見出しレベル2</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta"><span class="size">1.25rem</span><br><span class="name">h3</span></div>
+        <div style="font-size: 1.25rem; font-weight: 600; line-height: 1.4">見出しレベル3</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta"><span class="size">1rem</span><br><span class="name">body</span></div>
+        <div style="font-size: 1rem; font-weight: 400; line-height: 1.7">本文テキスト。やわらかいデザインで日常をちょっとたのしく。</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta"><span class="size">0.875rem</span><br><span class="name">small</span></div>
+        <div style="font-size: 0.875rem; font-weight: 400; line-height: 1.6; color: #6b8f74">補足テキストやキャプション。Secondary text for labels and captions.</div>
+      </div>
+      <div class="type-item">
+        <div class="type-meta"><span class="size">0.75rem</span><br><span class="name">xs</span></div>
+        <div style="font-size: 0.75rem; font-weight: 500; line-height: 1.5; color: #8aaa92">バッジやステータス表示 · BADGE · STATUS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spacing -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">↔</span>
+      スペーシング
+    </div>
+    <div class="spacing-demo">
+      <div class="spacing-item">
+        <span class="spacing-name">2xs</span>
+        <div class="spacing-bar" style="width: 4px"></div>
+        <span class="spacing-value">4px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">xs</span>
+        <div class="spacing-bar" style="width: 8px"></div>
+        <span class="spacing-value">8px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">sm</span>
+        <div class="spacing-bar" style="width: 12px"></div>
+        <span class="spacing-value">12px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">md</span>
+        <div class="spacing-bar" style="width: 16px"></div>
+        <span class="spacing-value">16px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">lg</span>
+        <div class="spacing-bar" style="width: 24px"></div>
+        <span class="spacing-value">24px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">xl</span>
+        <div class="spacing-bar" style="width: 32px"></div>
+        <span class="spacing-value">32px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">2xl</span>
+        <div class="spacing-bar" style="width: 48px"></div>
+        <span class="spacing-value">48px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">3xl</span>
+        <div class="spacing-bar" style="width: 64px"></div>
+        <span class="spacing-value">64px</span>
+      </div>
+      <div class="spacing-item">
+        <span class="spacing-name">4xl</span>
+        <div class="spacing-bar" style="width: 96px"></div>
+        <span class="spacing-value">96px</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Border Radius -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">◐</span>
+      角丸（Border Radius）
+    </div>
+    <div class="radius-demo">
+      <div class="radius-item" style="border-radius: 4px">
+        <span class="name">xs</span>
+        <span class="val">4px</span>
+      </div>
+      <div class="radius-item" style="border-radius: 8px">
+        <span class="name">sm</span>
+        <span class="val">8px</span>
+      </div>
+      <div class="radius-item" style="border-radius: 14px">
+        <span class="name">md</span>
+        <span class="val">14px</span>
+      </div>
+      <div class="radius-item" style="border-radius: 20px">
+        <span class="name">lg</span>
+        <span class="val">20px</span>
+      </div>
+      <div class="radius-item" style="border-radius: 28px">
+        <span class="name">xl</span>
+        <span class="val">28px</span>
+      </div>
+      <div class="radius-item" style="border-radius: 50px">
+        <span class="name">full</span>
+        <span class="val">50px</span>
+      </div>
+      <div class="radius-item" style="border-radius: 50%; width: 100px; height: 100px;">
+        <span class="name">circle</span>
+        <span class="val">50%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shadows -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">◉</span>
+      シャドウ
+    </div>
+    <div class="shadow-demo">
+      <div class="shadow-item" style="box-shadow: 0 1px 3px rgba(45, 122, 69, 0.04)">
+        <span class="name">xs</span>
+        <span class="val">ほんのり</span>
+      </div>
+      <div class="shadow-item" style="box-shadow: 0 2px 8px rgba(45, 122, 69, 0.06)">
+        <span class="name">sm</span>
+        <span class="val">控えめ</span>
+      </div>
+      <div class="shadow-item" style="box-shadow: 0 4px 16px rgba(45, 122, 69, 0.08)">
+        <span class="name">md</span>
+        <span class="val">ふつう</span>
+      </div>
+      <div class="shadow-item" style="box-shadow: 0 8px 32px rgba(45, 122, 69, 0.12)">
+        <span class="name">lg</span>
+        <span class="val">浮いてる</span>
+      </div>
+      <div class="shadow-item" style="box-shadow: 0 16px 48px rgba(45, 122, 69, 0.16)">
+        <span class="name">xl</span>
+        <span class="val">モーダル</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Light Preview -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon">☀</span>
+      コンポーネントプレビュー
+    </div>
+    <div class="preview-section">
+      <div class="preview-title">Light Mode</div>
+      <div class="mini-components">
+        <button class="mini-btn primary">プライマリ</button>
+        <button class="mini-btn primary round">まるボタン</button>
+        <button class="mini-btn outline">アウトライン</button>
+        <button class="mini-btn ghost">ゴースト</button>
+        <input class="mini-input" placeholder="テキストを入力...">
+        <span class="mini-badge success">成功</span>
+        <span class="mini-badge warning">警告</span>
+        <span class="mini-badge error">エラー</span>
+        <span class="mini-badge info">情報</span>
+      </div>
+      <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+        <div class="mini-card">
+          <div class="mini-card-avatar"></div>
+          <h4>まるカード</h4>
+          <p>やわらかい角丸と控えめなシャドウが特徴です</p>
+        </div>
+        <div class="mini-toast">
+          <span class="toast-dot"></span>
+          保存しました
+        </div>
+      </div>
+    </div>
+
+    <!-- Dark Preview -->
+    <div class="dark-preview">
+      <div class="preview-title">Dark Mode</div>
+      <div class="mini-components">
+        <button class="mini-btn primary">プライマリ</button>
+        <button class="mini-btn primary round">まるボタン</button>
+        <button class="mini-btn outline">アウトライン</button>
+        <input class="mini-input" placeholder="テキストを入力...">
+        <span class="mini-badge success">成功</span>
+      </div>
+      <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start">
+        <div class="mini-card">
+          <div class="mini-card-avatar"></div>
+          <h4>まるカード</h4>
+          <p>ダークモードでもやわらかさは変わりません</p>
+        </div>
+        <div class="mini-toast">
+          <span class="toast-dot"></span>
+          保存しました
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function selectFont(el, fontFamily) {
+  document.querySelectorAll('.font-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.body.style.fontFamily = fontFamily + ', sans-serif';
+  document.getElementById('typeScale').style.fontFamily = fontFamily + ', sans-serif';
+}
+</script>
+
+</body>
+</html>
