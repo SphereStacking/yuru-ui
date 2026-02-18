@@ -1,2 +1,2 @@
 // maru-ui entry point
-export {}
+export { default as MProvider } from './components/provider/MProvider.vue'
