@@ -1,2 +1,243 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap');
+
+/* ============================================
+   Tailwind CSS v4 カスタムテーマ
+   ============================================ */
+@theme {
+  /* --- カラー: Primary（ミントグリーン） --- */
+  --color-primary-50: #edfff2;
+  --color-primary-100: #ddffe7;
+  --color-primary-200: #b0ffc4;
+  --color-primary-300: #80efa2;
+  --color-primary-400: #55d47a;
+  --color-primary-500: #38b45c;
+  --color-primary-600: #2a9048;
+  --color-primary-700: #4a9960;
+  --color-primary-800: #1a6530;
+  --color-primary-900: #0e3a1c;
+
+  /* --- カラー: Gray（グリーンティント） --- */
+  --color-gray-50: #f6fef8;
+  --color-gray-100: #eef7f0;
+  --color-gray-200: #d2f0da;
+  --color-gray-300: #afd9b8;
+  --color-gray-400: #8baa94;
+  --color-gray-500: #6a8873;
+  --color-gray-600: #4d6855;
+  --color-gray-700: #3d5a44;
+  --color-gray-800: #2a3d30;
+  --color-gray-900: #0e1810;
+
+  /* --- カラー: アクセント（パステル） --- */
+  --color-accent-mint: #b0ffc4;
+  --color-accent-mint-text: #4a9960;
+  --color-accent-pink: #ffd4e8;
+  --color-accent-pink-text: #995577;
+  --color-accent-lavender: #e0d4ff;
+  --color-accent-lavender-text: #665599;
+  --color-accent-peach: #ffe4cc;
+  --color-accent-peach-text: #886644;
+  --color-accent-sky: #ccedff;
+  --color-accent-sky-text: #446688;
+  --color-accent-lemon: #fff6d5;
+  --color-accent-lemon-text: #887744;
+
+  /* --- カラー: セマンティック --- */
+  --color-success: #ddffd5;
+  --color-success-text: #4a8040;
+  --color-warning: #fff6d5;
+  --color-warning-text: #8a7030;
+  --color-error: #ffd5d5;
+  --color-error-text: #8a4040;
+  --color-info: #d5ecff;
+  --color-info-text: #406080;
+
+  /* --- スペーシング --- */
+  --spacing-2xs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+
+  /* --- 角丸 --- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 50px;
+  --radius-circle: 50%;
+
+  /* --- シャドウ --- */
+  --shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
+  --shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
+  --shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
+  --shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
+
+  /* --- フォントファミリー --- */
+  --font-sans: 'M PLUS Rounded 1c', sans-serif;
+}
+
+/* ============================================
+   共通CSS変数（カラー・スペーシング）
+   ============================================ */
+:root {
+  /* --- Primary --- */
+  --m-color-primary-50: #edfff2;
+  --m-color-primary-100: #ddffe7;
+  --m-color-primary-200: #b0ffc4;
+  --m-color-primary-300: #80efa2;
+  --m-color-primary-400: #55d47a;
+  --m-color-primary-500: #38b45c;
+  --m-color-primary-600: #2a9048;
+  --m-color-primary-700: #4a9960;
+  --m-color-primary-800: #1a6530;
+  --m-color-primary-900: #0e3a1c;
+
+  /* --- Gray（グリーンティント） --- */
+  --m-color-gray-50: #f6fef8;
+  --m-color-gray-100: #eef7f0;
+  --m-color-gray-200: #d2f0da;
+  --m-color-gray-300: #afd9b8;
+  --m-color-gray-400: #8baa94;
+  --m-color-gray-500: #6a8873;
+  --m-color-gray-600: #4d6855;
+  --m-color-gray-700: #3d5a44;
+  --m-color-gray-800: #2a3d30;
+  --m-color-gray-900: #0e1810;
+
+  /* --- アクセント（パステル） --- */
+  --m-color-accent-mint: #b0ffc4;
+  --m-color-accent-mint-text: #4a9960;
+  --m-color-accent-pink: #ffd4e8;
+  --m-color-accent-pink-text: #995577;
+  --m-color-accent-lavender: #e0d4ff;
+  --m-color-accent-lavender-text: #665599;
+  --m-color-accent-peach: #ffe4cc;
+  --m-color-accent-peach-text: #886644;
+  --m-color-accent-sky: #ccedff;
+  --m-color-accent-sky-text: #446688;
+  --m-color-accent-lemon: #fff6d5;
+  --m-color-accent-lemon-text: #887744;
+
+  /* --- セマンティック --- */
+  --m-color-success: #ddffd5;
+  --m-color-success-text: #4a8040;
+  --m-color-warning: #fff6d5;
+  --m-color-warning-text: #8a7030;
+  --m-color-error: #ffd5d5;
+  --m-color-error-text: #8a4040;
+  --m-color-info: #d5ecff;
+  --m-color-info-text: #406080;
+
+  /* --- スペーシング --- */
+  --m-space-2xs: 4px;
+  --m-space-xs: 8px;
+  --m-space-sm: 12px;
+  --m-space-md: 16px;
+  --m-space-lg: 24px;
+  --m-space-xl: 32px;
+  --m-space-2xl: 48px;
+  --m-space-3xl: 64px;
+  --m-space-4xl: 96px;
+
+  /* --- ダークモード用ライト値 --- */
+  --m-color-page-bg: #f6fef8;
+  --m-color-card-bg: #ffffff;
+  --m-color-border: #d2f0da;
+  --m-color-text-main: #3d5a44;
+  --m-color-text-sub: #8baa94;
+  --m-color-primary-btn-bg: #b0ffc4;
+  --m-color-primary-btn-text: #4a9960;
+  --m-color-pink-btn-bg: #ffd4e8;
+  --m-color-pink-btn-text: #995577;
+}
+
+/* ============================================
+   ほよ（hoyo）テーマ — デフォルト
+   ============================================ */
+[data-theme="hoyo"] {
+  /* 角丸 */
+  --m-radius-default: 22px 28px 24px 30px / 28px 22px 30px 24px;
+  --m-radius-button: 22px 26px 24px 28px / 26px 22px 28px 24px;
+  --m-radius-input: 20px 24px 22px 26px / 24px 20px 26px 22px;
+  --m-radius-card: 24px 28px 26px 30px / 28px 24px 30px 26px;
+
+  /* フィルター */
+  --m-filter-default: url(#wobbly-subtle);
+  --m-filter-card: url(#wobbly-subtle);
+  --m-filter-button: none;
+
+  /* シャドウ */
+  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
+  --m-shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
+  --m-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
+  --m-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
+
+  /* タイポグラフィ */
+  --m-font-weight-display: 700;
+  --m-font-weight-heading: 500;
+  --m-font-weight-body: 400;
+  --m-font-weight-small: 300;
+
+  /* Divider */
+  --m-divider-style: wavy;
+
+  /* ボーダー */
+  --m-border-width: 1.5px;
+}
+
+/* ============================================
+   ぴし（pishi）テーマ
+   ============================================ */
+[data-theme="pishi"] {
+  /* 角丸 — 均一で整った形 */
+  --m-radius-default: 14px;
+  --m-radius-button: 12px;
+  --m-radius-input: 12px;
+  --m-radius-card: 16px;
+
+  /* フィルター — なし */
+  --m-filter-default: none;
+  --m-filter-card: none;
+  --m-filter-button: none;
+
+  /* シャドウ — くっきり小さめ */
+  --m-shadow-sm: 0 1px 3px rgba(142, 220, 170, 0.06);
+  --m-shadow-md: 0 2px 8px rgba(142, 220, 170, 0.08);
+  --m-shadow-lg: 0 4px 16px rgba(142, 220, 170, 0.10);
+  --m-shadow-xl: 0 8px 24px rgba(142, 220, 170, 0.14);
+
+  /* タイポグラフィ — やや重め */
+  --m-font-weight-display: 700;
+  --m-font-weight-heading: 600;
+  --m-font-weight-body: 400;
+  --m-font-weight-small: 400;
+
+  /* Divider */
+  --m-divider-style: straight;
+
+  /* ボーダー */
+  --m-border-width: 1px;
+}
+
+/* ============================================
+   ダークモード
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --m-color-page-bg: #0e1810;
+    --m-color-card-bg: #162018;
+    --m-color-border: #2a4030;
+    --m-color-text-main: #d5f0dc;
+    --m-color-text-sub: #7aaa86;
+    --m-color-primary-btn-bg: #2a7a4a;
+    --m-color-primary-btn-text: #b0ffc4;
+    --m-color-pink-btn-bg: #4a2838;
+    --m-color-pink-btn-text: #ffb8d4;
+  }
+}
