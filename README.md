@@ -100,4 +100,4 @@ import { YRProvider, YRButton, YRCard } from 'yuru-ui'
 
 ## ライセンス
 
-個人用プロジェクト
+MIT
