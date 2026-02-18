@@ -147,7 +147,7 @@ useClickOutside(wrapperRef, () => {
 </script>
 
 <template>
-  <div>
+  <div class="yr:w-full">
     <label
       v-if="label"
       :for="selectId"
@@ -158,7 +158,7 @@ useClickOutside(wrapperRef, () => {
     </label>
     <div
       ref="wrapperRef"
-      class="yr:relative yr:inline-block yr:w-full"
+      class="yr:relative yr:w-full"
       :class="disabled ? 'yr:opacity-50 yr:cursor-not-allowed' : ''"
     >
       <input v-if="name" type="hidden" :name="name" :value="modelValue" />

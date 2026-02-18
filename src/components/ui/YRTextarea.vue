@@ -37,7 +37,7 @@ const errorClass = computed(() =>
 </script>
 
 <template>
-  <div>
+  <div class="yr:w-full">
     <label
       v-if="label"
       :for="inputId"
