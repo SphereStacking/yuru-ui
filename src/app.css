@@ -189,6 +189,11 @@
 
   /* ボーダー */
   --m-border-width: 1.5px;
+
+  /* トランジション — ほよんとした柔らかさ */
+  --m-transition-speed: 0.2s;
+  --m-transition-ease: cubic-bezier(0.34, 1.2, 0.64, 1);
+  --m-letter-spacing: 0.01em;
 }
 
 /* ============================================
@@ -223,10 +228,15 @@
 
   /* ボーダー */
   --m-border-width: 1px;
+
+  /* トランジション — きびきび正確 */
+  --m-transition-speed: 0.12s;
+  --m-transition-ease: ease-out;
+  --m-letter-spacing: 0;
 }
 
 /* ============================================
-   とげ（toge）テーマ — シャープ、角ばった、エッジの効いた
+   とげ（toge）テーマ — ブルータリスト、ハードエッジ、パンクな直線
    ============================================ */
 [data-theme="toge"] {
   /* 角丸 — なし */
@@ -240,11 +250,11 @@
   --m-filter-card: none;
   --m-filter-button: none;
 
-  /* シャドウ — くっきりシャープ */
-  --m-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.12);
-  --m-shadow-md: 0 2px 6px rgba(0, 0, 0, 0.16);
-  --m-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.20);
-  --m-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.24);
+  /* シャドウ — ブルータリストなオフセットシャドウ（右下にズレる） */
+  --m-shadow-sm: 2px 2px 0 rgba(14, 24, 16, 0.12);
+  --m-shadow-md: 3px 3px 0 rgba(14, 24, 16, 0.18);
+  --m-shadow-lg: 5px 5px 0 rgba(14, 24, 16, 0.22);
+  --m-shadow-xl: 8px 8px 0 rgba(14, 24, 16, 0.28);
 
   /* タイポグラフィ — 重め、力強い */
   --m-font-weight-display: 800;
@@ -255,8 +265,16 @@
   /* Divider */
   --m-divider-style: straight;
 
-  /* ボーダー */
-  --m-border-width: 1px;
+  /* ボーダー — 太くてくっきり */
+  --m-border-width: 2px;
+  --m-border-color: var(--m-color-gray-700);
+
+  /* トランジション — 超キビキビ */
+  --m-transition-speed: 0.08s;
+  --m-transition-ease: ease-out;
+
+  /* レタースペーシング — タイト */
+  --m-letter-spacing: -0.01em;
 }
 
 /* ============================================
@@ -274,11 +292,11 @@
   --m-filter-card: url(#wobbly-moko);
   --m-filter-button: url(#wobbly-subtle);
 
-  /* シャドウ — ふんわり大きめ */
-  --m-shadow-sm: 0 4px 16px rgba(142, 220, 170, 0.10);
-  --m-shadow-md: 0 8px 32px rgba(142, 220, 170, 0.14);
-  --m-shadow-lg: 0 16px 48px rgba(142, 220, 170, 0.18);
-  --m-shadow-xl: 0 24px 64px rgba(142, 220, 170, 0.22);
+  /* シャドウ — めちゃ広がるふわふわシャドウ */
+  --m-shadow-sm: 0 6px 24px rgba(142, 220, 170, 0.10);
+  --m-shadow-md: 0 12px 40px rgba(142, 220, 170, 0.13);
+  --m-shadow-lg: 0 20px 60px rgba(142, 220, 170, 0.16);
+  --m-shadow-xl: 0 32px 80px rgba(142, 220, 170, 0.20);
 
   /* タイポグラフィ — 軽め、ふわっと */
   --m-font-weight-display: 500;
@@ -289,30 +307,38 @@
   /* Divider */
   --m-divider-style: wavy;
 
-  /* ボーダー */
-  --m-border-width: 2px;
+  /* ボーダー — ぽってり太め */
+  --m-border-width: 2.5px;
+  --m-border-color: var(--m-color-gray-200);
+
+  /* トランジション — もちっとゆっくり */
+  --m-transition-speed: 0.3s;
+  --m-transition-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* レタースペーシング — ゆったり */
+  --m-letter-spacing: 0.04em;
 }
 
 /* ============================================
-   きら（kira）テーマ — キラキラ華やか、グラデーション光沢、リッチ
+   きら（kira）テーマ — イリデッセント、多色グロウ、宝石的リッチ感
    ============================================ */
 [data-theme="kira"] {
-  /* 角丸 — 大きめで柔らかい */
+  /* 角丸 — ピル型で洗練 */
   --m-radius-default: 16px;
-  --m-radius-button: 14px;
+  --m-radius-button: 50px;
   --m-radius-input: 14px;
-  --m-radius-card: 18px;
+  --m-radius-card: 20px;
 
   /* フィルター — なし */
   --m-filter-default: none;
   --m-filter-card: none;
   --m-filter-button: none;
 
-  /* シャドウ — グロウ感のある二重シャドウ */
-  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.10), 0 1px 3px rgba(176, 255, 196, 0.15);
-  --m-shadow-md: 0 4px 16px rgba(142, 220, 170, 0.14), 0 2px 6px rgba(176, 255, 196, 0.20);
-  --m-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.18), 0 4px 12px rgba(176, 255, 196, 0.25);
-  --m-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.22), 0 8px 20px rgba(176, 255, 196, 0.30);
+  /* シャドウ — 多色イリデッセントグロウ（ミント+ラベンダー+ピンクが混ざる） */
+  --m-shadow-sm: 0 2px 8px rgba(176, 255, 196, 0.12), 0 2px 6px rgba(224, 212, 255, 0.10);
+  --m-shadow-md: 0 4px 20px rgba(176, 255, 196, 0.16), 0 4px 14px rgba(224, 212, 255, 0.14), 0 2px 8px rgba(255, 212, 232, 0.10);
+  --m-shadow-lg: 0 8px 36px rgba(176, 255, 196, 0.18), 0 6px 24px rgba(224, 212, 255, 0.16), 0 4px 16px rgba(255, 212, 232, 0.12);
+  --m-shadow-xl: 0 16px 52px rgba(176, 255, 196, 0.22), 0 10px 36px rgba(224, 212, 255, 0.20), 0 8px 24px rgba(255, 212, 232, 0.16);
 
   /* タイポグラフィ — しっかり重め */
   --m-font-weight-display: 700;
@@ -323,34 +349,40 @@
   /* Divider */
   --m-divider-style: straight;
 
-  /* ボーダー */
+  /* ボーダー — 繊細 */
   --m-border-width: 1px;
+  --m-border-color: rgba(176, 255, 196, 0.3);
+
+  /* トランジション — なめらか */
+  --m-transition-speed: 0.2s;
+  --m-transition-ease: ease;
 
   /* グラデーション */
-  --m-gradient-primary: linear-gradient(135deg, #b0ffc4, #ccedff);
-  --m-gradient-accent: linear-gradient(135deg, #ffd4e8, #e0d4ff);
+  --m-gradient-primary: linear-gradient(135deg, #b0ffc4 0%, #ccedff 50%, #e0d4ff 100%);
+  --m-gradient-accent: linear-gradient(135deg, #ffd4e8 0%, #e0d4ff 50%, #ccedff 100%);
+  --m-gradient-shimmer: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
 }
 
 /* ============================================
-   ねむ（nemu）テーマ — 低コントラスト、淡い、目に優しい夜向け
+   ねむ（nemu）テーマ — 夢うつつ、低コントラスト、まどろみ
    ============================================ */
 [data-theme="nemu"] {
-  /* 角丸 — かなり丸い、やわらかい */
+  /* 角丸 — とろんと丸い */
   --m-radius-default: 20px;
   --m-radius-button: 18px;
   --m-radius-input: 18px;
-  --m-radius-card: 22px;
+  --m-radius-card: 24px;
 
   /* フィルター — なし */
   --m-filter-default: none;
   --m-filter-card: none;
   --m-filter-button: none;
 
-  /* シャドウ — ほぼ見えないくらい薄い */
-  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.03);
-  --m-shadow-md: 0 4px 16px rgba(142, 220, 170, 0.04);
-  --m-shadow-lg: 0 8px 24px rgba(142, 220, 170, 0.05);
-  --m-shadow-xl: 0 12px 32px rgba(142, 220, 170, 0.06);
+  /* シャドウ — 消えかけの夢みたいに薄い */
+  --m-shadow-sm: 0 2px 12px rgba(142, 220, 170, 0.03);
+  --m-shadow-md: 0 4px 24px rgba(142, 220, 170, 0.04);
+  --m-shadow-lg: 0 8px 36px rgba(142, 220, 170, 0.05);
+  --m-shadow-xl: 0 12px 48px rgba(142, 220, 170, 0.05);
 
   /* タイポグラフィ — 軽め、やさしい */
   --m-font-weight-display: 500;
@@ -361,11 +393,20 @@
   /* Divider */
   --m-divider-style: straight;
 
-  /* ボーダー */
+  /* ボーダー — 霞むように薄い */
   --m-border-width: 1px;
+  --m-border-color: rgba(175, 217, 184, 0.2);
 
-  /* 透明度 — ミュートされた要素用 */
-  --m-opacity-muted: 0.6;
+  /* トランジション — とろんと遅い（眠たい） */
+  --m-transition-speed: 0.45s;
+  --m-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* レタースペーシング — ゆるやか */
+  --m-letter-spacing: 0.02em;
+
+  /* 透明度 — 全体的にミュート */
+  --m-opacity-muted: 0.55;
+  --m-opacity-hover: 0.8;
 }
 
 /* ============================================

@@ -31,9 +31,14 @@ defineProps<{
   filter: var(--m-filter-button);
   font-family: inherit;
   font-weight: var(--m-font-weight-heading);
+  letter-spacing: var(--m-letter-spacing, 0);
   cursor: pointer;
   border: var(--m-border-width) solid transparent;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  transition:
+    transform var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease),
+    box-shadow var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease),
+    background-color var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease),
+    opacity var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease);
 }
 
 .m-button:hover:not(:disabled) {
@@ -169,5 +174,87 @@ defineProps<{
 
 .m-button--ghost:hover:not(:disabled) {
   background-color: var(--m-color-gray-100);
+}
+</style>
+
+<!-- テーマ別の「触り心地」— scoped外で data-theme セレクタを使う -->
+<style>
+/* === toge: カチッと硬質。hover時も上に浮かず横にズレる === */
+[data-theme="toge"] .m-button:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--m-shadow-lg);
+}
+[data-theme="toge"] .m-button:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+[data-theme="toge"] .m-button--outline {
+  border-color: var(--m-color-gray-700);
+}
+
+/* === moko: ぷにっとバウンス。hover時にぽわっと膨らむ === */
+[data-theme="moko"] .m-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: var(--m-shadow-lg);
+}
+[data-theme="moko"] .m-button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: var(--m-shadow-sm);
+}
+
+/* === kira: プライマリボタンにグラデーション背景、ホバーでシマー === */
+[data-theme="kira"] .m-button--primary {
+  background-image: var(--m-gradient-primary);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  position: relative;
+  overflow: hidden;
+}
+[data-theme="kira"] .m-button--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background-position: 100% 50%;
+  box-shadow: var(--m-shadow-lg);
+}
+[data-theme="kira"] .m-button--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--m-gradient-shimmer, linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%));
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+[data-theme="kira"] .m-button--primary:hover::after {
+  opacity: 1;
+  animation: kira-shimmer 0.8s ease-out;
+}
+@keyframes kira-shimmer {
+  0% { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+[data-theme="kira"] .m-button--outline {
+  border-color: rgba(176, 255, 196, 0.4);
+}
+
+/* === nemu: ゆっくり、ふわっ。hover時もほんの少しだけ === */
+[data-theme="nemu"] .m-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--m-shadow-md);
+  opacity: var(--m-opacity-hover, 0.85);
+}
+[data-theme="nemu"] .m-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+  opacity: 0.7;
+}
+[data-theme="nemu"] .m-button--primary {
+  opacity: 0.85;
+}
+[data-theme="nemu"] .m-button--outline {
+  border-color: rgba(175, 217, 184, 0.3);
+}
+[data-theme="nemu"] .m-button--ghost {
+  opacity: 0.7;
 }
 </style>
