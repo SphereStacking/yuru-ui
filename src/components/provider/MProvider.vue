@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  theme?: 'hoyo' | 'pishi'
+  theme?: 'hoyo' | 'pishi' | 'toge' | 'moko' | 'kira' | 'nemu'
 }>()
 </script>
 
