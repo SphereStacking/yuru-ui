@@ -7,6 +7,7 @@ export { default as MProvider } from './components/provider/MProvider.vue'
 export { default as MContainer } from './components/layout/MContainer.vue'
 export { default as MStack } from './components/layout/MStack.vue'
 export { default as MGrid } from './components/layout/MGrid.vue'
+export { default as MNavbar } from './components/layout/MNavbar.vue'
 
 // UI
 export { default as MButton } from './components/ui/MButton.vue'
@@ -25,3 +26,8 @@ export { default as MSwitch } from './components/ui/MSwitch.vue'
 export { default as MCheckbox } from './components/ui/MCheckbox.vue'
 export { default as MTooltip } from './components/ui/MTooltip.vue'
 export { default as MTabs } from './components/ui/MTabs.vue'
+export { default as MModal } from './components/ui/MModal.vue'
+export { default as MDropdown } from './components/ui/MDropdown.vue'
+
+// Composables
+export { useClickOutside } from './composables/useClickOutside'
