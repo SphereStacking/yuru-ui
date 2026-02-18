@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import MProvider from '../provider/MProvider.vue'
 import MSelect from './MSelect.vue'
 
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
+
 const selected = ref<string>('')
 
 const fruits = [
@@ -11,80 +14,36 @@ const fruits = [
   { value: 'grape', label: 'ぶどう' },
   { value: 'strawberry', label: 'いちご' },
 ]
+
+function initState() {
+  return {
+    disabled: false,
+  }
+}
 </script>
 
 <template>
   <Story title="Form/MSelect">
-    <Variant title="hoyo">
-      <MProvider theme="hoyo">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-          <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" />
-          <MSelect :options="fruits" placeholder="disabled" disabled />
-          <p style="font-size: 0.875rem; color: var(--m-color-gray-500);">
-            選択値: {{ selected || '(未選択)' }}
-          </p>
+    <Variant v-for="theme in themes" :key="theme" :title="theme" :init-state="initState">
+      <template #default="{ state }">
+        <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+          <MProvider :theme="theme">
+            <div class="mru:p-6 mru:flex mru:flex-col mru:gap-4 mru:max-w-sm"
+                 :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'">
+              <p class="story-heading">{{ mode }}</p>
+              <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" :disabled="state.disabled" />
+              <MSelect :options="fruits" placeholder="disabled" disabled />
+              <p class="mru:text-sm" style="color: var(--m-color-text-sub);">
+                選択値: {{ selected || '(未選択)' }}
+              </p>
+            </div>
+          </MProvider>
         </div>
-      </MProvider>
-    </Variant>
+      </template>
 
-    <Variant title="pishi">
-      <MProvider theme="pishi">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-          <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" />
-          <MSelect :options="fruits" placeholder="disabled" disabled />
-          <p style="font-size: 0.875rem; color: var(--m-color-gray-500);">
-            選択値: {{ selected || '(未選択)' }}
-          </p>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="toge">
-      <MProvider theme="toge">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-          <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" />
-          <MSelect :options="fruits" placeholder="disabled" disabled />
-          <p style="font-size: 0.875rem; color: var(--m-color-gray-500);">
-            選択値: {{ selected || '(未選択)' }}
-          </p>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="moko">
-      <MProvider theme="moko">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-          <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" />
-          <MSelect :options="fruits" placeholder="disabled" disabled />
-          <p style="font-size: 0.875rem; color: var(--m-color-gray-500);">
-            選択値: {{ selected || '(未選択)' }}
-          </p>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="kira">
-      <MProvider theme="kira">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-          <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" />
-          <MSelect :options="fruits" placeholder="disabled" disabled />
-          <p style="font-size: 0.875rem; color: var(--m-color-gray-500);">
-            選択値: {{ selected || '(未選択)' }}
-          </p>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="nemu">
-      <MProvider theme="nemu">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-          <MSelect v-model="selected" :options="fruits" placeholder="フルーツを選んでね" />
-          <MSelect :options="fruits" placeholder="disabled" disabled />
-          <p style="font-size: 0.875rem; color: var(--m-color-gray-500);">
-            選択値: {{ selected || '(未選択)' }}
-          </p>
-        </div>
-      </MProvider>
+      <template #controls="{ state }">
+        <HstCheckbox v-model="state.disabled" title="disabled" />
+      </template>
     </Variant>
   </Story>
 </template>

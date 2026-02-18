@@ -3,40 +3,68 @@ import MProvider from '../provider/MProvider.vue'
 import MAlert from './MAlert.vue'
 
 const variants = ['success', 'warning', 'error', 'info'] as const
-const themes = ['hoyo', 'pishi', 'toge', 'moko', 'kira', 'nemu'] as const
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
+
+function initState() {
+  return {
+    variant: 'info' as string,
+    closable: false,
+  }
+}
 </script>
 
 <template>
   <Story title="Feedback/MAlert">
-    <Variant v-for="theme in themes" :key="theme" :title="theme">
-      <MProvider :theme="theme">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 8px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <MAlert :variant="variant">
-              This is a {{ variant }} alert message.
-            </MAlert>
-          </section>
+    <Variant v-for="theme in themes" :key="theme" :title="theme" :init-state="initState">
+      <template #default="{ state }">
+        <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+          <MProvider :theme="theme">
+            <div
+              class="mru:p-6 mru:flex mru:flex-col mru:gap-4"
+              :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'"
+            >
+              <p class="story-heading">{{ mode }}</p>
+              <section>
+                <h3 class="story-heading">playground</h3>
+                <MAlert :variant="state.variant as any" :closable="state.closable">
+                  This is a {{ state.variant }} alert message.
+                </MAlert>
+              </section>
 
-          <section>
-            <h3 style="margin-bottom: 8px; font-weight: 500; color: var(--m-color-gray-600);">
-              closable
-            </h3>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-              <MAlert
-                v-for="variant in variants"
-                :key="variant"
-                :variant="variant"
-                closable
-              >
-                Closable {{ variant }} alert. Click &times; to dismiss.
-              </MAlert>
+              <section v-for="variant in variants" :key="variant">
+                <h3 class="story-heading">{{ variant }}</h3>
+                <MAlert :variant="variant">
+                  This is a {{ variant }} alert message.
+                </MAlert>
+              </section>
+
+              <section>
+                <h3 class="story-heading">closable</h3>
+                <div class="mru:flex mru:flex-col mru:gap-3">
+                  <MAlert
+                    v-for="variant in variants"
+                    :key="variant"
+                    :variant="variant"
+                    closable
+                  >
+                    Closable {{ variant }} alert. Click &times; to dismiss.
+                  </MAlert>
+                </div>
+              </section>
             </div>
-          </section>
+          </MProvider>
         </div>
-      </MProvider>
+      </template>
+
+      <template #controls="{ state }">
+        <HstSelect
+          v-model="state.variant"
+          title="variant"
+          :options="[...variants]"
+        />
+        <HstCheckbox v-model="state.closable" title="closable" />
+      </template>
     </Variant>
   </Story>
 </template>

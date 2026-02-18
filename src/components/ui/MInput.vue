@@ -13,7 +13,13 @@ defineEmits<{
 
 <template>
   <input
-    class="m-input"
+    class="mru:block mru:w-full mru:px-md mru:py-xs mru:font-sans mru:text-base mru:font-body
+           mru:text-gray-700 mru:bg-white mru:border-theme mru:border-solid mru:border-gray-200
+           mru:rounded-input mru:outline-none mru:transition-all mru:transition-theme
+           mru:placeholder:text-gray-400
+           mru:focus:border-primary-200 mru:focus:ring-3 mru:focus:ring-primary-200/30
+           mru:disabled:opacity-50 mru:disabled:cursor-not-allowed mru:disabled:bg-gray-100
+           mru:dark:text-gray-200 mru:dark:bg-gray-900 mru:dark:border-gray-700"
     :type="type ?? 'text'"
     :value="modelValue"
     :placeholder="placeholder"
@@ -21,35 +27,3 @@ defineEmits<{
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 </template>
-
-<style scoped>
-.m-input {
-  display: block;
-  width: 100%;
-  padding: var(--m-space-xs) var(--m-space-md);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: var(--m-font-weight-body);
-  color: var(--m-color-text-main);
-  background-color: var(--m-color-card-bg);
-  border: var(--m-border-width) solid var(--m-color-gray-200);
-  border-radius: var(--m-radius-input);
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.m-input::placeholder {
-  color: var(--m-color-gray-400);
-}
-
-.m-input:focus {
-  border-color: var(--m-color-primary-200);
-  box-shadow: 0 0 0 3px rgba(176, 255, 196, 0.3);
-}
-
-.m-input:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background-color: var(--m-color-gray-100);
-}
-</style>

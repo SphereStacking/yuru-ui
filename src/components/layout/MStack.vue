@@ -8,12 +8,10 @@ defineProps<{
 
 <template>
   <div
-    class="m-stack flex"
-    :class="[
-      direction === 'horizontal' ? 'flex-row' : 'flex-col',
-    ]"
+    class="mru:flex"
+    :class="direction === 'horizontal' ? 'mru:flex-row' : 'mru:flex-col'"
     :style="{
-      gap: gap ?? 'var(--m-space-md)',
+      gap: gap ?? '16px',
       alignItems: align ?? 'stretch',
     }"
   >

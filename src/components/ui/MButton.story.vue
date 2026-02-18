@@ -2,275 +2,70 @@
 import MProvider from '../provider/MProvider.vue'
 import MButton from './MButton.vue'
 
-const colors = ['mint', 'pink', 'lavender', 'peach', 'sky', 'lemon'] as const
-const variants = ['primary', 'outline', 'ghost'] as const
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
+const variants = ['primary', 'secondary', 'tertiary', 'outline', 'ghost'] as const
 const sizes = ['sm', 'md', 'lg'] as const
+
+function initState() {
+  return {
+    variant: 'primary' as string,
+    size: 'md' as string,
+    disabled: false,
+  }
+}
 </script>
 
 <template>
   <Story title="General/MButton">
-    <Variant title="hoyo">
-      <MProvider theme="hoyo">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton
-                v-for="color in colors"
-                :key="color"
-                :variant="variant"
-                :color="color"
-              >
-                {{ color }}
-              </MButton>
-            </div>
-          </section>
+    <Variant v-for="theme in themes" :key="theme" :title="theme" :init-state="initState">
+      <template #default="{ state }">
+        <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+          <MProvider :theme="theme">
+            <div
+              class="mru:p-6 mru:flex mru:flex-col mru:gap-6"
+              :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'"
+            >
+              <p class="story-heading">{{ mode }}</p>
+              <section>
+                <h3 class="story-heading">playground</h3>
+                <MButton :variant="state.variant as any" :size="state.size as any" :disabled="state.disabled">
+                  {{ state.variant }}
+                </MButton>
+              </section>
 
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              sizes
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton v-for="size in sizes" :key="size" :size="size">
-                {{ size }}
-              </MButton>
-            </div>
-          </section>
+              <section>
+                <h3 class="story-heading">All variants</h3>
+                <div class="mru:flex mru:flex-wrap mru:gap-3 mru:items-center">
+                  <MButton v-for="v in variants" :key="v" :variant="v">{{ v }}</MButton>
+                </div>
+              </section>
 
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton disabled>disabled</MButton>
-              <MButton variant="outline" disabled>disabled</MButton>
-              <MButton variant="ghost" disabled>disabled</MButton>
+              <section>
+                <h3 class="story-heading">Sizes</h3>
+                <div class="mru:flex mru:flex-wrap mru:gap-3 mru:items-center">
+                  <MButton v-for="s in sizes" :key="s" :size="s">{{ s }}</MButton>
+                </div>
+              </section>
+
+              <section>
+                <h3 class="story-heading">Disabled</h3>
+                <div class="mru:flex mru:flex-wrap mru:gap-3 mru:items-center">
+                  <MButton disabled>disabled</MButton>
+                  <MButton variant="outline" disabled>disabled</MButton>
+                  <MButton variant="ghost" disabled>disabled</MButton>
+                </div>
+              </section>
             </div>
-          </section>
+          </MProvider>
         </div>
-      </MProvider>
-    </Variant>
+      </template>
 
-    <Variant title="pishi">
-      <MProvider theme="pishi">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton
-                v-for="color in colors"
-                :key="color"
-                :variant="variant"
-                :color="color"
-              >
-                {{ color }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              sizes
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton v-for="size in sizes" :key="size" :size="size">
-                {{ size }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton disabled>disabled</MButton>
-              <MButton variant="outline" disabled>disabled</MButton>
-              <MButton variant="ghost" disabled>disabled</MButton>
-            </div>
-          </section>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="toge">
-      <MProvider theme="toge">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton
-                v-for="color in colors"
-                :key="color"
-                :variant="variant"
-                :color="color"
-              >
-                {{ color }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              sizes
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton v-for="size in sizes" :key="size" :size="size">
-                {{ size }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton disabled>disabled</MButton>
-              <MButton variant="outline" disabled>disabled</MButton>
-              <MButton variant="ghost" disabled>disabled</MButton>
-            </div>
-          </section>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="moko">
-      <MProvider theme="moko">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton
-                v-for="color in colors"
-                :key="color"
-                :variant="variant"
-                :color="color"
-              >
-                {{ color }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              sizes
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton v-for="size in sizes" :key="size" :size="size">
-                {{ size }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton disabled>disabled</MButton>
-              <MButton variant="outline" disabled>disabled</MButton>
-              <MButton variant="ghost" disabled>disabled</MButton>
-            </div>
-          </section>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="kira">
-      <MProvider theme="kira">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton
-                v-for="color in colors"
-                :key="color"
-                :variant="variant"
-                :color="color"
-              >
-                {{ color }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              sizes
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton v-for="size in sizes" :key="size" :size="size">
-                {{ size }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton disabled>disabled</MButton>
-              <MButton variant="outline" disabled>disabled</MButton>
-              <MButton variant="ghost" disabled>disabled</MButton>
-            </div>
-          </section>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="nemu">
-      <MProvider theme="nemu">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section v-for="variant in variants" :key="variant">
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              {{ variant }}
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton
-                v-for="color in colors"
-                :key="color"
-                :variant="variant"
-                :color="color"
-              >
-                {{ color }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              sizes
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton v-for="size in sizes" :key="size" :size="size">
-                {{ size }}
-              </MButton>
-            </div>
-          </section>
-
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-              <MButton disabled>disabled</MButton>
-              <MButton variant="outline" disabled>disabled</MButton>
-              <MButton variant="ghost" disabled>disabled</MButton>
-            </div>
-          </section>
-        </div>
-      </MProvider>
+      <template #controls="{ state }">
+        <HstSelect v-model="state.variant" title="variant" :options="[...variants]" />
+        <HstSelect v-model="state.size" title="size" :options="[...sizes]" />
+        <HstCheckbox v-model="state.disabled" title="disabled" />
+      </template>
     </Variant>
   </Story>
 </template>

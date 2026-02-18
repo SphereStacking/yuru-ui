@@ -7,10 +7,10 @@ defineProps<{
 
 <template>
   <div
-    class="m-grid grid"
+    class="mru:grid"
     :style="{
       gridTemplateColumns: `repeat(${cols ?? 3}, 1fr)`,
-      gap: gap ?? 'var(--m-space-md)',
+      gap: gap ?? '16px',
     }"
   >
     <slot />

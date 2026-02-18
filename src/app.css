@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap');
-@import "tailwindcss";
+@import "tailwindcss" prefix(mru);
 
 /* ============================================
-   Tailwind CSS v4 カスタムテーマ
+   Tailwind CSS v4 テーマトークン
    ============================================ */
 @theme {
-  /* --- カラー: Primary（ミントグリーン） --- */
+  /* --- Primary: Mint Green --- */
   --color-primary-50: #edfff2;
   --color-primary-100: #ddffe7;
   --color-primary-200: #b0ffc4;
@@ -17,7 +17,31 @@
   --color-primary-800: #1a6530;
   --color-primary-900: #0e3a1c;
 
-  /* --- カラー: Gray（グリーンティント） --- */
+  /* --- Secondary: Pink --- */
+  --color-secondary-50: #fff5f9;
+  --color-secondary-100: #ffe8f1;
+  --color-secondary-200: #ffd4e8;
+  --color-secondary-300: #ffb0d0;
+  --color-secondary-400: #ff88b5;
+  --color-secondary-500: #e06090;
+  --color-secondary-600: #c04878;
+  --color-secondary-700: #995577;
+  --color-secondary-800: #703050;
+  --color-secondary-900: #401828;
+
+  /* --- Tertiary: Lavender --- */
+  --color-tertiary-50: #f8f5ff;
+  --color-tertiary-100: #f0e8ff;
+  --color-tertiary-200: #e0d4ff;
+  --color-tertiary-300: #c8b0ff;
+  --color-tertiary-400: #a888e8;
+  --color-tertiary-500: #8866cc;
+  --color-tertiary-600: #7050b0;
+  --color-tertiary-700: #665599;
+  --color-tertiary-800: #483870;
+  --color-tertiary-900: #281840;
+
+  /* --- Gray: Green-tinted --- */
   --color-gray-50: #f6fef8;
   --color-gray-100: #eef7f0;
   --color-gray-200: #d2f0da;
@@ -29,7 +53,17 @@
   --color-gray-800: #2a3d30;
   --color-gray-900: #0e1810;
 
-  /* --- カラー: アクセント（パステル） --- */
+  /* --- Semantic Colors --- */
+  --color-success: #ddffd5;
+  --color-success-text: #4a8040;
+  --color-warning: #fff6d5;
+  --color-warning-text: #8a7030;
+  --color-error: #ffd5d5;
+  --color-error-text: #8a4040;
+  --color-info: #d5ecff;
+  --color-info-text: #406080;
+
+  /* --- Accent Colors (flat bg + text) --- */
   --color-accent-mint: #b0ffc4;
   --color-accent-mint-text: #4a9960;
   --color-accent-pink: #ffd4e8;
@@ -43,17 +77,7 @@
   --color-accent-lemon: #fff6d5;
   --color-accent-lemon-text: #887744;
 
-  /* --- カラー: セマンティック --- */
-  --color-success: #ddffd5;
-  --color-success-text: #4a8040;
-  --color-warning: #fff6d5;
-  --color-warning-text: #8a7030;
-  --color-error: #ffd5d5;
-  --color-error-text: #8a4040;
-  --color-info: #d5ecff;
-  --color-info-text: #406080;
-
-  /* --- スペーシング --- */
+  /* --- Spacing --- */
   --spacing-2xs: 4px;
   --spacing-xs: 8px;
   --spacing-sm: 12px;
@@ -64,7 +88,7 @@
   --spacing-3xl: 64px;
   --spacing-4xl: 96px;
 
-  /* --- 角丸 --- */
+  /* --- Border Radius (static) --- */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -72,356 +96,194 @@
   --radius-full: 50px;
   --radius-circle: 50%;
 
-  /* --- シャドウ --- */
+  /* --- Shadows (defaults) --- */
   --shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
   --shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
   --shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
   --shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
 
-  /* --- フォントファミリー --- */
+  /* --- Font --- */
   --font-sans: 'M PLUS Rounded 1c', sans-serif;
 }
 
 /* ============================================
-   共通CSS変数（カラー・スペーシング）
+   Custom Variants
    ============================================ */
-:root {
-  /* --- Primary --- */
-  --m-color-primary-50: #edfff2;
-  --m-color-primary-100: #ddffe7;
-  --m-color-primary-200: #b0ffc4;
-  --m-color-primary-300: #80efa2;
-  --m-color-primary-400: #55d47a;
-  --m-color-primary-500: #38b45c;
-  --m-color-primary-600: #2a9048;
-  --m-color-primary-700: #4a9960;
-  --m-color-primary-800: #1a6530;
-  --m-color-primary-900: #0e3a1c;
+@custom-variant dark (&:is(.mru-dark *));
+@custom-variant theme-hoyo (&:is([data-theme="hoyo"] *));
+@custom-variant theme-pishi (&:is([data-theme="pishi"] *));
 
-  /* --- Gray（グリーンティント） --- */
-  --m-color-gray-50: #f6fef8;
-  --m-color-gray-100: #eef7f0;
-  --m-color-gray-200: #d2f0da;
-  --m-color-gray-300: #afd9b8;
-  --m-color-gray-400: #8baa94;
-  --m-color-gray-500: #6a8873;
-  --m-color-gray-600: #4d6855;
-  --m-color-gray-700: #3d5a44;
-  --m-color-gray-800: #2a3d30;
-  --m-color-gray-900: #0e1810;
+/* ============================================
+   Custom Utilities (theme CSS vars → classes)
+   ============================================ */
 
-  /* --- アクセント（パステル） --- */
-  --m-color-accent-mint: #b0ffc4;
-  --m-color-accent-mint-text: #4a9960;
-  --m-color-accent-pink: #ffd4e8;
-  --m-color-accent-pink-text: #995577;
-  --m-color-accent-lavender: #e0d4ff;
-  --m-color-accent-lavender-text: #665599;
-  --m-color-accent-peach: #ffe4cc;
-  --m-color-accent-peach-text: #886644;
-  --m-color-accent-sky: #ccedff;
-  --m-color-accent-sky-text: #446688;
-  --m-color-accent-lemon: #fff6d5;
-  --m-color-accent-lemon-text: #887744;
+/* Border Radius */
+@utility rounded-button {
+  border-radius: var(--m-radius-button);
+}
+@utility rounded-input {
+  border-radius: var(--m-radius-input);
+}
+@utility rounded-card {
+  border-radius: var(--m-radius-card);
+}
+@utility rounded-default {
+  border-radius: var(--m-radius-default);
+}
+@utility rounded-avatar {
+  border-radius: var(--m-radius-avatar);
+}
 
-  /* --- セマンティック --- */
-  --m-color-success: #ddffd5;
-  --m-color-success-text: #4a8040;
-  --m-color-warning: #fff6d5;
-  --m-color-warning-text: #8a7030;
-  --m-color-error: #ffd5d5;
-  --m-color-error-text: #8a4040;
-  --m-color-info: #d5ecff;
-  --m-color-info-text: #406080;
+/* Filters */
+@utility filter-card {
+  filter: var(--m-filter-card);
+}
+@utility filter-default {
+  filter: var(--m-filter-default);
+}
+@utility filter-button {
+  filter: var(--m-filter-button);
+}
 
-  /* --- スペーシング --- */
-  --m-space-2xs: 4px;
-  --m-space-xs: 8px;
-  --m-space-sm: 12px;
-  --m-space-md: 16px;
-  --m-space-lg: 24px;
-  --m-space-xl: 32px;
-  --m-space-2xl: 48px;
-  --m-space-3xl: 64px;
-  --m-space-4xl: 96px;
+/* Theme Shadows */
+@utility shadow-theme-sm {
+  box-shadow: var(--m-shadow-sm);
+}
+@utility shadow-theme-md {
+  box-shadow: var(--m-shadow-md);
+}
+@utility shadow-theme-lg {
+  box-shadow: var(--m-shadow-lg);
+}
+@utility shadow-theme-xl {
+  box-shadow: var(--m-shadow-xl);
+}
 
-  /* --- ダークモード用ライト値 --- */
-  --m-color-page-bg: #f6fef8;
-  --m-color-card-bg: #ffffff;
-  --m-color-border: #d2f0da;
-  --m-color-text-main: #3d5a44;
-  --m-color-text-sub: #8baa94;
-  --m-color-primary-btn-bg: #b0ffc4;
-  --m-color-primary-btn-text: #4a9960;
-  --m-color-pink-btn-bg: #ffd4e8;
-  --m-color-pink-btn-text: #995577;
+/* Typography */
+@utility font-heading {
+  font-weight: var(--m-font-weight-heading);
+}
+@utility font-body {
+  font-weight: var(--m-font-weight-body);
+}
+@utility font-small {
+  font-weight: var(--m-font-weight-small);
+}
+
+/* Transition */
+@utility transition-theme {
+  transition-duration: var(--m-transition-speed);
+  transition-timing-function: var(--m-transition-ease);
+}
+
+/* Border */
+@utility border-theme {
+  border-width: var(--m-border-width);
+}
+
+/* Letter Spacing */
+@utility tracking-theme {
+  letter-spacing: var(--m-letter-spacing);
+}
+
+/* Font Feature */
+@utility font-feature-theme {
+  font-feature-settings: var(--m-font-feature, normal);
 }
 
 /* ============================================
    ほよ（hoyo）テーマ — デフォルト
    ============================================ */
 [data-theme="hoyo"] {
-  /* 角丸 */
-  --m-radius-default: 22px 28px 24px 30px / 28px 22px 30px 24px;
-  --m-radius-button: 22px 26px 24px 28px / 26px 22px 28px 24px;
-  --m-radius-input: 20px 24px 22px 26px / 24px 20px 26px 22px;
-  --m-radius-card: 24px 28px 26px 30px / 28px 24px 30px 26px;
+  --m-radius-button: 16px 26px 18px 28px / 26px 16px 28px 18px;
+  --m-radius-input: 14px 24px 16px 26px / 24px 14px 26px 16px;
+  --m-radius-card: 20px 34px 22px 38px / 34px 20px 38px 22px;
+  --m-radius-default: 18px 30px 20px 34px / 30px 18px 34px 20px;
+  --m-radius-avatar: 45% 55% 50% 50% / 55% 45% 50% 50%;
 
-  /* フィルター */
-  --m-filter-default: url(#wobbly-subtle);
   --m-filter-card: url(#wobbly-subtle);
+  --m-filter-default: url(#wobbly-subtle);
   --m-filter-button: none;
 
-  /* シャドウ */
   --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
   --m-shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
   --m-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
   --m-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
 
-  /* タイポグラフィ */
-  --m-font-weight-display: 700;
   --m-font-weight-heading: 500;
   --m-font-weight-body: 400;
   --m-font-weight-small: 300;
 
-  /* Divider */
-  --m-divider-style: wavy;
-
-  /* ボーダー */
-  --m-border-width: 1.5px;
-
-  /* トランジション — ほよんとした柔らかさ */
   --m-transition-speed: 0.2s;
   --m-transition-ease: cubic-bezier(0.34, 1.2, 0.64, 1);
-  --m-letter-spacing: 0.01em;
+
+  --m-divider-style: wavy;
+  --m-border-width: 1.5px;
+  --m-letter-spacing: 0.03em;
+  --m-font-feature: 'palt';
 }
 
 /* ============================================
    ぴし（pishi）テーマ
    ============================================ */
 [data-theme="pishi"] {
-  /* 角丸 — 均一で整った形 */
-  --m-radius-default: 14px;
   --m-radius-button: 12px;
   --m-radius-input: 12px;
   --m-radius-card: 16px;
+  --m-radius-default: 14px;
+  --m-radius-avatar: 8px;
 
-  /* フィルター — なし */
-  --m-filter-default: none;
   --m-filter-card: none;
+  --m-filter-default: none;
   --m-filter-button: none;
 
-  /* シャドウ — くっきり小さめ */
   --m-shadow-sm: 0 1px 3px rgba(142, 220, 170, 0.06);
   --m-shadow-md: 0 2px 8px rgba(142, 220, 170, 0.08);
   --m-shadow-lg: 0 4px 16px rgba(142, 220, 170, 0.10);
   --m-shadow-xl: 0 8px 24px rgba(142, 220, 170, 0.14);
 
-  /* タイポグラフィ — やや重め */
-  --m-font-weight-display: 700;
   --m-font-weight-heading: 600;
   --m-font-weight-body: 400;
   --m-font-weight-small: 400;
 
-  /* Divider */
-  --m-divider-style: straight;
-
-  /* ボーダー */
-  --m-border-width: 1px;
-
-  /* トランジション — きびきび正確 */
   --m-transition-speed: 0.12s;
   --m-transition-ease: ease-out;
+
+  --m-divider-style: straight;
+  --m-border-width: 1px;
   --m-letter-spacing: 0;
+  --m-font-feature: normal;
 }
 
 /* ============================================
-   とげ（toge）テーマ — ブルータリスト、ハードエッジ、パンクな直線
+   ダークモード — テーマ別シャドウ override
    ============================================ */
-[data-theme="toge"] {
-  /* 角丸 — なし */
-  --m-radius-default: 0px;
-  --m-radius-button: 0px;
-  --m-radius-input: 0px;
-  --m-radius-card: 0px;
-
-  /* フィルター — なし */
-  --m-filter-default: none;
-  --m-filter-card: none;
-  --m-filter-button: none;
-
-  /* シャドウ — ブルータリストなオフセットシャドウ（右下にズレる） */
-  --m-shadow-sm: 2px 2px 0 rgba(14, 24, 16, 0.12);
-  --m-shadow-md: 3px 3px 0 rgba(14, 24, 16, 0.18);
-  --m-shadow-lg: 5px 5px 0 rgba(14, 24, 16, 0.22);
-  --m-shadow-xl: 8px 8px 0 rgba(14, 24, 16, 0.28);
-
-  /* タイポグラフィ — 重め、力強い */
-  --m-font-weight-display: 800;
-  --m-font-weight-heading: 700;
-  --m-font-weight-body: 500;
-  --m-font-weight-small: 400;
-
-  /* Divider */
-  --m-divider-style: straight;
-
-  /* ボーダー — 太くてくっきり */
-  --m-border-width: 2px;
-  --m-border-color: var(--m-color-gray-700);
-
-  /* トランジション — 超キビキビ */
-  --m-transition-speed: 0.08s;
-  --m-transition-ease: ease-out;
-
-  /* レタースペーシング — タイト */
-  --m-letter-spacing: -0.01em;
+.mru-dark [data-theme="hoyo"] {
+  --m-shadow-sm: 0 2px 8px rgba(80, 180, 120, 0.06);
+  --m-shadow-md: 0 4px 20px rgba(80, 180, 120, 0.08);
+  --m-shadow-lg: 0 8px 32px rgba(80, 180, 120, 0.10);
+  --m-shadow-xl: 0 16px 48px rgba(80, 180, 120, 0.12);
 }
 
-/* ============================================
-   もこ（moko）テーマ — ふわふわもこもこ、雲みたいな超やわらか
-   ============================================ */
-[data-theme="moko"] {
-  /* 角丸 — 非対称で超大きい、blob的な形 */
-  --m-radius-default: 32px 38px 34px 40px / 38px 32px 40px 34px;
-  --m-radius-button: 30px 36px 32px 38px / 36px 30px 38px 32px;
-  --m-radius-input: 28px 34px 30px 36px / 34px 28px 36px 30px;
-  --m-radius-card: 34px 40px 36px 42px / 40px 34px 42px 36px;
-
-  /* フィルター — もこもこゆらぎ */
-  --m-filter-default: url(#wobbly-moko);
-  --m-filter-card: url(#wobbly-moko);
-  --m-filter-button: url(#wobbly-subtle);
-
-  /* シャドウ — めちゃ広がるふわふわシャドウ */
-  --m-shadow-sm: 0 6px 24px rgba(142, 220, 170, 0.10);
-  --m-shadow-md: 0 12px 40px rgba(142, 220, 170, 0.13);
-  --m-shadow-lg: 0 20px 60px rgba(142, 220, 170, 0.16);
-  --m-shadow-xl: 0 32px 80px rgba(142, 220, 170, 0.20);
-
-  /* タイポグラフィ — 軽め、ふわっと */
-  --m-font-weight-display: 500;
-  --m-font-weight-heading: 400;
-  --m-font-weight-body: 300;
-  --m-font-weight-small: 300;
-
-  /* Divider */
-  --m-divider-style: wavy;
-
-  /* ボーダー — ぽってり太め */
-  --m-border-width: 2.5px;
-  --m-border-color: var(--m-color-gray-200);
-
-  /* トランジション — もちっとゆっくり */
-  --m-transition-speed: 0.3s;
-  --m-transition-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* レタースペーシング — ゆったり */
-  --m-letter-spacing: 0.04em;
+.mru-dark [data-theme="pishi"] {
+  --m-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --m-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --m-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --m-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* ============================================
-   きら（kira）テーマ — イリデッセント、多色グロウ、宝石的リッチ感
-   ============================================ */
-[data-theme="kira"] {
-  /* 角丸 — ピル型で洗練 */
-  --m-radius-default: 16px;
-  --m-radius-button: 50px;
-  --m-radius-input: 14px;
-  --m-radius-card: 20px;
-
-  /* フィルター — なし */
-  --m-filter-default: none;
-  --m-filter-card: none;
-  --m-filter-button: none;
-
-  /* シャドウ — 多色イリデッセントグロウ（ミント+ラベンダー+ピンクが混ざる） */
-  --m-shadow-sm: 0 2px 8px rgba(176, 255, 196, 0.12), 0 2px 6px rgba(224, 212, 255, 0.10);
-  --m-shadow-md: 0 4px 20px rgba(176, 255, 196, 0.16), 0 4px 14px rgba(224, 212, 255, 0.14), 0 2px 8px rgba(255, 212, 232, 0.10);
-  --m-shadow-lg: 0 8px 36px rgba(176, 255, 196, 0.18), 0 6px 24px rgba(224, 212, 255, 0.16), 0 4px 16px rgba(255, 212, 232, 0.12);
-  --m-shadow-xl: 0 16px 52px rgba(176, 255, 196, 0.22), 0 10px 36px rgba(224, 212, 255, 0.20), 0 8px 24px rgba(255, 212, 232, 0.16);
-
-  /* タイポグラフィ — しっかり重め */
-  --m-font-weight-display: 700;
-  --m-font-weight-heading: 600;
-  --m-font-weight-body: 500;
-  --m-font-weight-small: 400;
-
-  /* Divider */
-  --m-divider-style: straight;
-
-  /* ボーダー — 繊細 */
-  --m-border-width: 1px;
-  --m-border-color: rgba(176, 255, 196, 0.3);
-
-  /* トランジション — なめらか */
-  --m-transition-speed: 0.2s;
-  --m-transition-ease: ease;
-
-  /* グラデーション */
-  --m-gradient-primary: linear-gradient(135deg, #b0ffc4 0%, #ccedff 50%, #e0d4ff 100%);
-  --m-gradient-accent: linear-gradient(135deg, #ffd4e8 0%, #e0d4ff 50%, #ccedff 100%);
-  --m-gradient-shimmer: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-}
-
-/* ============================================
-   ねむ（nemu）テーマ — 夢うつつ、低コントラスト、まどろみ
-   ============================================ */
-[data-theme="nemu"] {
-  /* 角丸 — とろんと丸い */
-  --m-radius-default: 20px;
-  --m-radius-button: 18px;
-  --m-radius-input: 18px;
-  --m-radius-card: 24px;
-
-  /* フィルター — なし */
-  --m-filter-default: none;
-  --m-filter-card: none;
-  --m-filter-button: none;
-
-  /* シャドウ — 消えかけの夢みたいに薄い */
-  --m-shadow-sm: 0 2px 12px rgba(142, 220, 170, 0.03);
-  --m-shadow-md: 0 4px 24px rgba(142, 220, 170, 0.04);
-  --m-shadow-lg: 0 8px 36px rgba(142, 220, 170, 0.05);
-  --m-shadow-xl: 0 12px 48px rgba(142, 220, 170, 0.05);
-
-  /* タイポグラフィ — 軽め、やさしい */
-  --m-font-weight-display: 500;
-  --m-font-weight-heading: 400;
-  --m-font-weight-body: 300;
-  --m-font-weight-small: 300;
-
-  /* Divider */
-  --m-divider-style: straight;
-
-  /* ボーダー — 霞むように薄い */
-  --m-border-width: 1px;
-  --m-border-color: rgba(175, 217, 184, 0.2);
-
-  /* トランジション — とろんと遅い（眠たい） */
-  --m-transition-speed: 0.45s;
-  --m-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* レタースペーシング — ゆるやか */
-  --m-letter-spacing: 0.02em;
-
-  /* 透明度 — 全体的にミュート */
-  --m-opacity-muted: 0.55;
-  --m-opacity-hover: 0.8;
-}
-
-/* ============================================
-   ダークモード
-   ============================================ */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --m-color-page-bg: #0e1810;
-    --m-color-card-bg: #162018;
-    --m-color-border: #2a4030;
-    --m-color-text-main: #d5f0dc;
-    --m-color-text-sub: #7aaa86;
-    --m-color-primary-btn-bg: #2a7a4a;
-    --m-color-primary-btn-text: #b0ffc4;
-    --m-color-pink-btn-bg: #4a2838;
-    --m-color-pink-btn-text: #ffb8d4;
+  [data-theme="hoyo"] {
+    --m-shadow-sm: 0 2px 8px rgba(80, 180, 120, 0.06);
+    --m-shadow-md: 0 4px 20px rgba(80, 180, 120, 0.08);
+    --m-shadow-lg: 0 8px 32px rgba(80, 180, 120, 0.10);
+    --m-shadow-xl: 0 16px 48px rgba(80, 180, 120, 0.12);
+  }
+
+  [data-theme="pishi"] {
+    --m-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --m-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --m-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --m-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.35);
   }
 }

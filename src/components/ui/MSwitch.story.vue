@@ -3,54 +3,67 @@ import { ref } from 'vue'
 import MProvider from '../provider/MProvider.vue'
 import MSwitch from './MSwitch.vue'
 
-const themes = ['hoyo', 'pishi', 'toge', 'moko', 'kira', 'nemu'] as const
-const colors = ['mint', 'pink', 'lavender', 'peach', 'sky', 'lemon'] as const
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
 
-const states = ref<Record<string, Record<string, boolean>>>({})
-
-function getState(theme: string, color: string) {
-  if (!states.value[theme]) states.value[theme] = {}
-  return states.value[theme][color] ?? false
+function initState() {
+  return {
+    disabled: false,
+  }
 }
 
-function setState(theme: string, color: string, val: boolean) {
-  if (!states.value[theme]) states.value[theme] = {}
-  states.value[theme][color] = val
-}
+const playgroundValue = ref(false)
+const onValue = ref(true)
 </script>
 
 <template>
   <Story title="Form/MSwitch">
-    <Variant v-for="theme in themes" :key="theme" :title="theme">
-      <MProvider :theme="theme">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              colors
-            </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
-              <div v-for="color in colors" :key="color" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+    <Variant v-for="theme in themes" :key="theme" :title="theme" :init-state="initState">
+      <template #default="{ state }">
+        <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+          <MProvider :theme="theme">
+            <div
+              class="mru:p-6 mru:flex mru:flex-col mru:gap-6"
+              :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'"
+            >
+              <p class="story-heading">{{ mode }}</p>
+              <section>
+                <h3 class="story-heading">playground</h3>
                 <MSwitch
-                  :color="color"
-                  :model-value="getState(theme, color)"
-                  @update:model-value="setState(theme, color, $event)"
+                  v-model="playgroundValue"
+                  :disabled="state.disabled"
                 />
-                <span style="font-size: 0.75rem; color: var(--m-color-gray-500);">{{ color }}</span>
-              </div>
-            </div>
-          </section>
+              </section>
 
-          <section>
-            <h3 style="margin-bottom: 12px; font-weight: 500; color: var(--m-color-gray-600);">
-              disabled
-            </h3>
-            <div style="display: flex; gap: 16px; align-items: center;">
-              <MSwitch color="mint" :model-value="false" disabled />
-              <MSwitch color="pink" :model-value="true" disabled />
+              <section>
+                <h3 class="story-heading">states</h3>
+                <div class="mru:flex mru:gap-4 mru:items-center">
+                  <div class="mru:flex mru:flex-col mru:items-center mru:gap-1">
+                    <MSwitch :model-value="false" />
+                    <span class="mru:text-xs" style="color: var(--m-color-text-sub);">off</span>
+                  </div>
+                  <div class="mru:flex mru:flex-col mru:items-center mru:gap-1">
+                    <MSwitch v-model="onValue" />
+                    <span class="mru:text-xs" style="color: var(--m-color-text-sub);">on</span>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <h3 class="story-heading">disabled</h3>
+                <div class="mru:flex mru:gap-4 mru:items-center">
+                  <MSwitch :model-value="false" disabled />
+                  <MSwitch :model-value="true" disabled />
+                </div>
+              </section>
             </div>
-          </section>
+          </MProvider>
         </div>
-      </MProvider>
+      </template>
+
+      <template #controls="{ state }">
+        <HstCheckbox v-model="state.disabled" title="disabled" />
+      </template>
     </Variant>
   </Story>
 </template>

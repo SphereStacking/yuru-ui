@@ -8,71 +8,32 @@ const props = defineProps<{
   fallback?: string
 }>()
 
-const sizeMap: Record<string, string> = {
-  sm: '32px',
-  md: '40px',
-  lg: '56px',
-}
-
-const sizeValue = computed(() => sizeMap[props.size ?? 'md'])
-
-const fontSizeMap: Record<string, string> = {
-  sm: '0.75rem',
-  md: '0.875rem',
-  lg: '1.125rem',
-}
-
-const fontSize = computed(() => fontSizeMap[props.size ?? 'md'])
+const sizeClass = computed(() => {
+  switch (props.size ?? 'md') {
+    case 'sm': return 'mru:size-8 mru:text-xs'
+    case 'md': return 'mru:size-10 mru:text-sm'
+    case 'lg': return 'mru:size-14 mru:text-lg'
+  }
+})
 </script>
 
 <template>
   <div
-    class="m-avatar"
-    :style="{
-      width: sizeValue,
-      height: sizeValue,
-    }"
+    class="mru:inline-flex mru:items-center mru:justify-center mru:rounded-avatar mru:overflow-hidden mru:shrink-0"
+    :class="sizeClass"
   >
     <img
       v-if="src"
       :src="src"
       :alt="alt ?? ''"
-      class="m-avatar__img"
+      class="mru:size-full mru:object-cover"
     />
     <span
       v-else
-      class="m-avatar__fallback"
-      :style="{ fontSize }"
+      class="mru:flex mru:items-center mru:justify-center mru:size-full
+             mru:bg-primary-200 mru:text-primary-700 mru:font-heading"
     >
       {{ fallback ?? '' }}
     </span>
   </div>
 </template>
-
-<style scoped>
-.m-avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.m-avatar__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.m-avatar__fallback {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background-color: var(--m-color-primary-200);
-  color: var(--m-color-primary-700);
-  font-weight: var(--m-font-weight-heading);
-}
-</style>

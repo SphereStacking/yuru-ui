@@ -1,6 +1,11 @@
 <script setup lang="ts">
-defineProps<{
-  color?: 'mint' | 'pink' | 'lavender' | 'peach' | 'sky' | 'lemon'
+import { computed } from 'vue'
+
+type TagColor = 'primary' | 'secondary' | 'tertiary' |
+  'mint' | 'pink' | 'lavender' | 'peach' | 'sky' | 'lemon'
+
+const props = defineProps<{
+  color?: TagColor
   removable?: boolean
 }>()
 
@@ -8,28 +13,36 @@ defineEmits<{
   remove: []
 }>()
 
-const colorMap: Record<string, { bg: string; text: string }> = {
-  mint: { bg: 'var(--m-color-accent-mint)', text: 'var(--m-color-accent-mint-text)' },
-  pink: { bg: 'var(--m-color-accent-pink)', text: 'var(--m-color-accent-pink-text)' },
-  lavender: { bg: 'var(--m-color-accent-lavender)', text: 'var(--m-color-accent-lavender-text)' },
-  peach: { bg: 'var(--m-color-accent-peach)', text: 'var(--m-color-accent-peach-text)' },
-  sky: { bg: 'var(--m-color-accent-sky)', text: 'var(--m-color-accent-sky-text)' },
-  lemon: { bg: 'var(--m-color-accent-lemon)', text: 'var(--m-color-accent-lemon-text)' },
-}
+const colorClass = computed(() => {
+  const map: Record<TagColor, string> = {
+    primary: 'mru:bg-primary-200 mru:text-primary-700',
+    secondary: 'mru:bg-secondary-200 mru:text-secondary-700',
+    tertiary: 'mru:bg-tertiary-200 mru:text-tertiary-700',
+    mint: 'mru:bg-accent-mint mru:text-accent-mint-text',
+    pink: 'mru:bg-accent-pink mru:text-accent-pink-text',
+    lavender: 'mru:bg-accent-lavender mru:text-accent-lavender-text',
+    peach: 'mru:bg-accent-peach mru:text-accent-peach-text',
+    sky: 'mru:bg-accent-sky mru:text-accent-sky-text',
+    lemon: 'mru:bg-accent-lemon mru:text-accent-lemon-text',
+  }
+  return map[props.color ?? 'mint']
+})
 </script>
 
 <template>
   <span
-    class="m-tag"
-    :style="{
-      backgroundColor: colorMap[color ?? 'mint'].bg,
-      color: colorMap[color ?? 'mint'].text,
-    }"
+    class="mru:inline-flex mru:items-center mru:gap-2xs mru:rounded-button
+           mru:px-3 mru:py-1 mru:text-xs mru:leading-normal
+           mru:font-body mru:tracking-theme mru:whitespace-nowrap"
+    :class="colorClass"
   >
     <slot />
     <button
       v-if="removable"
-      class="m-tag__close"
+      class="mru:flex mru:items-center mru:justify-center mru:size-4 mru:rounded-full
+             mru:border-none mru:bg-transparent mru:text-current mru:cursor-pointer
+             mru:p-0 mru:text-sm mru:leading-none mru:opacity-70 mru:hover:opacity-100
+             mru:transition-opacity mru:transition-theme"
       type="button"
       aria-label="Remove"
       @click="$emit('remove')"
@@ -38,68 +51,3 @@ const colorMap: Record<string, { bg: string; text: string }> = {
     </button>
   </span>
 </template>
-
-<style scoped>
-.m-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--m-space-2xs);
-  border-radius: var(--m-radius-button, 20px);
-  padding: 4px 12px;
-  font-size: 0.75rem;
-  font-weight: var(--m-font-weight-body);
-  letter-spacing: var(--m-letter-spacing, 0);
-  line-height: 1.5;
-  white-space: nowrap;
-}
-
-.m-tag__close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  padding: 0;
-  font-size: 0.875rem;
-  line-height: 1;
-  opacity: 0.7;
-  transition: opacity var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease);
-}
-
-.m-tag__close:hover {
-  opacity: 1;
-}
-</style>
-
-<!-- Theme overrides (unscoped) -->
-<style>
-/* === toge: 角丸なし、ボーダー追加、uppercase === */
-[data-theme="toge"] .m-tag {
-  border-radius: 0;
-  border: 1px solid var(--m-color-gray-600);
-  text-transform: uppercase;
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  font-weight: var(--m-font-weight-heading);
-}
-
-/* === moko: 大角丸、ぽってりpadding === */
-[data-theme="moko"] .m-tag {
-  padding: 6px 16px;
-}
-
-/* === kira: グロウシャドウ === */
-[data-theme="kira"] .m-tag {
-  box-shadow: 0 1px 4px rgba(176, 255, 196, 0.15), 0 1px 2px rgba(224, 212, 255, 0.1);
-}
-
-/* === nemu: opacity低下 === */
-[data-theme="nemu"] .m-tag {
-  opacity: var(--m-opacity-muted, 0.6);
-}
-</style>

@@ -7,10 +7,10 @@ defineProps<{
 
 <template>
   <div
-    class="m-container mx-auto w-full"
+    class="mru:mx-auto mru:w-full"
     :style="{
       maxWidth: maxWidth ?? '960px',
-      padding: padding ?? 'var(--m-space-lg)',
+      padding: padding ?? '24px',
     }"
   >
     <slot />

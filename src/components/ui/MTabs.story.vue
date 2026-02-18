@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import MProvider from '../provider/MProvider.vue'
 import MTabs from './MTabs.vue'
 
-const themes = ['hoyo', 'pishi', 'toge', 'moko', 'kira', 'nemu'] as const
-
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
 const colors = ['mint', 'pink', 'lavender', 'peach', 'sky', 'lemon'] as const
 
 const tabs = [
@@ -22,22 +22,38 @@ const panelContent: Record<string, string> = {
   settings: 'アプリの設定項目がここに表示されます。',
   notifications: '通知の一覧がここに表示されます。',
 }
+
+function initState() {
+  return {
+    color: 'mint' as string,
+  }
+}
 </script>
 
 <template>
   <Story title="Navigation/MTabs">
-    <Variant v-for="(theme, i) in themes" :key="theme" :title="theme">
-      <MProvider :theme="theme">
-        <div style="padding: 24px;">
-          <MTabs
-            v-model="activeKeys[theme].value"
-            :tabs="tabs"
-            :color="colors[i]"
-          >
-            <p>{{ panelContent[activeKeys[theme].value] }}</p>
-          </MTabs>
+    <Variant v-for="theme in themes" :key="theme" :title="theme" :init-state="initState">
+      <template #default="{ state }">
+        <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+          <MProvider :theme="theme">
+            <div class="mru:p-6 mru:flex mru:flex-col mru:gap-6"
+                 :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'">
+              <p class="story-heading">{{ mode }}</p>
+              <MTabs
+                v-model="activeKeys[theme].value"
+                :tabs="tabs"
+                :color="state.color as any"
+              >
+                <p>{{ panelContent[activeKeys[theme].value] }}</p>
+              </MTabs>
+            </div>
+          </MProvider>
         </div>
-      </MProvider>
+      </template>
+
+      <template #controls="{ state }">
+        <HstSelect v-model="state.color" title="color" :options="[...colors]" />
+      </template>
     </Variant>
   </Story>
 </template>

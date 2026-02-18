@@ -1,131 +1,249 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import MProvider from './MProvider.vue'
 import MButton from '../ui/MButton.vue'
 import MCard from '../ui/MCard.vue'
 import MDivider from '../ui/MDivider.vue'
 import MBadge from '../ui/MBadge.vue'
+import MTag from '../ui/MTag.vue'
 import MInput from '../ui/MInput.vue'
+import MAvatar from '../ui/MAvatar.vue'
+import MSwitch from '../ui/MSwitch.vue'
+import MCheckbox from '../ui/MCheckbox.vue'
+import MProgress from '../ui/MProgress.vue'
+import MAlert from '../ui/MAlert.vue'
+import MTextarea from '../ui/MTextarea.vue'
 
-const themes = ['hoyo', 'pishi', 'toge', 'moko', 'kira', 'nemu'] as const
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
+
 const themeLabels: Record<string, string> = {
   hoyo: 'ほよ',
   pishi: 'ぴし',
-  toge: 'とげ',
-  moko: 'もこ',
-  kira: 'きら',
-  nemu: 'ねむ',
 }
 const themeDescriptions: Record<string, string> = {
   hoyo: 'ゆるくて若い。ゆらぎのある有機的な形。',
   pishi: 'かちっと整った。すっきりきりっ。',
-  toge: 'シャープで力強い。ブルータリスト。',
-  moko: 'もこもこ雲みたい。超やわらか。',
-  kira: 'キラキラ華やか。グラデーション光沢。',
-  nemu: 'まどろみの中。目に優しい夜向け。',
 }
+const themeDetails: Record<string, string[]> = {
+  hoyo: ['非対称角丸', 'wobbly-subtle フィルター', 'なみなみ Divider', 'ふわっとシャドウ'],
+  pishi: ['均一角丸 14px', 'フィルターなし', '直線 Divider', 'くっきりシャドウ'],
+}
+
+const switchValues = ref<Record<string, boolean>>({
+  hoyo: true, pishi: false,
+})
+const checkValues = ref<Record<string, boolean>>({
+  hoyo: true, pishi: true,
+})
 </script>
 
 <template>
   <Story title="Theme/MProvider" icon="mingcute:palette-line">
+    <!-- All themes comparison -->
     <Variant title="テーマ比較">
-      <div style="padding: 24px; display: flex; flex-direction: column; gap: 0;">
+      <div class="mru:p-6 mru:flex mru:flex-col mru:gap-0" style="max-width: 800px;">
         <div
           v-for="theme in themes"
           :key="theme"
-          style="padding: 32px 0;"
+          class="mru:py-6"
+          :style="theme !== 'hoyo' ? 'border-top: 1px solid #d2f0da' : ''"
         >
           <MProvider :theme="theme">
-            <div style="max-width: 640px;">
-              <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;">
-                <h2 :style="{
-                  fontWeight: 'var(--m-font-weight-display)',
+            <div class="mru:flex mru:flex-col mru:gap-4">
+              <!-- Header -->
+              <div class="mru:flex mru:items-baseline mru:gap-3">
+                <span :style="{
+                  fontWeight: 'var(--m-font-weight-heading)',
                   fontSize: '1.5rem',
                   letterSpacing: 'var(--m-letter-spacing, 0)',
-                  color: 'var(--m-color-gray-800)',
                 }">
                   {{ themeLabels[theme] }}
-                </h2>
-                <span style="font-size: 0.875rem; color: var(--m-color-gray-500);">
+                </span>
+                <span class="mru:text-sm" style="color: var(--color-gray-400);">
                   {{ theme }}
+                </span>
+                <span class="mru:text-sm" style="color: var(--color-gray-500); font-style: italic;">
+                  — {{ themeDescriptions[theme] }}
                 </span>
               </div>
 
-              <p style="color: var(--m-color-gray-500); font-size: 0.875rem; margin-bottom: 20px; font-weight: var(--m-font-weight-body);">
-                {{ themeDescriptions[theme] }}
-              </p>
-
-              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
-                <MButton color="mint">mint</MButton>
-                <MButton color="pink">pink</MButton>
-                <MButton color="lavender">lavender</MButton>
-                <MButton variant="outline" color="sky">outline</MButton>
-                <MButton variant="ghost" color="peach">ghost</MButton>
+              <!-- Feature tags -->
+              <div class="mru:flex mru:flex-wrap mru:gap-1">
+                <MTag
+                  v-for="detail in themeDetails[theme]"
+                  :key="detail"
+                  color="lavender"
+                >
+                  {{ detail }}
+                </MTag>
               </div>
 
-              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;">
-                <MBadge variant="mint">new</MBadge>
-                <MBadge variant="pink">popular</MBadge>
-                <MBadge variant="lavender">beta</MBadge>
+              <!-- Buttons -->
+              <div class="mru:flex mru:flex-wrap mru:gap-2">
+                <MButton>primary</MButton>
+                <MButton variant="secondary">secondary</MButton>
+                <MButton variant="tertiary">tertiary</MButton>
+                <MButton variant="outline">outline</MButton>
+                <MButton variant="ghost">ghost</MButton>
+              </div>
+
+              <!-- Badges -->
+              <div class="mru:flex mru:flex-wrap mru:gap-1">
+                <MBadge variant="primary">primary</MBadge>
+                <MBadge variant="secondary">secondary</MBadge>
+                <MBadge variant="tertiary">tertiary</MBadge>
+                <MBadge variant="mint">mint</MBadge>
+                <MBadge variant="pink">pink</MBadge>
+                <MBadge variant="sky">sky</MBadge>
                 <MBadge variant="success">ok</MBadge>
               </div>
 
-              <div style="max-width: 300px; margin-bottom: 16px;">
-                <MInput placeholder="テキストを入力..." />
+              <!-- Form elements + Card -->
+              <div class="mru:flex mru:gap-4 mru:items-start">
+                <div class="mru:flex mru:flex-col mru:gap-3 mru:flex-1" style="max-width: 300px;">
+                  <MInput placeholder="テキストを入力..." />
+                  <div class="mru:flex mru:items-center mru:gap-4">
+                    <MSwitch v-model="switchValues[theme]" />
+                    <MCheckbox v-model="checkValues[theme]">チェック</MCheckbox>
+                  </div>
+                  <MProgress :value="65" color="primary" size="sm" />
+                </div>
+                <div class="mru:flex-1">
+                  <MCard>
+                    <div class="mru:flex mru:items-center mru:gap-3">
+                      <MAvatar />
+                      <div>
+                        <p :style="{
+                          fontWeight: 'var(--m-font-weight-heading)',
+                          fontSize: '0.875rem',
+                        }">
+                          サンプルカード
+                        </p>
+                        <p class="mru:text-xs" style="color: var(--color-gray-500);">
+                          影と角丸とフィルターの違い
+                        </p>
+                      </div>
+                    </div>
+                  </MCard>
+                </div>
               </div>
 
               <MDivider color="mint" />
-
-              <div style="margin-top: 16px;">
-                <MCard>
-                  <p :style="{
-                    color: 'var(--m-color-gray-600)',
-                    lineHeight: '1.8',
-                    fontWeight: 'var(--m-font-weight-body)',
-                    letterSpacing: 'var(--m-letter-spacing, 0)',
-                  }">
-                    {{ themeLabels[theme] }}テーマのカードです。影、角丸、ボーダーの違いを見比べてみてください。
-                  </p>
-                </MCard>
-              </div>
             </div>
           </MProvider>
         </div>
       </div>
     </Variant>
 
+    <!-- Individual theme variants with light/dark -->
     <Variant v-for="theme in themes" :key="theme" :title="theme">
-      <MProvider :theme="theme">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 20px; max-width: 480px;">
-          <MCard>
-            <h3 :style="{
-              fontWeight: 'var(--m-font-weight-heading)',
-              marginBottom: '8px',
-              letterSpacing: 'var(--m-letter-spacing, 0)',
-            }">
-              {{ themeLabels[theme] }}テーマ
-            </h3>
-            <p style="color: var(--m-color-gray-600); line-height: 1.8; font-weight: var(--m-font-weight-body);">
-              {{ themeDescriptions[theme] }}
-            </p>
-          </MCard>
+      <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+        <MProvider :theme="theme">
+          <div
+            class="mru:p-6 mru:flex mru:flex-col mru:gap-5"
+            :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'"
+            style="max-width: 560px;"
+          >
+            <p class="story-heading">{{ mode }}</p>
 
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <MButton color="mint" size="sm">sm</MButton>
-            <MButton color="pink">md</MButton>
-            <MButton color="lavender" size="lg">lg</MButton>
+            <!-- Theme header -->
+            <div>
+              <h3 :style="{
+                fontWeight: 'var(--m-font-weight-heading)',
+                fontSize: '1.25rem',
+                letterSpacing: 'var(--m-letter-spacing, 0)',
+                marginBottom: '4px',
+              }">
+                {{ themeLabels[theme] }}テーマ
+              </h3>
+              <p class="mru:text-sm" style="color: var(--color-gray-500);">
+                {{ themeDescriptions[theme] }}
+              </p>
+            </div>
+
+            <!-- Feature tags -->
+            <div class="mru:flex mru:flex-wrap mru:gap-1">
+              <MTag
+                v-for="detail in themeDetails[theme]"
+                :key="detail"
+                color="mint"
+              >
+                {{ detail }}
+              </MTag>
+            </div>
+
+            <!-- Card with avatar -->
+            <MCard>
+              <div class="mru:flex mru:items-start mru:gap-3">
+                <MAvatar />
+                <div class="mru:flex-1">
+                  <p :style="{
+                    fontWeight: 'var(--m-font-weight-heading)',
+                    marginBottom: '4px',
+                  }">
+                    プロフィールカード
+                  </p>
+                  <p class="mru:text-sm" style="color: var(--color-gray-500); line-height: 1.7;">
+                    カードの影、角丸、ボーダー、フィルターがテーマごとに違います。
+                  </p>
+                  <div class="mru:flex mru:gap-1 mru:mt-2">
+                    <MBadge variant="mint">Vue</MBadge>
+                    <MBadge variant="pink">Design</MBadge>
+                    <MBadge variant="lavender">UI</MBadge>
+                  </div>
+                </div>
+              </div>
+            </MCard>
+
+            <!-- Buttons -->
+            <div>
+              <p class="story-heading">Buttons</p>
+              <div class="mru:flex mru:flex-wrap mru:gap-2 mru:mt-1">
+                <MButton size="sm">sm</MButton>
+                <MButton>md</MButton>
+                <MButton size="lg">lg</MButton>
+              </div>
+              <div class="mru:flex mru:flex-wrap mru:gap-2 mru:mt-2">
+                <MButton variant="secondary">secondary</MButton>
+                <MButton variant="tertiary">tertiary</MButton>
+                <MButton variant="outline">outline</MButton>
+                <MButton variant="ghost">ghost</MButton>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <div>
+              <p class="story-heading">Form</p>
+              <div class="mru:flex mru:flex-col mru:gap-3 mru:mt-1">
+                <MInput placeholder="テキスト入力..." />
+                <MTextarea placeholder="テキストエリア..." :rows="2" />
+                <div class="mru:flex mru:items-center mru:gap-4">
+                  <MSwitch v-model="switchValues[theme]" />
+                  <MCheckbox v-model="checkValues[theme]">オプション</MCheckbox>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progress -->
+            <div>
+              <p class="story-heading">Progress</p>
+              <div class="mru:flex mru:flex-col mru:gap-2 mru:mt-1">
+                <MProgress :value="75" color="primary" />
+                <MProgress :value="50" color="secondary" />
+                <MProgress :value="30" color="tertiary" />
+              </div>
+            </div>
+
+            <MDivider />
+
+            <!-- Alert -->
+            <MAlert variant="info">
+              これは {{ themeLabels[theme] }} テーマのプレビューです。
+            </MAlert>
           </div>
-
-          <MInput placeholder="入力してみて..." />
-
-          <MDivider />
-
-          <div style="display: flex; gap: 6px;">
-            <MBadge variant="mint">new</MBadge>
-            <MBadge variant="warning">pending</MBadge>
-            <MBadge variant="error">error</MBadge>
-          </div>
-        </div>
-      </MProvider>
+        </MProvider>
+      </div>
     </Variant>
   </Story>
 </template>

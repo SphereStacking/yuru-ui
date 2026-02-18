@@ -2,21 +2,28 @@
 import MProvider from '../provider/MProvider.vue'
 import MDivider from './MDivider.vue'
 
-const themes = ['hoyo', 'pishi', 'toge', 'moko', 'kira', 'nemu'] as const
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
 const colors = ['mint', 'pink', 'lavender', 'peach', 'sky', 'lemon'] as const
 </script>
 
 <template>
   <Story title="General/MDivider">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
-      <MProvider :theme="theme">
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-          <div v-for="color in colors" :key="color">
-            <p style="font-size: 0.75rem; color: var(--m-color-text-sub); margin-bottom: 8px;">{{ color }}</p>
-            <MDivider :color="color" />
+      <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+        <MProvider :theme="theme">
+          <div
+            class="mru:p-6 mru:flex mru:flex-col mru:gap-4"
+            :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'"
+          >
+            <p class="story-heading">{{ mode }}</p>
+            <div v-for="color in colors" :key="color">
+              <p class="mru:mb-2" style="font-size: 0.75rem; color: var(--m-color-text-sub);">{{ color }}</p>
+              <MDivider :color="color" />
+            </div>
           </div>
-        </div>
-      </MProvider>
+        </MProvider>
+      </div>
     </Variant>
   </Story>
 </template>

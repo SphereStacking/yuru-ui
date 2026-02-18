@@ -2,170 +2,43 @@
 import MProvider from '../provider/MProvider.vue'
 import MButton from './MButton.vue'
 import MDropdown from './MDropdown.vue'
+
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
 </script>
 
 <template>
-  <Story title="Overlay/MDropdown">
-    <Variant title="hoyo">
-      <MProvider theme="hoyo">
-        <div style="padding: 40px 120px; display: flex; gap: 32px;">
-          <MDropdown>
-            <template #trigger>
-              <MButton>Menu</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Profile</button>
-              <button class="m-dropdown-item">Settings</button>
-              <button class="m-dropdown-item">Logout</button>
-            </div>
-          </MDropdown>
-          <MDropdown align="right">
-            <template #trigger>
-              <MButton variant="outline">Right align</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Option A</button>
-              <button class="m-dropdown-item">Option B</button>
-              <button class="m-dropdown-item">Option C</button>
-            </div>
-          </MDropdown>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="pishi">
-      <MProvider theme="pishi">
-        <div style="padding: 40px 120px; display: flex; gap: 32px;">
-          <MDropdown>
-            <template #trigger>
-              <MButton>Menu</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Profile</button>
-              <button class="m-dropdown-item">Settings</button>
-              <button class="m-dropdown-item">Logout</button>
-            </div>
-          </MDropdown>
-          <MDropdown align="right">
-            <template #trigger>
-              <MButton variant="outline">Right align</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Option A</button>
-              <button class="m-dropdown-item">Option B</button>
-              <button class="m-dropdown-item">Option C</button>
-            </div>
-          </MDropdown>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="toge">
-      <MProvider theme="toge">
-        <div style="padding: 40px 120px; display: flex; gap: 32px;">
-          <MDropdown>
-            <template #trigger>
-              <MButton>Menu</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Profile</button>
-              <button class="m-dropdown-item">Settings</button>
-              <button class="m-dropdown-item">Logout</button>
-            </div>
-          </MDropdown>
-          <MDropdown align="right">
-            <template #trigger>
-              <MButton variant="outline">Right align</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Option A</button>
-              <button class="m-dropdown-item">Option B</button>
-              <button class="m-dropdown-item">Option C</button>
-            </div>
-          </MDropdown>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="moko">
-      <MProvider theme="moko">
-        <div style="padding: 40px 120px; display: flex; gap: 32px;">
-          <MDropdown>
-            <template #trigger>
-              <MButton>Menu</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Profile</button>
-              <button class="m-dropdown-item">Settings</button>
-              <button class="m-dropdown-item">Logout</button>
-            </div>
-          </MDropdown>
-          <MDropdown align="right">
-            <template #trigger>
-              <MButton variant="outline">Right align</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Option A</button>
-              <button class="m-dropdown-item">Option B</button>
-              <button class="m-dropdown-item">Option C</button>
-            </div>
-          </MDropdown>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="kira">
-      <MProvider theme="kira">
-        <div style="padding: 40px 120px; display: flex; gap: 32px;">
-          <MDropdown>
-            <template #trigger>
-              <MButton>Menu</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Profile</button>
-              <button class="m-dropdown-item">Settings</button>
-              <button class="m-dropdown-item">Logout</button>
-            </div>
-          </MDropdown>
-          <MDropdown align="right">
-            <template #trigger>
-              <MButton variant="outline">Right align</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Option A</button>
-              <button class="m-dropdown-item">Option B</button>
-              <button class="m-dropdown-item">Option C</button>
-            </div>
-          </MDropdown>
-        </div>
-      </MProvider>
-    </Variant>
-
-    <Variant title="nemu">
-      <MProvider theme="nemu">
-        <div style="padding: 40px 120px; display: flex; gap: 32px;">
-          <MDropdown>
-            <template #trigger>
-              <MButton>Menu</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Profile</button>
-              <button class="m-dropdown-item">Settings</button>
-              <button class="m-dropdown-item">Logout</button>
-            </div>
-          </MDropdown>
-          <MDropdown align="right">
-            <template #trigger>
-              <MButton variant="outline">Right align</MButton>
-            </template>
-            <div style="padding: 4px 0;">
-              <button class="m-dropdown-item">Option A</button>
-              <button class="m-dropdown-item">Option B</button>
-              <button class="m-dropdown-item">Option C</button>
-            </div>
-          </MDropdown>
-        </div>
-      </MProvider>
+  <Story title="Overlay/MDropdown" :layout="{ type: 'single', iframe: true }">
+    <Variant v-for="theme in themes" :key="theme" :title="theme">
+      <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+        <MProvider :theme="theme">
+          <div class="mru:px-30 mru:py-10 mru:flex mru:gap-8"
+               :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'"
+               style="position: relative;">
+            <p class="story-heading" style="position: absolute; top: 8px; left: 16px;">{{ mode }}</p>
+            <MDropdown>
+              <template #trigger>
+                <MButton>Menu</MButton>
+              </template>
+              <div style="padding: 4px 0;">
+                <button class="m-dropdown-item">Profile</button>
+                <button class="m-dropdown-item">Settings</button>
+                <button class="m-dropdown-item">Logout</button>
+              </div>
+            </MDropdown>
+            <MDropdown align="right">
+              <template #trigger>
+                <MButton variant="outline">Right align</MButton>
+              </template>
+              <div style="padding: 4px 0;">
+                <button class="m-dropdown-item">Option A</button>
+                <button class="m-dropdown-item">Option B</button>
+                <button class="m-dropdown-item">Option C</button>
+              </div>
+            </MDropdown>
+          </div>
+        </MProvider>
+      </div>
     </Variant>
   </Story>
 </template>
@@ -184,6 +57,6 @@ import MDropdown from './MDropdown.vue'
   font-family: inherit;
 }
 .m-dropdown-item:hover {
-  background: var(--m-color-gray-100);
+  background: var(--color-gray-100);
 }
 </style>

@@ -8,7 +8,7 @@
 学習目的でもあるので、Histoireでのドキュメント整備もしっかりやる。
 過度なカスタマイズ性は不要。シンプルに「自分のいつものパターン」を固める。
 
-### 2つのテーマ: ほよ（hoyo）と ぴし（pishi）
+### 2つのテーマ
 
 maru-ui は2つのテーマパターンを持つ。カラーパレットやスペーシングは共通で、**形と質感**だけが切り替わる。
 
@@ -27,15 +27,6 @@ maru-ui は2つのテーマパターンを持つ。カラーパレットやス�
 - くっきり小さめのシャドウ
 - フォントウェイトふつう（400〜600中心）
 - ちゃんとしたい場面向き
-
-#### 追加テーマ（実装済み）
-
-`data-theme` の値を文字列で自由に受けられる設計で、以下の4テーマを追加実装した。
-
-- **とげ（toge）** — 角丸ゼロ、シャープなシャドウ、直線的。太めフォントウェイト（800/700）
-- **もこ（moko）** — ほよよりさらにもこもこ。角丸めちゃ大きい（32〜42px）、wobbly-mokoフィルター、雲みたいな
-- **きら（kira）** — グラデーション多め（`--m-gradient-primary`, `--m-gradient-accent`）、グロウ感の二重シャドウ、リッチ
-- **ねむ（nemu）** — 低コントラスト、淡い色、シャドウ極薄（opacity 0.03〜0.06）。目に優しい夜向け
 
 ## 技術スタック
 
@@ -88,9 +79,39 @@ maru-ui は2つのテーマパターンを持つ。カラーパレットやス�
 | `800`    | `#2a3d30` | 強調テキスト             |
 | `900`    | `#0e1810` | ダークモード背景         |
 
+#### Secondary（ピンク）
+
+| Token    | Hex       | 用途                     |
+| -------- | --------- | ---------------------- |
+| `50`     | `#fff5f9` | 最も薄い背景            |
+| `100`    | `#ffe8f2` | hover背景など           |
+| `200`    | `#ffd4e8` | ★ ベースカラー（メインのピンク） |
+| `300`    | `#ffaad0` | アクティブ状態           |
+| `400`    | `#e87aaa` | 濃いめのアクセント       |
+| `500`    | `#e06090` | テキスト on light bg     |
+| `600`    | `#c04878` | 強調テキスト             |
+| `700`    | `#995577` | ダークモードのsecondary  |
+| `800`    | `#6a2848` | 濃い背景テキスト         |
+| `900`    | `#401828` | 最も濃い                |
+
+#### Tertiary（ラベンダー）
+
+| Token    | Hex       | 用途                     |
+| -------- | --------- | ---------------------- |
+| `50`     | `#f8f5ff` | 最も薄い背景            |
+| `100`    | `#f0e8ff` | hover背景など           |
+| `200`    | `#e0d4ff` | ★ ベースカラー（メインのラベンダー） |
+| `300`    | `#c8aaff` | アクティブ状態           |
+| `400`    | `#aa88ee` | 濃いめのアクセント       |
+| `500`    | `#8866cc` | テキスト on light bg     |
+| `600`    | `#7050b0` | 強調テキスト             |
+| `700`    | `#665599` | ダークモードのtertiary   |
+| `800`    | `#3d2870` | 濃い背景テキスト         |
+| `900`    | `#281840` | 最も濃い                |
+
 #### アクセント（ほよほよパステル）
 
-primaryのグリーン以外に、パステルのアクセントカラーを用意。バリエーション出しやバッジ等に使う。
+primary/secondary/tertiaryに加えて、パステルのアクセントカラーを用意。バリエーション出しやバッジ等に使う。
 
 | Token      | Hex       | テキスト色 |
 | ---------- | --------- | -------- |
@@ -100,6 +121,8 @@ primaryのグリーン以外に、パステルのアクセントカラーを用�
 | `peach`    | `#ffe4cc` | `#886644` |
 | `sky`      | `#ccedff` | `#446688` |
 | `lemon`    | `#fff6d5` | `#887744` |
+
+> mint/pink/lavender はそれぞれ primary-200/secondary-200/tertiary-200 のエイリアス。
 
 #### セマンティックカラー
 
@@ -302,7 +325,22 @@ maru-ui のコンポーネントのデフォルトスタイル:
 
 ### テーマシステム実装
 
-`MProvider` コンポーネントで `data-theme` 属性を切り替える。コンポーネント側はCSS変数を参照するだけでテーマを意識しない。
+#### アーキテクチャ
+
+**Tailwind CSS v4 ファースト** のアプローチを採用。カラー・スペーシングは `@theme` ブロックで定義し、テーマ固有の形状・質感のみ CSS 変数（`--m-*`）で切り替える。
+
+- **カラー**: `@theme` で定義 → `mru:bg-primary-200`, `mru:text-secondary-500` 等
+- **スペーシング**: `@theme` で定義 → `mru:p-md`, `mru:gap-lg` 等
+- **形状**: CSS変数 → `@utility` ブリッジ → `mru:rounded-card`, `mru:filter-card` 等
+- **ダークモード**: `.mru-dark` クラス + `mru:dark:*` バリアント
+
+**CSS変数は最小限（テーマごと約17個）:**
+- `--m-radius-{button,input,card,default,avatar}` — 非対称角丸
+- `--m-filter-{card,default,button}` — SVGフィルター参照
+- `--m-shadow-{sm,md,lg,xl}` — テーマ別の影の質感
+- `--m-font-weight-{heading,body,small}` — テーマ別ウェイト
+- `--m-transition-{speed,ease}` — テーマ別トランジション
+- `--m-divider-style`, `--m-border-width`, `--m-letter-spacing`, `--m-font-feature`
 
 #### MProvider の使い方
 
@@ -316,179 +354,114 @@ maru-ui のコンポーネントのデフォルトスタイル:
 <MProvider theme="pishi">
   <MButton>ぴし</MButton>
 </MProvider>
-```
 
-#### テーマCSS変数
-
-```css
-/* ===== 共通（カラー、スペーシングはテーマ共通） ===== */
-:root {
-  --m-color-primary-200: #b0ffc4;
-  --m-color-gray-200: #d2f0da;
-  /* ... 他のカラー・スペーシングは共通 ... */
-}
-
-/* ===== ほよ（hoyo） — デフォルト ===== */
-[data-theme="hoyo"] {
-  /* 角丸 */
-  --m-radius-default: 22px 28px 24px 30px / 28px 22px 30px 24px;
-  --m-radius-button: 22px 26px 24px 28px / 26px 22px 28px 24px;
-  --m-radius-input: 20px 24px 22px 26px / 24px 20px 26px 22px;
-  --m-radius-card: 24px 28px 26px 30px / 28px 24px 30px 26px;
-
-  /* フィルター */
-  --m-filter-default: url(#wobbly-subtle);
-  --m-filter-card: url(#wobbly-subtle);
-  --m-filter-button: none;  /* ボタンはフィルターなし（小さい要素は崩れやすい） */
-
-  /* シャドウ */
-  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
-  --m-shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
-  --m-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
-  --m-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
-
-  /* タイポグラフィ */
-  --m-font-weight-display: 700;
-  --m-font-weight-heading: 500;
-  --m-font-weight-body: 400;
-  --m-font-weight-small: 300;
-
-  /* Divider */
-  --m-divider-style: wavy;  /* MDivider コンポーネントが参照 */
-
-  /* ボーダー */
-  --m-border-width: 1.5px;
-}
-
-/* ===== ぴし（pishi） ===== */
-[data-theme="pishi"] {
-  /* 角丸 — 均一で整った形 */
-  --m-radius-default: 14px;
-  --m-radius-button: 12px;
-  --m-radius-input: 12px;
-  --m-radius-card: 16px;
-
-  /* フィルター — なし */
-  --m-filter-default: none;
-  --m-filter-card: none;
-  --m-filter-button: none;
-
-  /* シャドウ — くっきり小さめ */
-  --m-shadow-sm: 0 1px 3px rgba(142, 220, 170, 0.06);
-  --m-shadow-md: 0 2px 8px rgba(142, 220, 170, 0.08);
-  --m-shadow-lg: 0 4px 16px rgba(142, 220, 170, 0.10);
-  --m-shadow-xl: 0 8px 24px rgba(142, 220, 170, 0.14);
-
-  /* タイポグラフィ — やや重め */
-  --m-font-weight-display: 700;
-  --m-font-weight-heading: 600;
-  --m-font-weight-body: 400;
-  --m-font-weight-small: 400;
-
-  /* Divider */
-  --m-divider-style: straight;
-
-  /* ボーダー */
-  --m-border-width: 1px;
-}
 ```
 
 #### テーマ差分まとめ
 
-| トークン             | ほよ (hoyo)                          | ぴし (pishi)              |
-| -------------------- | ------------------------------------ | ------------------------- |
-| 角丸（デフォルト）     | 非対称 `22px 28px 24px 30px / ...`   | 均一 `14px`               |
-| SVGフィルター         | `wobbly-subtle`                      | なし                      |
-| Divider              | なみなみ線                            | 直線                      |
-| シャドウ              | ぼんやり大きめ                        | くっきり小さめ            |
-| font-weight（heading）| 500                                  | 600                       |
-| font-weight（small）  | 300                                  | 400                       |
-| ボーダー幅            | 1.5px                                | 1px                       |
-| 全体の雰囲気          | ぽてっ、ゆるい                        | すっきり、きりっ          |
+| トークン | ほよ (hoyo) | ぴし (pishi) |
+|---------|------------|-------------|
+| 角丸 | 非対称（有機的） | 均一 12-16px |
+| フィルター | wobbly-subtle | なし |
+| Divider | なみなみ線 | 直線 |
+| シャドウ | ぼんやり大きめ | くっきり小さめ |
+| heading weight | 500 | 600 |
+| small weight | 300 | 400 |
+| ボーダー幅 | 1.5px | 1px |
+| transition | 0.2s bouncy | 0.12s ease-out |
+| letter-spacing | 0.03em | 0 |
+| 雰囲気 | ぽてっ、ゆるい | すっきり、きりっ |
 
 #### コンポーネントでの使い方
 
-コンポーネントはCSS変数を参照するだけ。テーマの分岐ロジックは不要。
+コンポーネントは Tailwind ユーティリティクラスを基本に、テーマ固有の値は `@utility` ブリッジを使用。
 
 ```vue
 <!-- MCard.vue -->
 <template>
-  <div class="m-card">
+  <div class="mru:rounded-card mru:shadow-theme-md mru:filter-card
+              mru:border-theme mru:border-solid mru:border-gray-200
+              mru:bg-white mru:dark:bg-gray-900 mru:dark:border-gray-700
+              mru:p-lg mru:transition-theme">
     <slot />
   </div>
 </template>
-
-<style scoped>
-.m-card {
-  border-radius: var(--m-radius-card);
-  box-shadow: var(--m-shadow-md);
-  filter: var(--m-filter-card);
-  border: var(--m-border-width) solid var(--m-color-gray-200);
-}
-</style>
 ```
+
+#### @utility ブリッジ一覧
+
+CSS変数をTailwindクラスから使うためのカスタムユーティリティ:
+
+| ユーティリティ | CSS | 説明 |
+|-------------|-----|------|
+| `mru:rounded-button` | `border-radius: var(--m-radius-button)` | ボタン角丸 |
+| `mru:rounded-input` | `border-radius: var(--m-radius-input)` | インプット角丸 |
+| `mru:rounded-card` | `border-radius: var(--m-radius-card)` | カード角丸 |
+| `mru:rounded-default` | `border-radius: var(--m-radius-default)` | デフォルト角丸 |
+| `mru:rounded-avatar` | `border-radius: var(--m-radius-avatar)` | アバター角丸 |
+| `mru:filter-card` | `filter: var(--m-filter-card)` | カードフィルター |
+| `mru:filter-default` | `filter: var(--m-filter-default)` | デフォルトフィルター |
+| `mru:filter-button` | `filter: var(--m-filter-button)` | ボタンフィルター |
+| `mru:shadow-theme-sm/md/lg/xl` | `box-shadow: var(--m-shadow-*)` | テーマ別シャドウ |
+| `mru:font-heading` | `font-weight: var(--m-font-weight-heading)` | 見出しウェイト |
+| `mru:font-body` | `font-weight: var(--m-font-weight-body)` | 本文ウェイト |
+| `mru:font-small` | `font-weight: var(--m-font-weight-small)` | 小文字ウェイト |
+| `mru:transition-theme` | `transition-duration/timing-function` | テーマ別トランジション |
+| `mru:border-theme` | `border-width: var(--m-border-width)` | テーマ別ボーダー幅 |
+| `mru:tracking-theme` | `letter-spacing: var(--m-letter-spacing)` | テーマ別字間 |
+| `mru:font-feature-theme` | `font-feature-settings: var(--m-font-feature)` | テーマ別OpenType |
 
 #### MProvider の実装
 
 ```vue
-<!-- MProvider.vue -->
 <script setup lang="ts">
-defineProps<{
+import { provide, computed } from 'vue'
+
+const props = defineProps<{
   theme?: 'hoyo' | 'pishi'
 }>()
+
+const currentTheme = computed(() => props.theme ?? 'hoyo')
+provide('m-theme', currentTheme)
 </script>
 
 <template>
-  <div :data-theme="theme ?? 'hoyo'" class="m-provider">
-    <!-- SVGフィルター（hoyoテーマで使用） -->
-    <svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <div
+    :data-theme="currentTheme"
+    class="mru:relative mru:font-sans mru:font-feature-theme
+           mru:tracking-theme mru:leading-relaxed"
+  >
+    <svg class="mru:absolute mru:w-0 mru:h-0" aria-hidden="true">
       <defs>
-        <filter id="wobbly">
-          <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="3" seed="2" result="turbulence"/>
-          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <filter id="wobbly-light">
-          <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2" seed="5" result="turbulence"/>
-          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-        <filter id="wobbly-subtle">
-          <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="2" seed="8" result="turbulence"/>
-          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
+        <filter id="wobbly-subtle">...</filter>
+        <filter id="wobbly">...</filter>
       </defs>
     </svg>
     <slot />
   </div>
 </template>
-
-<style>
-.m-provider {
-  position: relative;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-}
-</style>
 ```
 
 #### Histoire での表示
 
-各storyで `hoyo` / `pishi` 両方のプレビューを並べて表示できるようにする。
+各 story で 2 テーマ × light/dark のプレビューを表示する。
 
 ```vue
-<!-- MButton.story.vue -->
 <script setup lang="ts">
+const themes = ['hoyo', 'pishi'] as const
+const modes = ['light', 'dark'] as const
 </script>
 
 <template>
-  <Story title="MButton">
-    <Variant title="hoyo">
-      <MProvider theme="hoyo">
-        <MButton>ほよボタン</MButton>
-      </MProvider>
-    </Variant>
-    <Variant title="pishi">
-      <MProvider theme="pishi">
-        <MButton>ぴしボタン</MButton>
-      </MProvider>
+  <Story title="General/MButton">
+    <Variant v-for="theme in themes" :key="theme" :title="theme">
+      <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
+        <MProvider :theme="theme">
+          <div class="mru:p-6" :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'">
+            <MButton>{{ theme }}</MButton>
+          </div>
+        </MProvider>
+      </div>
     </Variant>
   </Story>
 </template>
@@ -496,45 +469,57 @@ defineProps<{
 
 ---
 
-## コンポーネント計画
+## コンポーネント一覧（実装済み）
 
-### Phase 1: 基盤づくり
-- プロジェクトセットアップ（Vite + Vue 3 + TS + Tailwind + Histoire）
-- デザイントークンを `tailwind.config` に反映
-- SVGフィルターをグローバルに配置するプロバイダーコンポーネント（`MProvider`）
-- レイアウトコンポーネント + story
-  - `MContainer` — 最大幅制御、センタリング
-  - `MStack` — 縦/横に積む、gap制御
-  - `MGrid` — シンプルなグリッド
+### Provider
+- `MProvider` — テーマ切替 + SVGフィルター配置
 
-### Phase 2: 基本UIコンポーネント
-- `MButton` — primary / accent colors / outline / ghost。角丸は hoyo
-- `MInput` — テキスト入力。フォーカス時にほよっとしたリング
-- `MCard` — 基本的なコンテナ。hoyo角丸 + wobbly-subtle
-- `MBadge` — ステータス表示。セマンティック + アクセントカラー
-- `MAvatar` — 丸いアバター
-- `MDivider` — なみなみ区切り線。色バリエーション
+### Layout
+- `MContainer` — 最大幅制御、センタリング
+- `MStack` — 縦/横に積む、gap制御
+- `MGrid` — シンプルなグリッド
+- `MNavbar` — ナビゲーションバー（brand / default / actions スロット）
 
-### Phase 3: 複合コンポーネント
-- `MModal`
-- `MToast` — ほよっとした通知
-- `MDropdown`
-- `MNavbar`
+### Form
+- `MInput` — テキスト入力。フォーカスリング付き
+- `MTextarea` — テキストエリア
+- `MCheckbox` — チェックボックス
+- `MSwitch` — トグルスイッチ
+- `MSelect` — カスタムセレクト（useClickOutside使用）
 
-### Phase 4: 仕上げ
-- Histoireでトークン一覧ページ（カラーパレット、スペーシング表など）
-- 使い方ガイド・サンプルページ
-- npm パッケージ化 or Git submodule で自分のプロジェクトに導入
+### General
+- `MButton` — primary/secondary/tertiary/outline/ghost。テーマ別hover/active
+- `MCard` — コンテナ。テーマ別hover
+- `MBadge` — ステータス表示。primary/secondary/tertiary + semantic + accent
+- `MTag` — タグ。primary/secondary/tertiary + accent。removable対応
+- `MAvatar` — アバター（sm/md/lg）
+- `MDivider` — テーマ別の区切り線（wavy/straight）
+- `MBreadcrumb` — パンくずリスト。テーマ別セパレーター
+
+### Feedback
+- `MAlert` — アラート（success/warning/error/info）。closable対応
+- `MToast` — 通知（useToast composable付き）
+- `MProgress` — プログレスバー。primary/secondary/tertiary + accent
+- `MSkeleton` — スケルトンローダー（text/circle/rect）
+
+### Overlay
+- `MModal` — モーダルダイアログ（persistent対応、Teleport使用）
+- `MDropdown` — ドロップダウンメニュー
+- `MTooltip` — ツールチップ（top/bottom/left/right）
+
+### Navigation
+- `MTabs` — タブ。テーマ別インジケーター（wavy/solid）
 
 ---
 
 ## コンポーネント設計方針
 
 - **propsは少なめ**。シンプルなAPI
-- **Tailwindのクラスで微調整可能**にしておく
+- **Tailwind クラスベース**。`<style scoped>` は最小限（テーマ別hover、@keyframes、Vue Transition CSS等）
+- `@utility` ブリッジでテーマ固有の値を Tailwind クラスとして使用
 - 過度な抽象化はしない
-- 各コンポーネントに `.story.vue` を必ず用意する
-- ほよ線のゆらぎ強度は `wobbly` prop で `none | subtle | light | strong` を選べるように
+- 各コンポーネントに `.story.vue` を必ず用意する（6テーマ × light/dark）
+- カラーバリアントは computed でTailwindクラス文字列を返すパターンに統一（colorMap + :style は廃止）
 
 ---
 

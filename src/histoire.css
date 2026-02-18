@@ -1,0 +1,17 @@
+/* Histoire preview styles */
+
+.story-heading {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #4d6855;
+}
+
+.mru-dark .story-heading {
+  color: #7aaa86;
+}
+
+.mru-dark {
+  background: #0e1810;
+  color: #d5f0dc;
+  color-scheme: dark;
+}

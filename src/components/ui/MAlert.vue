@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   variant?: 'success' | 'warning' | 'error' | 'info'
   closable?: boolean
 }>()
@@ -17,31 +17,34 @@ function handleClose() {
   emit('close')
 }
 
-const colorMap: Record<string, { bg: string; border: string; text: string }> = {
-  success: { bg: 'var(--m-color-success)', border: 'var(--m-color-success-text)', text: 'var(--m-color-success-text)' },
-  warning: { bg: 'var(--m-color-warning)', border: 'var(--m-color-warning-text)', text: 'var(--m-color-warning-text)' },
-  error: { bg: 'var(--m-color-error)', border: 'var(--m-color-error-text)', text: 'var(--m-color-error-text)' },
-  info: { bg: 'var(--m-color-info)', border: 'var(--m-color-info-text)', text: 'var(--m-color-info-text)' },
-}
+const variantClass = computed(() => {
+  const map: Record<string, string> = {
+    success: 'mru:bg-success mru:text-success-text mru:border-l-success-text',
+    warning: 'mru:bg-warning mru:text-warning-text mru:border-l-warning-text',
+    error: 'mru:bg-error mru:text-error-text mru:border-l-error-text',
+    info: 'mru:bg-info mru:text-info-text mru:border-l-info-text',
+  }
+  return map[props.variant ?? 'info']
+})
 </script>
 
 <template>
   <div
     v-if="isVisible"
-    class="m-alert"
+    class="mru:flex mru:items-start mru:rounded-default mru:border-l-4 mru:border-l-solid
+           mru:px-lg mru:py-md mru:font-body mru:leading-relaxed
+           mru:transition-all mru:transition-theme"
+    :class="variantClass"
     role="alert"
-    :style="{
-      backgroundColor: colorMap[variant ?? 'info'].bg,
-      borderLeftColor: colorMap[variant ?? 'info'].border,
-      color: colorMap[variant ?? 'info'].text,
-    }"
   >
-    <div class="m-alert__content">
+    <div class="mru:flex-1">
       <slot />
     </div>
     <button
       v-if="closable"
-      class="m-alert__close"
+      class="mru:shrink-0 mru:ml-sm mru:bg-transparent mru:border-none mru:text-current
+             mru:text-xl mru:leading-none mru:cursor-pointer mru:opacity-60
+             mru:hover:opacity-100 mru:px-2xs mru:transition-opacity mru:transition-theme"
       aria-label="Close"
       @click="handleClose"
     >
@@ -49,78 +52,3 @@ const colorMap: Record<string, { bg: string; border: string; text: string }> = {
     </button>
   </div>
 </template>
-
-<style scoped>
-.m-alert {
-  display: flex;
-  align-items: flex-start;
-  border-radius: var(--m-radius-default);
-  border-left: 4px solid;
-  padding: var(--m-space-md) var(--m-space-lg);
-  font-weight: var(--m-font-weight-body);
-  line-height: 1.6;
-  transition:
-    opacity var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease),
-    transform var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease);
-}
-
-.m-alert__content {
-  flex: 1;
-}
-
-.m-alert__close {
-  flex-shrink: 0;
-  margin-left: var(--m-space-sm);
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  opacity: 0.6;
-  padding: 0 var(--m-space-2xs);
-  transition: opacity var(--m-transition-speed, 0.15s) var(--m-transition-ease, ease);
-}
-
-.m-alert__close:hover {
-  opacity: 1;
-}
-</style>
-
-<!-- テーマ別オーバーライド -->
-<style>
-/* === toge: 角丸0、太い左ボーダー、太字 === */
-[data-theme="toge"] .m-alert {
-  border-left-width: 6px;
-  font-weight: var(--m-font-weight-heading);
-}
-
-/* === moko: 大角丸、wobbly filter、ぽってりパディング === */
-[data-theme="moko"] .m-alert {
-  filter: var(--m-filter-default);
-  padding: var(--m-space-lg) var(--m-space-xl);
-}
-
-/* === kira: グラデーション左ボーダー、グロウシャドウ === */
-[data-theme="kira"] .m-alert {
-  border-left-color: transparent;
-  position: relative;
-  box-shadow: var(--m-shadow-md);
-  overflow: hidden;
-}
-[data-theme="kira"] .m-alert::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--m-gradient-primary);
-}
-
-/* === nemu: ミュートされたopacity、薄いボーダー === */
-[data-theme="nemu"] .m-alert {
-  opacity: 0.8;
-  border-left-width: 3px;
-}
-</style>
