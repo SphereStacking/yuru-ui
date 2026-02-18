@@ -5,7 +5,7 @@ import MTooltip from './MTooltip.vue'
 </script>
 
 <template>
-  <Story title="UI/MTooltip">
+  <Story title="Feedback/MTooltip">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 80px 120px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center;">

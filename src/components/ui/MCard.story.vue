@@ -4,7 +4,7 @@ import MCard from './MCard.vue'
 </script>
 
 <template>
-  <Story title="MCard">
+  <Story title="General/MCard">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 500px;">

@@ -4,7 +4,7 @@ import MDivider from './MDivider.vue'
 </script>
 
 <template>
-  <Story title="UI/MDivider">
+  <Story title="General/MDivider">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">

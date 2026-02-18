@@ -14,7 +14,7 @@ const fruits = [
 </script>
 
 <template>
-  <Story title="UI/MSelect">
+  <Story title="Form/MSelect">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">

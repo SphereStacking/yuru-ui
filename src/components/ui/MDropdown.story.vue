@@ -5,7 +5,7 @@ import MDropdown from './MDropdown.vue'
 </script>
 
 <template>
-  <Story title="UI/MDropdown">
+  <Story title="Overlay/MDropdown">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 40px 120px; display: flex; gap: 32px;">

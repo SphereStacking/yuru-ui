@@ -7,7 +7,7 @@ const text = ref('')
 </script>
 
 <template>
-  <Story title="MInput">
+  <Story title="Form/MInput">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 400px;">

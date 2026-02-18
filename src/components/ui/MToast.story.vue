@@ -32,7 +32,7 @@ function showToast(variant: 'success' | 'warning' | 'error' | 'info') {
 </script>
 
 <template>
-  <Story title="UI/MToast">
+  <Story title="Feedback/MToast">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <MToast />

@@ -20,7 +20,7 @@ function setState(theme: string, color: string, val: boolean) {
 </script>
 
 <template>
-  <Story title="UI/MSwitch">
+  <Story title="Form/MSwitch">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">

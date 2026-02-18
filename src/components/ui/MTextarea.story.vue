@@ -8,7 +8,7 @@ const text = ref('こんにちは！これはテキストエリアの入力例�
 </script>
 
 <template>
-  <Story title="MTextarea">
+  <Story title="Form/MTextarea">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 480px;">

@@ -13,7 +13,7 @@ const nemuOpen = ref(false)
 </script>
 
 <template>
-  <Story title="UI/MModal">
+  <Story title="Overlay/MModal">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px;">

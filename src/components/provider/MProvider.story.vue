@@ -26,7 +26,7 @@ const themeDescriptions: Record<string, string> = {
 </script>
 
 <template>
-  <Story title="MProvider" icon="mingcute:palette-line">
+  <Story title="Theme/MProvider" icon="mingcute:palette-line">
     <Variant title="テーマ比較">
       <div style="padding: 24px; display: flex; flex-direction: column; gap: 0;">
         <div

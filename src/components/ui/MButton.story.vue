@@ -8,7 +8,7 @@ const sizes = ['sm', 'md', 'lg'] as const
 </script>
 
 <template>
-  <Story title="MButton">
+  <Story title="General/MButton">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">

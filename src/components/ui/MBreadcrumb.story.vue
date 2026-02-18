@@ -17,7 +17,7 @@ function onNavigate(item: { label: string; href?: string }, index: number) {
 </script>
 
 <template>
-  <Story title="MBreadcrumb">
+  <Story title="Navigation/MBreadcrumb">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">

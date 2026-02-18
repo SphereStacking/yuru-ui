@@ -1,7 +1,12 @@
 <script setup lang="ts">
-defineProps<{
+import { computed, provide } from 'vue'
+
+const props = defineProps<{
   theme?: 'hoyo' | 'pishi' | 'toge' | 'moko' | 'kira' | 'nemu'
 }>()
+
+const resolvedTheme = computed(() => props.theme ?? 'hoyo')
+provide('m-theme', resolvedTheme)
 </script>
 
 <template>

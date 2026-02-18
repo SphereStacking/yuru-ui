@@ -21,7 +21,7 @@ function isRemoved(theme: string, color: string) {
 </script>
 
 <template>
-  <Story title="UI/MTag">
+  <Story title="General/MTag">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 24px;">

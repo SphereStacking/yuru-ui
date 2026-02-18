@@ -25,7 +25,7 @@ const panelContent: Record<string, string> = {
 </script>
 
 <template>
-  <Story title="MTabs">
+  <Story title="Navigation/MTabs">
     <Variant v-for="(theme, i) in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <div style="padding: 24px;">

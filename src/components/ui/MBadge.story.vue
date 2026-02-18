@@ -4,7 +4,7 @@ import MBadge from './MBadge.vue'
 </script>
 
 <template>
-  <Story title="UI/MBadge">
+  <Story title="General/MBadge">
     <Variant title="hoyo">
       <MProvider theme="hoyo">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">

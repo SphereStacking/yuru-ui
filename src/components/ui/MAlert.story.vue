@@ -7,7 +7,7 @@ const themes = ['hoyo', 'pishi', 'toge', 'moko', 'kira', 'nemu'] as const
 </script>
 
 <template>
-  <Story title="MAlert">
+  <Story title="Feedback/MAlert">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
       <MProvider :theme="theme">
         <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
