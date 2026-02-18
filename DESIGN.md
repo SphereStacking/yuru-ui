@@ -1,8 +1,8 @@
-# maru-ui Design System
+# yuru-ui Design System
 
 ## コンセプト
 
-自分用のデザインシステム。「まる」をモチーフにした、やわらかく使いやすいUI。
+自分用のデザインシステム。「ゆる」をモチーフにした、やわらかく使いやすいUI。
 キーワード: **ほよほよ、まるい、パステル、ゆるい、若い、かわいい**
 
 学習目的でもあるので、Histoireでのドキュメント整備もしっかりやる。
@@ -10,7 +10,7 @@
 
 ### 2つのテーマ
 
-maru-ui は2つのテーマパターンを持つ。カラーパレットやスペーシングは共通で、**形と質感**だけが切り替わる。
+yuru-ui は2つのテーマパターンを持つ。カラーパレットやスペーシングは共通で、**形と質感**だけが切り替わる。
 
 **ほよ（hoyo）** — デフォルトテーマ。ゆるくて若い。
 - 非対称な角丸（ぽてっとした有機的な形）
@@ -37,9 +37,9 @@ maru-ui は2つのテーマパターンを持つ。カラーパレットやス�
 
 ## 命名規則
 
-- コンポーネントプレフィックス: `M`（まるの M）
-- パッケージ名: `maru-ui`
-- 例: `MButton`, `MCard`, `MGrid`, `MStack`, `MContainer`
+- コンポーネントプレフィックス: `YR`（ゆるの YR）
+- パッケージ名: `yuru-ui`
+- 例: `YRButton`, `YRCard`, `YRGrid`, `YRStack`, `YRContainer`
 
 ---
 
@@ -192,7 +192,7 @@ Google Fonts からインポート。ウェイトは 300, 400, 500, 700 を使�
 
 ### 角丸（Border Radius）
 
-「まる」がテーマなので大きめ。さらに **hoyo** という非対称の角丸を用意して、ほよほよ感を出す。
+「ゆる」がテーマなので大きめ。さらに **hoyo** という非対称の角丸を用意して、ほよほよ感を出す。
 
 | Token    | Value                                              |
 | -------- | -------------------------------------------------- |
@@ -204,7 +204,7 @@ Google Fonts からインポート。ウェイトは 300, 400, 500, 700 を使�
 | `hoyo`   | `22px 28px 24px 30px / 28px 22px 30px 24px`        |
 | `circle` | `50%`                                              |
 
-**`hoyo` が maru-ui の特徴的なトークン。** ボタンやカードのデフォルトの角丸として使用する。
+**`hoyo` が yuru-ui の特徴的なトークン。** ボタンやカードのデフォルトの角丸として使用する。
 左右非対称にすることで、完璧な丸ではなく「ぽてっ」とした有機的な形になる。
 
 **ぴし（pishi）テーマでは `hoyo` の代わりに `lg`（20px）がデフォルトになる。**
@@ -226,7 +226,7 @@ Google Fonts からインポート。ウェイトは 300, 400, 500, 700 を使�
 
 ### ほよ線（Wobbly Lines）
 
-maru-ui の最大の個性。線やボーダーにゆらぎを持たせて、かっちりしすぎない雰囲気を作る。
+yuru-ui の最大の個性。線やボーダーにゆらぎを持たせて、かっちりしすぎない雰囲気を作る。
 
 #### 実装方法
 
@@ -314,12 +314,12 @@ Dividerコンポーネント用。SVGパスをbackground-imageで繰り返す。
 
 #### デフォルトの組み合わせ
 
-maru-ui のコンポーネントのデフォルトスタイル:
+yuru-ui のコンポーネントのデフォルトスタイル:
 - **角丸**: `hoyo`（非対称border-radius）
 - **フィルター**: `wobbly-subtle`（さりげないゆらぎ）
 - **Divider**: wavy line
 
-この3つの組み合わせが maru-ui の基本の見た目。
+この3つの組み合わせが yuru-ui の基本の見た目。
 
 ---
 
@@ -327,33 +327,33 @@ maru-ui のコンポーネントのデフォルトスタイル:
 
 #### アーキテクチャ
 
-**Tailwind CSS v4 ファースト** のアプローチを採用。カラー・スペーシングは `@theme` ブロックで定義し、テーマ固有の形状・質感のみ CSS 変数（`--m-*`）で切り替える。
+**Tailwind CSS v4 ファースト** のアプローチを採用。カラー・スペーシングは `@theme` ブロックで定義し、テーマ固有の形状・質感のみ CSS 変数（`--yr-*`）で切り替える。
 
-- **カラー**: `@theme` で定義 → `mru:bg-primary-200`, `mru:text-secondary-500` 等
-- **スペーシング**: `@theme` で定義 → `mru:p-md`, `mru:gap-lg` 等
-- **形状**: CSS変数 → `@utility` ブリッジ → `mru:rounded-card`, `mru:filter-card` 等
-- **ダークモード**: `.mru-dark` クラス + `mru:dark:*` バリアント
+- **カラー**: `@theme` で定義 → `yr:bg-primary-200`, `yr:text-secondary-500` 等
+- **スペーシング**: `@theme` で定義 → `yr:p-md`, `yr:gap-lg` 等
+- **形状**: CSS変数 → `@utility` ブリッジ → `yr:rounded-card`, `yr:filter-card` 等
+- **ダークモード**: `.yr-dark` クラス + `yr:dark:*` バリアント
 
 **CSS変数は最小限（テーマごと約17個）:**
-- `--m-radius-{button,input,card,default,avatar}` — 非対称角丸
-- `--m-filter-{card,default,button}` — SVGフィルター参照
-- `--m-shadow-{sm,md,lg,xl}` — テーマ別の影の質感
-- `--m-font-weight-{heading,body,small}` — テーマ別ウェイト
-- `--m-transition-{speed,ease}` — テーマ別トランジション
-- `--m-divider-style`, `--m-border-width`, `--m-letter-spacing`, `--m-font-feature`
+- `--yr-radius-{button,input,card,default,avatar}` — 非対称角丸
+- `--yr-filter-{card,default,button}` — SVGフィルター参照
+- `--yr-shadow-{sm,md,lg,xl}` — テーマ別の影の質感
+- `--yr-font-weight-{heading,body,small}` — テーマ別ウェイト
+- `--yr-transition-{speed,ease}` — テーマ別トランジション
+- `--yr-divider-style`, `--yr-border-width`, `--yr-letter-spacing`, `--yr-font-feature`
 
-#### MProvider の使い方
+#### YRProvider の使い方
 
 ```vue
 <!-- ほよテーマ（デフォルト） -->
-<MProvider>
-  <MButton>ほよ</MButton>
-</MProvider>
+<YRProvider>
+  <YRButton>ほよ</YRButton>
+</YRProvider>
 
 <!-- ぴしテーマ -->
-<MProvider theme="pishi">
-  <MButton>ぴし</MButton>
-</MProvider>
+<YRProvider theme="pishi">
+  <YRButton>ぴし</YRButton>
+</YRProvider>
 
 ```
 
@@ -377,12 +377,12 @@ maru-ui のコンポーネントのデフォルトスタイル:
 コンポーネントは Tailwind ユーティリティクラスを基本に、テーマ固有の値は `@utility` ブリッジを使用。
 
 ```vue
-<!-- MCard.vue -->
+<!-- YRCard.vue -->
 <template>
-  <div class="mru:rounded-card mru:shadow-theme-md mru:filter-card
-              mru:border-theme mru:border-solid mru:border-gray-200
-              mru:bg-white mru:dark:bg-gray-900 mru:dark:border-gray-700
-              mru:p-lg mru:transition-theme">
+  <div class="yr:rounded-card yr:shadow-theme-md yr:filter-card
+              yr:border-theme yr:border-solid yr:border-gray-200
+              yr:bg-white yr:dark:bg-gray-900 yr:dark:border-gray-700
+              yr:p-lg yr:transition-theme">
     <slot />
   </div>
 </template>
@@ -394,24 +394,24 @@ CSS変数をTailwindクラスから使うためのカスタムユーティリテ
 
 | ユーティリティ | CSS | 説明 |
 |-------------|-----|------|
-| `mru:rounded-button` | `border-radius: var(--m-radius-button)` | ボタン角丸 |
-| `mru:rounded-input` | `border-radius: var(--m-radius-input)` | インプット角丸 |
-| `mru:rounded-card` | `border-radius: var(--m-radius-card)` | カード角丸 |
-| `mru:rounded-default` | `border-radius: var(--m-radius-default)` | デフォルト角丸 |
-| `mru:rounded-avatar` | `border-radius: var(--m-radius-avatar)` | アバター角丸 |
-| `mru:filter-card` | `filter: var(--m-filter-card)` | カードフィルター |
-| `mru:filter-default` | `filter: var(--m-filter-default)` | デフォルトフィルター |
-| `mru:filter-button` | `filter: var(--m-filter-button)` | ボタンフィルター |
-| `mru:shadow-theme-sm/md/lg/xl` | `box-shadow: var(--m-shadow-*)` | テーマ別シャドウ |
-| `mru:font-heading` | `font-weight: var(--m-font-weight-heading)` | 見出しウェイト |
-| `mru:font-body` | `font-weight: var(--m-font-weight-body)` | 本文ウェイト |
-| `mru:font-small` | `font-weight: var(--m-font-weight-small)` | 小文字ウェイト |
-| `mru:transition-theme` | `transition-duration/timing-function` | テーマ別トランジション |
-| `mru:border-theme` | `border-width: var(--m-border-width)` | テーマ別ボーダー幅 |
-| `mru:tracking-theme` | `letter-spacing: var(--m-letter-spacing)` | テーマ別字間 |
-| `mru:font-feature-theme` | `font-feature-settings: var(--m-font-feature)` | テーマ別OpenType |
+| `yr:rounded-button` | `border-radius: var(--yr-radius-button)` | ボタン角丸 |
+| `yr:rounded-input` | `border-radius: var(--yr-radius-input)` | インプット角丸 |
+| `yr:rounded-card` | `border-radius: var(--yr-radius-card)` | カード角丸 |
+| `yr:rounded-default` | `border-radius: var(--yr-radius-default)` | デフォルト角丸 |
+| `yr:rounded-avatar` | `border-radius: var(--yr-radius-avatar)` | アバター角丸 |
+| `yr:filter-card` | `filter: var(--yr-filter-card)` | カードフィルター |
+| `yr:filter-default` | `filter: var(--yr-filter-default)` | デフォルトフィルター |
+| `yr:filter-button` | `filter: var(--yr-filter-button)` | ボタンフィルター |
+| `yr:shadow-theme-sm/md/lg/xl` | `box-shadow: var(--yr-shadow-*)` | テーマ別シャドウ |
+| `yr:font-heading` | `font-weight: var(--yr-font-weight-heading)` | 見出しウェイト |
+| `yr:font-body` | `font-weight: var(--yr-font-weight-body)` | 本文ウェイト |
+| `yr:font-small` | `font-weight: var(--yr-font-weight-small)` | 小文字ウェイト |
+| `yr:transition-theme` | `transition-duration/timing-function` | テーマ別トランジション |
+| `yr:border-theme` | `border-width: var(--yr-border-width)` | テーマ別ボーダー幅 |
+| `yr:tracking-theme` | `letter-spacing: var(--yr-letter-spacing)` | テーマ別字間 |
+| `yr:font-feature-theme` | `font-feature-settings: var(--yr-font-feature)` | テーマ別OpenType |
 
-#### MProvider の実装
+#### YRProvider の実装
 
 ```vue
 <script setup lang="ts">
@@ -422,16 +422,16 @@ const props = defineProps<{
 }>()
 
 const currentTheme = computed(() => props.theme ?? 'hoyo')
-provide('m-theme', currentTheme)
+provide('yr-theme', currentTheme)
 </script>
 
 <template>
   <div
     :data-theme="currentTheme"
-    class="mru:relative mru:font-sans mru:font-feature-theme
-           mru:tracking-theme mru:leading-relaxed"
+    class="yr:relative yr:font-sans yr:font-feature-theme
+           yr:tracking-theme yr:leading-relaxed"
   >
-    <svg class="mru:absolute mru:w-0 mru:h-0" aria-hidden="true">
+    <svg class="yr:absolute yr:w-0 yr:h-0" aria-hidden="true">
       <defs>
         <filter id="wobbly-subtle">...</filter>
         <filter id="wobbly">...</filter>
@@ -453,14 +453,14 @@ const modes = ['light', 'dark'] as const
 </script>
 
 <template>
-  <Story title="General/MButton">
+  <Story title="General/YRButton">
     <Variant v-for="theme in themes" :key="theme" :title="theme">
-      <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'mru-dark' : ''">
-        <MProvider :theme="theme">
-          <div class="mru:p-6" :class="mode === 'dark' ? 'mru:bg-gray-900' : 'mru:bg-gray-50'">
-            <MButton>{{ theme }}</MButton>
+      <div v-for="mode in modes" :key="mode" :class="mode === 'dark' ? 'yr-dark' : ''">
+        <YRProvider :theme="theme">
+          <div class="yr:p-6" :class="mode === 'dark' ? 'yr:bg-gray-900' : 'yr:bg-gray-50'">
+            <YRButton>{{ theme }}</YRButton>
           </div>
-        </MProvider>
+        </YRProvider>
       </div>
     </Variant>
   </Story>
@@ -472,43 +472,43 @@ const modes = ['light', 'dark'] as const
 ## コンポーネント一覧（実装済み）
 
 ### Provider
-- `MProvider` — テーマ切替 + SVGフィルター配置
+- `YRProvider` — テーマ切替 + SVGフィルター配置
 
 ### Layout
-- `MContainer` — 最大幅制御、センタリング
-- `MStack` — 縦/横に積む、gap制御
-- `MGrid` — シンプルなグリッド
-- `MNavbar` — ナビゲーションバー（brand / default / actions スロット）
+- `YRContainer` — 最大幅制御、センタリング
+- `YRStack` — 縦/横に積む、gap制御
+- `YRGrid` — シンプルなグリッド
+- `YRNavbar` — ナビゲーションバー（brand / default / actions スロット）
 
 ### Form
-- `MInput` — テキスト入力。フォーカスリング付き
-- `MTextarea` — テキストエリア
-- `MCheckbox` — チェックボックス
-- `MSwitch` — トグルスイッチ
-- `MSelect` — カスタムセレクト（useClickOutside使用）
+- `YRInput` — テキスト入力。フォーカスリング付き
+- `YRTextarea` — テキストエリア
+- `YRCheckbox` — チェックボックス
+- `YRSwitch` — トグルスイッチ
+- `YRSelect` — カスタムセレクト（useClickOutside使用）
 
 ### General
-- `MButton` — primary/secondary/tertiary/outline/ghost。テーマ別hover/active
-- `MCard` — コンテナ。テーマ別hover
-- `MBadge` — ステータス表示。primary/secondary/tertiary + semantic + accent
-- `MTag` — タグ。primary/secondary/tertiary + accent。removable対応
-- `MAvatar` — アバター（sm/md/lg）
-- `MDivider` — テーマ別の区切り線（wavy/straight）
-- `MBreadcrumb` — パンくずリスト。テーマ別セパレーター
+- `YRButton` — primary/secondary/tertiary/outline/ghost。テーマ別hover/active
+- `YRCard` — コンテナ。テーマ別hover
+- `YRBadge` — ステータス表示。primary/secondary/tertiary + semantic + accent
+- `YRTag` — タグ。primary/secondary/tertiary + accent。removable対応
+- `YRAvatar` — アバター（sm/md/lg）
+- `YRDivider` — テーマ別の区切り線（wavy/straight）
+- `YRBreadcrumb` — パンくずリスト。テーマ別セパレーター
 
 ### Feedback
-- `MAlert` — アラート（success/warning/error/info）。closable対応
-- `MToast` — 通知（useToast composable付き）
-- `MProgress` — プログレスバー。primary/secondary/tertiary + accent
-- `MSkeleton` — スケルトンローダー（text/circle/rect）
+- `YRAlert` — アラート（success/warning/error/info）。closable対応
+- `YRToast` — 通知（useToast composable付き）
+- `YRProgress` — プログレスバー。primary/secondary/tertiary + accent
+- `YRSkeleton` — スケルトンローダー（text/circle/rect）
 
 ### Overlay
-- `MModal` — モーダルダイアログ（persistent対応、Teleport使用）
-- `MDropdown` — ドロップダウンメニュー
-- `MTooltip` — ツールチップ（top/bottom/left/right）
+- `YRModal` — モーダルダイアログ（persistent対応、Teleport使用）
+- `YRDropdown` — ドロップダウンメニュー
+- `YRTooltip` — ツールチップ（top/bottom/left/right）
 
 ### Navigation
-- `MTabs` — タブ。テーマ別インジケーター（wavy/solid）
+- `YRTabs` — タブ。テーマ別インジケーター（wavy/solid）
 
 ---
 

@@ -16,8 +16,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'MaruUI',
-      fileName: 'maru-ui',
+      name: 'YuruUI',
+      fileName: 'yuru-ui',
     },
     rollupOptions: {
       external: ['vue'],

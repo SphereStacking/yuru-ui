@@ -1,9 +1,9 @@
-# CLAUDE.md — maru-ui プロジェクト指示書
+# CLAUDE.md — yuru-ui プロジェクト指示書
 
 ## このプロジェクトについて
 
-maru-ui は個人用のデザインシステム。Vue 3 + TypeScript + Tailwind CSS v4 + Histoire で構築する。
-「ほよほよ」した、やわらかくて若いデザインが特徴。
+yuru-ui は個人用のデザインシステム。Vue 3 + TypeScript + Tailwind CSS v4 + Histoire で構築する。
+ゆるっとした、まるい、パステル、かわいいデザインが特徴。
 
 **必ず先に `DESIGN.md` を読んでください。** デザイントークン（カラー、角丸、シャドウ、ほよ線の実装方法など）がすべて記載されています。
 
@@ -14,15 +14,15 @@ maru-ui は個人用のデザインシステム。Vue 3 + TypeScript + Tailwind 
 コンポーネントのスタイリングは **Tailwind ユーティリティクラスを最大限使う**。
 CSS変数はテーマ固有の形状プロパティ（非対称角丸・SVGフィルター・シャドウ質感等）のみに限定する。
 
-- **カラー**: `@theme` で定義 → `mru:bg-primary-200`, `mru:text-secondary-700` 等
-- **スペーシング**: `@theme` で定義 → `mru:p-md`, `mru:gap-lg` 等
-- **テーマ形状**: CSS変数 + `@utility` → `mru:rounded-card`, `mru:shadow-theme-md` 等
-- **テーマ動作**: `@custom-variant` → `mru:theme-hoyo:hover:-translate-y-0.5` 等
+- **カラー**: `@theme` で定義 → `yr:bg-primary-200`, `yr:text-secondary-700` 等
+- **スペーシング**: `@theme` で定義 → `yr:p-md`, `yr:gap-lg` 等
+- **テーマ形状**: CSS変数 + `@utility` → `yr:rounded-card`, `yr:shadow-theme-md` 等
+- **テーマ動作**: `@custom-variant` → `yr:theme-hoyo:hover:-translate-y-0.5` 等
 
 ### Tailwind prefix
 
-`mru:` prefix を使用（Tailwind v4 のバリアント方式、コロン区切り）。
-例: `mru:bg-primary-200`, `mru:flex`, `mru:p-4`
+`yr:` prefix を使用（Tailwind v4 のバリアント方式、コロン区切り）。
+例: `yr:bg-primary-200`, `yr:flex`, `yr:p-4`
 
 ### カラーシステム
 
@@ -39,7 +39,7 @@ CSS変数はテーマ固有の形状プロパティ（非対称角丸・SVGフ�
 ### テーマシステム
 
 2つのテーマ: `hoyo`（デフォルト）と `pishi`
-`MProvider` の `theme` prop で切り替え。`data-theme` 属性で CSS変数が切り替わる。
+`YRProvider` の `theme` prop で切り替え。`data-theme` 属性で CSS変数が切り替わる。
 
 テーマが変えるのは**形と質感**のみ:
 - **hoyo**: 非対称角丸、wobbly-subtle フィルター、なみなみ Divider、ふわっとシャドウ、ウェイト軽め
@@ -50,43 +50,43 @@ CSS変数はテーマ固有の形状プロパティ（非対称角丸・SVGフ�
 ## コーディング規約
 
 - Vue 3 Composition API + `<script setup lang="ts">` を使用
-- コンポーネントファイル: `src/components/layout/MContainer.vue` のようにカテゴリ分け
-- Story ファイル: コンポーネントと同じディレクトリに `MContainer.story.vue` として配置
+- コンポーネントファイル: `src/components/layout/YRContainer.vue` のようにカテゴリ分け
+- Story ファイル: コンポーネントと同じディレクトリに `YRContainer.story.vue` として配置
 - props の型は `defineProps` で TypeScript の interface を使って定義
-- コンポーネント名のプレフィックスは `M`（例: MButton, MCard）
+- コンポーネント名のプレフィックスは `YR`（例: YRButton, YRCard）
 
 ### スタイリング規約
 
 - **Tailwind クラスを最優先で使う**。`<style scoped>` は最小限に
 - カラー・スペーシング・レイアウトは必ず Tailwind クラスで指定
 - テーマ固有の形状は `@utility` で定義されたカスタムクラスを使う:
-  - `mru:rounded-button`, `mru:rounded-card`, `mru:rounded-input`, `mru:rounded-default`, `mru:rounded-avatar`
-  - `mru:filter-card`, `mru:filter-default`, `mru:filter-button`
-  - `mru:shadow-theme-sm/md/lg/xl`
-  - `mru:font-heading`, `mru:font-body`, `mru:font-small`
-  - `mru:transition-theme`, `mru:border-theme`, `mru:tracking-theme`
-- `var(--m-*)` CSS変数を直接参照するのは `<style>` ブロック内のみ（テーマ別 hover/active 等）
+  - `yr:rounded-button`, `yr:rounded-card`, `yr:rounded-input`, `yr:rounded-default`, `yr:rounded-avatar`
+  - `yr:filter-card`, `yr:filter-default`, `yr:filter-button`
+  - `yr:shadow-theme-sm/md/lg/xl`
+  - `yr:font-heading`, `yr:font-body`, `yr:font-small`
+  - `yr:transition-theme`, `yr:border-theme`, `yr:tracking-theme`
+- `var(--yr-*)` CSS変数を直接参照するのは `<style>` ブロック内のみ（テーマ別 hover/active 等）
 - variant の色分けは computed で Tailwind クラス文字列を返すパターンで統一（colorMap + `:style` は使わない）
 
 ### `<style>` ブロックを使っていい場合
 
-- テーマ別の hover/active 動作（`[data-theme="hoyo"] .m-button:hover` 等）
+- テーマ別の hover/active 動作（`[data-theme="hoyo"] .yr-button:hover` 等）
 - Vue `<Transition>` の CSS
 - `@keyframes` アニメーション
-- SVG data URI を使う MDivider のテーマ別スタイル
+- SVG data URI を使う YRDivider のテーマ別スタイル
 - tooltip の位置計算など Tailwind で表現しにくい複雑な CSS
 
 ### Histoire ストーリー規約
 
 - 全ストーリーで **2テーマ**（hoyo / pishi）の Variant を用意する
-- 各 Variant 内で light / dark 両方を表示する
-- Tailwind クラスは `mru:` prefix を使う
-- ダークモード背景は `.mru-dark` クラスと `mru:bg-gray-900` で表現
+- ダークモードは Histoire ツールバーの切り替えで確認（手動ループは使わない）
+- Tailwind クラスは `yr:` prefix を使う
+- 背景は `yr:bg-gray-50 yr:dark:bg-gray-900` で light/dark 両対応にする
 
 ## ディレクトリ構成
 
 ```
-maru-ui/
+yuru-ui/
 ├── CLAUDE.md          ← これ
 ├── DESIGN.md          ← デザイントークン詳細
 ├── package.json
@@ -97,15 +97,15 @@ maru-ui/
 │   ├── index.ts       ← エクスポート
 │   ├── components/
 │   │   ├── provider/
-│   │   │   └── MProvider.vue
+│   │   │   └── YRProvider.vue
 │   │   ├── layout/
-│   │   │   ├── MContainer.vue
-│   │   │   ├── MStack.vue
-│   │   │   ├── MGrid.vue
-│   │   │   └── MNavbar.vue
+│   │   │   ├── YRContainer.vue
+│   │   │   ├── YRStack.vue
+│   │   │   ├── YRGrid.vue
+│   │   │   └── YRNavbar.vue
 │   │   └── ui/
-│   │       ├── MButton.vue
-│   │       ├── MCard.vue
+│   │       ├── YRButton.vue
+│   │       ├── YRCard.vue
 │   │       └── ...
 │   └── composables/
 │       ├── useClickOutside.ts

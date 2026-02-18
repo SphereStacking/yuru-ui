@@ -1,4 +1,4 @@
-import { defineConfig } from 'histoire'
+import { defineConfig, getDefaultConfig } from 'histoire'
 import { HstVue } from '@histoire/plugin-vue'
 
 export default defineConfig({
@@ -7,9 +7,9 @@ export default defineConfig({
   ],
   setupFile: '/src/histoire-setup.ts',
   theme: {
-    title: 'maru-ui',
+    title: 'yuru-ui',
     favicon: '',
-    darkClass: 'mru-dark',
+    darkClass: 'yr-dark',
     colors: {
       primary: {
         50: '#edfff2',
@@ -42,11 +42,9 @@ export default defineConfig({
       type: 'grid',
       width: '100%',
     },
-    responsiveDisabled: true,
   },
   backgroundPresets: [
-    { label: 'Light', color: '#f6fef8' },
-    { label: 'White', color: '#ffffff' },
+    ...(getDefaultConfig().backgroundPresets || []),
   ],
   responsivePresets: [
     { label: 'Mobile', width: 375, height: 667 },

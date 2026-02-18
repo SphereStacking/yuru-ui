@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap');
-@import "tailwindcss" prefix(mru);
+@import "tailwindcss" prefix(yr);
 
 /* ============================================
    Tailwind CSS v4 テーマトークン
@@ -109,9 +109,55 @@
 /* ============================================
    Custom Variants
    ============================================ */
-@custom-variant dark (&:is(.mru-dark *));
+@custom-variant dark (&:is(.yr-dark *));
 @custom-variant theme-hoyo (&:is([data-theme="hoyo"] *));
 @custom-variant theme-pishi (&:is([data-theme="pishi"] *));
+
+/* ============================================
+   Base Layer
+   ============================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-gray-200);
+  }
+
+  .yr-dark *,
+  .yr-dark *::before,
+  .yr-dark *::after {
+    border-color: var(--color-gray-700);
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ============================================
+   Shared Keyframes
+   ============================================ */
+@keyframes yr-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes yr-skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   Animation Utilities
+   ============================================ */
+@utility animate-dropdown-in {
+  animation: yr-dropdown-in var(--yr-transition-speed, 0.15s) var(--yr-transition-ease, ease);
+}
+
+@utility animate-skeleton-pulse {
+  animation: yr-skeleton-pulse 1.5s ease-in-out infinite;
+}
 
 /* ============================================
    Custom Utilities (theme CSS vars → classes)
@@ -119,171 +165,171 @@
 
 /* Border Radius */
 @utility rounded-button {
-  border-radius: var(--m-radius-button);
+  border-radius: var(--yr-radius-button);
 }
 @utility rounded-input {
-  border-radius: var(--m-radius-input);
+  border-radius: var(--yr-radius-input);
 }
 @utility rounded-card {
-  border-radius: var(--m-radius-card);
+  border-radius: var(--yr-radius-card);
 }
 @utility rounded-default {
-  border-radius: var(--m-radius-default);
+  border-radius: var(--yr-radius-default);
 }
 @utility rounded-avatar {
-  border-radius: var(--m-radius-avatar);
+  border-radius: var(--yr-radius-avatar);
 }
 
 /* Filters */
 @utility filter-card {
-  filter: var(--m-filter-card);
+  filter: var(--yr-filter-card);
 }
 @utility filter-default {
-  filter: var(--m-filter-default);
+  filter: var(--yr-filter-default);
 }
 @utility filter-button {
-  filter: var(--m-filter-button);
+  filter: var(--yr-filter-button);
 }
 
 /* Theme Shadows */
 @utility shadow-theme-sm {
-  box-shadow: var(--m-shadow-sm);
+  box-shadow: var(--yr-shadow-sm);
 }
 @utility shadow-theme-md {
-  box-shadow: var(--m-shadow-md);
+  box-shadow: var(--yr-shadow-md);
 }
 @utility shadow-theme-lg {
-  box-shadow: var(--m-shadow-lg);
+  box-shadow: var(--yr-shadow-lg);
 }
 @utility shadow-theme-xl {
-  box-shadow: var(--m-shadow-xl);
+  box-shadow: var(--yr-shadow-xl);
 }
 
 /* Typography */
 @utility font-heading {
-  font-weight: var(--m-font-weight-heading);
+  font-weight: var(--yr-font-weight-heading);
 }
 @utility font-body {
-  font-weight: var(--m-font-weight-body);
+  font-weight: var(--yr-font-weight-body);
 }
 @utility font-small {
-  font-weight: var(--m-font-weight-small);
+  font-weight: var(--yr-font-weight-small);
 }
 
 /* Transition */
 @utility transition-theme {
-  transition-duration: var(--m-transition-speed);
-  transition-timing-function: var(--m-transition-ease);
+  transition-duration: var(--yr-transition-speed);
+  transition-timing-function: var(--yr-transition-ease);
 }
 
 /* Border */
 @utility border-theme {
-  border-width: var(--m-border-width);
+  border-width: var(--yr-border-width);
 }
 
 /* Letter Spacing */
 @utility tracking-theme {
-  letter-spacing: var(--m-letter-spacing);
+  letter-spacing: var(--yr-letter-spacing);
 }
 
 /* Font Feature */
 @utility font-feature-theme {
-  font-feature-settings: var(--m-font-feature, normal);
+  font-feature-settings: var(--yr-font-feature, normal);
 }
 
 /* ============================================
    ほよ（hoyo）テーマ — デフォルト
    ============================================ */
 [data-theme="hoyo"] {
-  --m-radius-button: 16px 26px 18px 28px / 26px 16px 28px 18px;
-  --m-radius-input: 14px 24px 16px 26px / 24px 14px 26px 16px;
-  --m-radius-card: 20px 34px 22px 38px / 34px 20px 38px 22px;
-  --m-radius-default: 18px 30px 20px 34px / 30px 18px 34px 20px;
-  --m-radius-avatar: 45% 55% 50% 50% / 55% 45% 50% 50%;
+  --yr-radius-button: 16px 26px 18px 28px / 26px 16px 28px 18px;
+  --yr-radius-input: 14px 24px 16px 26px / 24px 14px 26px 16px;
+  --yr-radius-card: 20px 34px 22px 38px / 34px 20px 38px 22px;
+  --yr-radius-default: 18px 30px 20px 34px / 30px 18px 34px 20px;
+  --yr-radius-avatar: 45% 55% 50% 50% / 55% 45% 50% 50%;
 
-  --m-filter-card: url(#wobbly-subtle);
-  --m-filter-default: url(#wobbly-subtle);
-  --m-filter-button: none;
+  --yr-filter-card: url(#wobbly-subtle);
+  --yr-filter-default: url(#wobbly-subtle);
+  --yr-filter-button: none;
 
-  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
-  --m-shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
-  --m-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
-  --m-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
+  --yr-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.08);
+  --yr-shadow-md: 0 4px 20px rgba(142, 220, 170, 0.10);
+  --yr-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.14);
+  --yr-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.18);
 
-  --m-font-weight-heading: 500;
-  --m-font-weight-body: 400;
-  --m-font-weight-small: 300;
+  --yr-font-weight-heading: 500;
+  --yr-font-weight-body: 400;
+  --yr-font-weight-small: 300;
 
-  --m-transition-speed: 0.2s;
-  --m-transition-ease: cubic-bezier(0.34, 1.2, 0.64, 1);
+  --yr-transition-speed: 0.2s;
+  --yr-transition-ease: cubic-bezier(0.34, 1.2, 0.64, 1);
 
-  --m-divider-style: wavy;
-  --m-border-width: 1.5px;
-  --m-letter-spacing: 0.03em;
-  --m-font-feature: 'palt';
+  --yr-divider-style: wavy;
+  --yr-border-width: 1.5px;
+  --yr-letter-spacing: 0.03em;
+  --yr-font-feature: 'palt';
 }
 
 /* ============================================
    ぴし（pishi）テーマ
    ============================================ */
 [data-theme="pishi"] {
-  --m-radius-button: 12px;
-  --m-radius-input: 12px;
-  --m-radius-card: 16px;
-  --m-radius-default: 14px;
-  --m-radius-avatar: 8px;
+  --yr-radius-button: 12px;
+  --yr-radius-input: 12px;
+  --yr-radius-card: 16px;
+  --yr-radius-default: 14px;
+  --yr-radius-avatar: 8px;
 
-  --m-filter-card: none;
-  --m-filter-default: none;
-  --m-filter-button: none;
+  --yr-filter-card: none;
+  --yr-filter-default: none;
+  --yr-filter-button: none;
 
-  --m-shadow-sm: 0 1px 3px rgba(142, 220, 170, 0.06);
-  --m-shadow-md: 0 2px 8px rgba(142, 220, 170, 0.08);
-  --m-shadow-lg: 0 4px 16px rgba(142, 220, 170, 0.10);
-  --m-shadow-xl: 0 8px 24px rgba(142, 220, 170, 0.14);
+  --yr-shadow-sm: 0 1px 3px rgba(142, 220, 170, 0.06);
+  --yr-shadow-md: 0 2px 8px rgba(142, 220, 170, 0.08);
+  --yr-shadow-lg: 0 4px 16px rgba(142, 220, 170, 0.10);
+  --yr-shadow-xl: 0 8px 24px rgba(142, 220, 170, 0.14);
 
-  --m-font-weight-heading: 600;
-  --m-font-weight-body: 400;
-  --m-font-weight-small: 400;
+  --yr-font-weight-heading: 600;
+  --yr-font-weight-body: 400;
+  --yr-font-weight-small: 400;
 
-  --m-transition-speed: 0.12s;
-  --m-transition-ease: ease-out;
+  --yr-transition-speed: 0.12s;
+  --yr-transition-ease: ease-out;
 
-  --m-divider-style: straight;
-  --m-border-width: 1px;
-  --m-letter-spacing: 0;
-  --m-font-feature: normal;
+  --yr-divider-style: straight;
+  --yr-border-width: 1px;
+  --yr-letter-spacing: 0;
+  --yr-font-feature: normal;
 }
 
 /* ============================================
    ダークモード — テーマ別シャドウ override
    ============================================ */
-.mru-dark [data-theme="hoyo"] {
-  --m-shadow-sm: 0 2px 8px rgba(80, 180, 120, 0.06);
-  --m-shadow-md: 0 4px 20px rgba(80, 180, 120, 0.08);
-  --m-shadow-lg: 0 8px 32px rgba(80, 180, 120, 0.10);
-  --m-shadow-xl: 0 16px 48px rgba(80, 180, 120, 0.12);
+.yr-dark [data-theme="hoyo"] {
+  --yr-shadow-sm: 0 2px 8px rgba(80, 180, 120, 0.06);
+  --yr-shadow-md: 0 4px 20px rgba(80, 180, 120, 0.08);
+  --yr-shadow-lg: 0 8px 32px rgba(80, 180, 120, 0.10);
+  --yr-shadow-xl: 0 16px 48px rgba(80, 180, 120, 0.12);
 }
 
-.mru-dark [data-theme="pishi"] {
-  --m-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --m-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.25);
-  --m-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --m-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.35);
+.yr-dark [data-theme="pishi"] {
+  --yr-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --yr-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --yr-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --yr-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 @media (prefers-color-scheme: dark) {
   [data-theme="hoyo"] {
-    --m-shadow-sm: 0 2px 8px rgba(80, 180, 120, 0.06);
-    --m-shadow-md: 0 4px 20px rgba(80, 180, 120, 0.08);
-    --m-shadow-lg: 0 8px 32px rgba(80, 180, 120, 0.10);
-    --m-shadow-xl: 0 16px 48px rgba(80, 180, 120, 0.12);
+    --yr-shadow-sm: 0 2px 8px rgba(80, 180, 120, 0.06);
+    --yr-shadow-md: 0 4px 20px rgba(80, 180, 120, 0.08);
+    --yr-shadow-lg: 0 8px 32px rgba(80, 180, 120, 0.10);
+    --yr-shadow-xl: 0 16px 48px rgba(80, 180, 120, 0.12);
   }
 
   [data-theme="pishi"] {
-    --m-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-    --m-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.25);
-    --m-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
-    --m-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --yr-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --yr-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --yr-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --yr-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.35);
   }
 }

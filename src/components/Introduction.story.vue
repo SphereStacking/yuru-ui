@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import MProvider from './provider/MProvider.vue'
-import MButton from './ui/MButton.vue'
-import MCard from './ui/MCard.vue'
-import MBadge from './ui/MBadge.vue'
-import MTag from './ui/MTag.vue'
-import MAvatar from './ui/MAvatar.vue'
-import MDivider from './ui/MDivider.vue'
-import MInput from './ui/MInput.vue'
-import MSwitch from './ui/MSwitch.vue'
-import MProgress from './ui/MProgress.vue'
-import MAlert from './ui/MAlert.vue'
+import YRProvider from './provider/YRProvider.vue'
+import YRButton from './ui/YRButton.vue'
+import YRCard from './ui/YRCard.vue'
+import YRBadge from './ui/YRBadge.vue'
+import YRTag from './ui/YRTag.vue'
+import YRAvatar from './ui/YRAvatar.vue'
+import YRDivider from './ui/YRDivider.vue'
+import YRInput from './ui/YRInput.vue'
+import YRSwitch from './ui/YRSwitch.vue'
+import YRProgress from './ui/YRProgress.vue'
+import YRAlert from './ui/YRAlert.vue'
 import { ref } from 'vue'
 
 const themes = ['hoyo', 'pishi'] as const
@@ -68,12 +68,12 @@ const colorScales = [
   >
     <!-- Overview -->
     <Variant title="Overview">
-      <div class="mru:p-8 mru:flex mru:flex-col mru:gap-8" style="max-width: 960px;">
+      <div class="yr:p-8 yr:flex yr:flex-col yr:gap-8" style="max-width: 960px;">
         <!-- Hero -->
-        <MProvider theme="hoyo">
-          <div class="mru:flex mru:flex-col mru:gap-3">
+        <YRProvider theme="hoyo">
+          <div class="yr:flex yr:flex-col yr:gap-3">
             <h1 style="font-size: 2.5rem; font-weight: 700; color: #3d5a44; line-height: 1.2;">
-              maru-ui
+              yuru-ui
             </h1>
             <p style="font-size: 1.125rem; color: #6a8873; line-height: 1.8;">
               やわらかくて若い、自分用のデザインシステム。<br>
@@ -81,57 +81,57 @@ const colorScales = [
               2つのテーマで「形と質感」を切り替える。
             </p>
 
-            <div class="mru:flex mru:flex-wrap mru:gap-2 mru:mt-2">
-              <MBadge variant="primary">Vue 3</MBadge>
-              <MBadge variant="secondary">TypeScript</MBadge>
-              <MBadge variant="tertiary">Tailwind v4</MBadge>
-              <MBadge variant="mint">Histoire</MBadge>
-              <MBadge variant="peach">Vite</MBadge>
+            <div class="yr:flex yr:flex-wrap yr:gap-2 yr:mt-2">
+              <YRBadge variant="primary">Vue 3</YRBadge>
+              <YRBadge variant="secondary">TypeScript</YRBadge>
+              <YRBadge variant="tertiary">Tailwind v4</YRBadge>
+              <YRBadge variant="mint">Histoire</YRBadge>
+              <YRBadge variant="peach">Vite</YRBadge>
             </div>
           </div>
 
-          <MDivider color="mint" class="mru:my-6" />
-        </MProvider>
+          <YRDivider color="mint" class="yr:my-6" />
+        </YRProvider>
 
         <!-- 2 Themes -->
         <div>
           <h2 style="font-size: 1.5rem; font-weight: 600; color: #3d5a44; margin-bottom: 16px;">
             2 Themes
           </h2>
-          <div class="mru:grid mru:grid-cols-2 mru:gap-5">
+          <div class="yr:grid yr:grid-cols-2 yr:gap-5">
             <div v-for="theme in themes" :key="theme">
-              <MProvider :theme="theme">
-                <MCard>
-                  <div class="mru:flex mru:flex-col mru:gap-3">
-                    <div class="mru:flex mru:items-baseline mru:gap-2">
-                      <span style="font-size: 1.25rem; font-weight: var(--m-font-weight-heading);">
+              <YRProvider :theme="theme">
+                <YRCard>
+                  <div class="yr:flex yr:flex-col yr:gap-3">
+                    <div class="yr:flex yr:items-baseline yr:gap-2">
+                      <span style="font-size: 1.25rem; font-weight: var(--yr-font-weight-heading);">
                         {{ themeLabels[theme] }}
                       </span>
-                      <span class="mru:text-xs" style="color: var(--color-gray-400);">
+                      <span class="yr:text-xs" style="color: var(--color-gray-400);">
                         {{ theme }}
                       </span>
                     </div>
-                    <p class="mru:text-sm" style="color: var(--color-gray-500); line-height: 1.6;">
+                    <p class="yr:text-sm" style="color: var(--color-gray-500); line-height: 1.6;">
                       {{ themeDescriptions[theme] }}
                     </p>
 
-                    <div class="mru:flex mru:flex-wrap mru:gap-2">
-                      <MButton size="sm">primary</MButton>
-                      <MButton size="sm" variant="secondary">secondary</MButton>
-                      <MButton size="sm" variant="outline">outline</MButton>
+                    <div class="yr:flex yr:flex-wrap yr:gap-2">
+                      <YRButton size="sm">primary</YRButton>
+                      <YRButton size="sm" variant="secondary">secondary</YRButton>
+                      <YRButton size="sm" variant="outline">outline</YRButton>
                     </div>
 
-                    <div class="mru:flex mru:items-center mru:gap-3">
-                      <MAvatar size="sm" />
-                      <MSwitch v-model="switchValues[theme]" />
-                      <MTag color="mint">tag</MTag>
-                      <MTag color="pink">tag</MTag>
+                    <div class="yr:flex yr:items-center yr:gap-3">
+                      <YRAvatar size="sm" />
+                      <YRSwitch v-model="switchValues[theme]" />
+                      <YRTag color="mint">tag</YRTag>
+                      <YRTag color="pink">tag</YRTag>
                     </div>
 
-                    <MProgress :value="65" color="primary" size="sm" />
+                    <YRProgress :value="65" color="primary" size="sm" />
                   </div>
-                </MCard>
-              </MProvider>
+                </YRCard>
+              </YRProvider>
             </div>
           </div>
         </div>
@@ -141,16 +141,16 @@ const colorScales = [
           <h2 style="font-size: 1.5rem; font-weight: 600; color: #3d5a44; margin-bottom: 16px;">
             Color Palette
           </h2>
-          <div class="mru:flex mru:flex-col mru:gap-4">
+          <div class="yr:flex yr:flex-col yr:gap-4">
             <div v-for="cs in colorScales" :key="cs.name">
-              <p class="mru:text-sm mru:mb-2" style="color: #6a8873; font-weight: 500;">
+              <p class="yr:text-sm yr:mb-2" style="color: #6a8873; font-weight: 500;">
                 {{ cs.name }}
               </p>
-              <div class="mru:flex mru:gap-0">
+              <div class="yr:flex yr:gap-0">
                 <div
                   v-for="swatch in cs.scale"
                   :key="swatch.step"
-                  class="mru:flex-1 mru:flex mru:flex-col mru:items-center mru:justify-end"
+                  class="yr:flex-1 yr:flex yr:flex-col yr:items-center yr:justify-end"
                   :style="{
                     backgroundColor: swatch.hex,
                     height: '64px',
@@ -159,7 +159,7 @@ const colorScales = [
                   }"
                 >
                   <span
-                    class="mru:text-xs"
+                    class="yr:text-xs"
                     :style="{
                       color: Number(swatch.step) >= 500 ? '#fff' : '#3d5a44',
                       paddingBottom: '4px',
@@ -179,24 +179,24 @@ const colorScales = [
           <h2 style="font-size: 1.5rem; font-weight: 600; color: #3d5a44; margin-bottom: 16px;">
             Accent & Semantic Colors
           </h2>
-          <MProvider theme="hoyo">
-            <div class="mru:flex mru:flex-col mru:gap-3">
-              <div class="mru:flex mru:flex-wrap mru:gap-2">
-                <MBadge variant="mint">mint</MBadge>
-                <MBadge variant="pink">pink</MBadge>
-                <MBadge variant="lavender">lavender</MBadge>
-                <MBadge variant="peach">peach</MBadge>
-                <MBadge variant="sky">sky</MBadge>
-                <MBadge variant="lemon">lemon</MBadge>
+          <YRProvider theme="hoyo">
+            <div class="yr:flex yr:flex-col yr:gap-3">
+              <div class="yr:flex yr:flex-wrap yr:gap-2">
+                <YRBadge variant="mint">mint</YRBadge>
+                <YRBadge variant="pink">pink</YRBadge>
+                <YRBadge variant="lavender">lavender</YRBadge>
+                <YRBadge variant="peach">peach</YRBadge>
+                <YRBadge variant="sky">sky</YRBadge>
+                <YRBadge variant="lemon">lemon</YRBadge>
               </div>
-              <div class="mru:flex mru:flex-wrap mru:gap-2">
-                <MBadge variant="success">success</MBadge>
-                <MBadge variant="warning">warning</MBadge>
-                <MBadge variant="error">error</MBadge>
-                <MBadge variant="info">info</MBadge>
+              <div class="yr:flex yr:flex-wrap yr:gap-2">
+                <YRBadge variant="success">success</YRBadge>
+                <YRBadge variant="warning">warning</YRBadge>
+                <YRBadge variant="error">error</YRBadge>
+                <YRBadge variant="info">info</YRBadge>
               </div>
             </div>
-          </MProvider>
+          </YRProvider>
         </div>
 
         <!-- Components -->
@@ -204,99 +204,99 @@ const colorScales = [
           <h2 style="font-size: 1.5rem; font-weight: 600; color: #3d5a44; margin-bottom: 16px;">
             Components ({{ 22 }})
           </h2>
-          <MProvider theme="hoyo">
-            <div class="mru:grid mru:grid-cols-2 mru:gap-3" style="max-width: 640px;">
-              <MCard v-for="group in [
-                { name: 'Layout', items: ['MContainer', 'MStack', 'MGrid', 'MNavbar'] },
-                { name: 'General', items: ['MButton', 'MCard', 'MBadge', 'MAvatar', 'MDivider', 'MTag', 'MBreadcrumb'] },
-                { name: 'Form', items: ['MInput', 'MTextarea', 'MSwitch', 'MCheckbox', 'MSelect'] },
-                { name: 'Feedback', items: ['MAlert', 'MToast', 'MProgress', 'MSkeleton'] },
-                { name: 'Overlay', items: ['MModal', 'MDropdown', 'MTooltip'] },
-                { name: 'Navigation', items: ['MTabs'] },
+          <YRProvider theme="hoyo">
+            <div class="yr:grid yr:grid-cols-2 yr:gap-3" style="max-width: 640px;">
+              <YRCard v-for="group in [
+                { name: 'Layout', items: ['YRContainer', 'YRStack', 'YRGrid', 'YRNavbar'] },
+                { name: 'General', items: ['YRButton', 'YRCard', 'YRBadge', 'YRAvatar', 'YRDivider', 'YRTag', 'YRBreadcrumb'] },
+                { name: 'Form', items: ['YRInput', 'YRTextarea', 'YRSwitch', 'YRCheckbox', 'YRSelect'] },
+                { name: 'Feedback', items: ['YRAlert', 'YRToast', 'YRProgress', 'YRSkeleton'] },
+                { name: 'Overlay', items: ['YRModal', 'YRDropdown', 'YRTooltip'] },
+                { name: 'Navigation', items: ['YRTabs'] },
               ]" :key="group.name">
-                <p style="font-weight: var(--m-font-weight-heading); font-size: 0.875rem; margin-bottom: 6px; color: #3d5a44;">
+                <p style="font-weight: var(--yr-font-weight-heading); font-size: 0.875rem; margin-bottom: 6px; color: #3d5a44;">
                   {{ group.name }}
                 </p>
-                <div class="mru:flex mru:flex-wrap mru:gap-1">
-                  <MTag
+                <div class="yr:flex yr:flex-wrap yr:gap-1">
+                  <YRTag
                     v-for="item in group.items"
                     :key="item"
                     color="mint"
                   >
                     {{ item }}
-                  </MTag>
+                  </YRTag>
                 </div>
-              </MCard>
+              </YRCard>
             </div>
-          </MProvider>
+          </YRProvider>
         </div>
       </div>
     </Variant>
 
     <!-- Dark Mode Comparison -->
     <Variant title="Dark Mode">
-      <div class="mru:p-8 mru:flex mru:flex-col mru:gap-6" style="max-width: 960px;">
+      <div class="yr:p-8 yr:flex yr:flex-col yr:gap-6" style="max-width: 960px;">
         <h2 style="font-size: 1.5rem; font-weight: 600; color: #3d5a44; margin-bottom: 8px;">
           Light / Dark Comparison
         </h2>
-        <div v-for="theme in themes" :key="theme" class="mru:flex mru:gap-4">
+        <div v-for="theme in themes" :key="theme" class="yr:flex yr:gap-4">
           <!-- Light -->
-          <div class="mru:flex-1">
-            <MProvider :theme="theme">
-              <div class="mru:p-4 mru:bg-gray-50 mru:rounded-lg">
-                <p class="mru:text-xs mru:mb-2" style="color: #8baa94;">
+          <div class="yr:flex-1">
+            <YRProvider :theme="theme">
+              <div class="yr:p-4 yr:bg-gray-50 yr:rounded-lg">
+                <p class="yr:text-xs yr:mb-2" style="color: #8baa94;">
                   {{ themeLabels[theme] }} — light
                 </p>
-                <MCard>
-                  <div class="mru:flex mru:items-center mru:gap-3">
-                    <MAvatar size="sm" />
-                    <div class="mru:flex-1">
-                      <p style="font-weight: var(--m-font-weight-heading); font-size: 0.875rem;">
+                <YRCard>
+                  <div class="yr:flex yr:items-center yr:gap-3">
+                    <YRAvatar size="sm" />
+                    <div class="yr:flex-1">
+                      <p style="font-weight: var(--yr-font-weight-heading); font-size: 0.875rem;">
                         Sample Card
                       </p>
-                      <p class="mru:text-xs" style="color: var(--color-gray-500);">
+                      <p class="yr:text-xs" style="color: var(--color-gray-500);">
                         Light mode
                       </p>
                     </div>
-                    <MButton size="sm">OK</MButton>
+                    <YRButton size="sm">OK</YRButton>
                   </div>
-                </MCard>
-                <div class="mru:flex mru:gap-2 mru:mt-3">
-                  <MBadge variant="primary">primary</MBadge>
-                  <MBadge variant="secondary">secondary</MBadge>
-                  <MBadge variant="tertiary">tertiary</MBadge>
+                </YRCard>
+                <div class="yr:flex yr:gap-2 yr:mt-3">
+                  <YRBadge variant="primary">primary</YRBadge>
+                  <YRBadge variant="secondary">secondary</YRBadge>
+                  <YRBadge variant="tertiary">tertiary</YRBadge>
                 </div>
               </div>
-            </MProvider>
+            </YRProvider>
           </div>
           <!-- Dark -->
-          <div class="mru:flex-1 mru-dark">
-            <MProvider :theme="theme">
-              <div class="mru:p-4 mru:bg-gray-900 mru:rounded-lg">
-                <p class="mru:text-xs mru:mb-2" style="color: #7aaa86;">
+          <div class="yr:flex-1 yr-dark">
+            <YRProvider :theme="theme">
+              <div class="yr:p-4 yr:bg-gray-900 yr:rounded-lg">
+                <p class="yr:text-xs yr:mb-2" style="color: #7aaa86;">
                   {{ themeLabels[theme] }} — dark
                 </p>
-                <MCard>
-                  <div class="mru:flex mru:items-center mru:gap-3">
-                    <MAvatar size="sm" />
-                    <div class="mru:flex-1">
-                      <p style="font-weight: var(--m-font-weight-heading); font-size: 0.875rem;">
+                <YRCard>
+                  <div class="yr:flex yr:items-center yr:gap-3">
+                    <YRAvatar size="sm" />
+                    <div class="yr:flex-1">
+                      <p style="font-weight: var(--yr-font-weight-heading); font-size: 0.875rem;">
                         Sample Card
                       </p>
-                      <p class="mru:text-xs" style="color: var(--color-gray-500);">
+                      <p class="yr:text-xs" style="color: var(--color-gray-500);">
                         Dark mode
                       </p>
                     </div>
-                    <MButton size="sm">OK</MButton>
+                    <YRButton size="sm">OK</YRButton>
                   </div>
-                </MCard>
-                <div class="mru:flex mru:gap-2 mru:mt-3">
-                  <MBadge variant="primary">primary</MBadge>
-                  <MBadge variant="secondary">secondary</MBadge>
-                  <MBadge variant="tertiary">tertiary</MBadge>
+                </YRCard>
+                <div class="yr:flex yr:gap-2 yr:mt-3">
+                  <YRBadge variant="primary">primary</YRBadge>
+                  <YRBadge variant="secondary">secondary</YRBadge>
+                  <YRBadge variant="tertiary">tertiary</YRBadge>
                 </div>
               </div>
-            </MProvider>
+            </YRProvider>
           </div>
         </div>
       </div>
@@ -304,16 +304,16 @@ const colorScales = [
 
     <!-- Color Tokens Detail -->
     <Variant title="Color Tokens">
-      <div class="mru:p-8 mru:flex mru:flex-col mru:gap-6" style="max-width: 960px;">
+      <div class="yr:p-8 yr:flex yr:flex-col yr:gap-6" style="max-width: 960px;">
         <div v-for="cs in colorScales" :key="cs.name">
           <h3 style="font-weight: 600; font-size: 1rem; color: #3d5a44; margin-bottom: 12px;">
             {{ cs.name }}
           </h3>
-          <div class="mru:grid mru:grid-cols-5 mru:gap-2">
+          <div class="yr:grid yr:grid-cols-5 yr:gap-2">
             <div
               v-for="swatch in cs.scale"
               :key="swatch.step"
-              class="mru:flex mru:flex-col mru:items-center mru:gap-1"
+              class="yr:flex yr:flex-col yr:items-center yr:gap-1"
             >
               <div
                 :style="{
@@ -339,7 +339,7 @@ const colorScales = [
           <h3 style="font-weight: 600; font-size: 1rem; color: #3d5a44; margin-bottom: 12px;">
             Accent Colors
           </h3>
-          <div class="mru:grid mru:grid-cols-6 mru:gap-3">
+          <div class="yr:grid yr:grid-cols-6 yr:gap-3">
             <div
               v-for="accent in [
                 { name: 'mint', bg: '#b0ffc4', text: '#4a9960' },
@@ -350,7 +350,7 @@ const colorScales = [
                 { name: 'lemon', bg: '#fff6d5', text: '#887744' },
               ]"
               :key="accent.name"
-              class="mru:flex mru:flex-col mru:items-center mru:gap-1"
+              class="yr:flex yr:flex-col yr:items-center yr:gap-1"
             >
               <div
                 :style="{
@@ -379,14 +379,14 @@ const colorScales = [
           <h3 style="font-weight: 600; font-size: 1rem; color: #3d5a44; margin-bottom: 12px;">
             Semantic Colors
           </h3>
-          <MProvider theme="hoyo">
-            <div class="mru:flex mru:flex-col mru:gap-2" style="max-width: 480px;">
-              <MAlert variant="success">Success message</MAlert>
-              <MAlert variant="warning">Warning message</MAlert>
-              <MAlert variant="error">Error message</MAlert>
-              <MAlert variant="info">Info message</MAlert>
+          <YRProvider theme="hoyo">
+            <div class="yr:flex yr:flex-col yr:gap-2" style="max-width: 480px;">
+              <YRAlert variant="success">Success message</YRAlert>
+              <YRAlert variant="warning">Warning message</YRAlert>
+              <YRAlert variant="error">Error message</YRAlert>
+              <YRAlert variant="info">Info message</YRAlert>
             </div>
-          </MProvider>
+          </YRProvider>
         </div>
       </div>
     </Variant>
