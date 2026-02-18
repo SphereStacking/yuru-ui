@@ -294,6 +294,81 @@
 }
 
 /* ============================================
+   きら（kira）テーマ — キラキラ華やか、グラデーション光沢、リッチ
+   ============================================ */
+[data-theme="kira"] {
+  /* 角丸 — 大きめで柔らかい */
+  --m-radius-default: 16px;
+  --m-radius-button: 14px;
+  --m-radius-input: 14px;
+  --m-radius-card: 18px;
+
+  /* フィルター — なし */
+  --m-filter-default: none;
+  --m-filter-card: none;
+  --m-filter-button: none;
+
+  /* シャドウ — グロウ感のある二重シャドウ */
+  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.10), 0 1px 3px rgba(176, 255, 196, 0.15);
+  --m-shadow-md: 0 4px 16px rgba(142, 220, 170, 0.14), 0 2px 6px rgba(176, 255, 196, 0.20);
+  --m-shadow-lg: 0 8px 32px rgba(142, 220, 170, 0.18), 0 4px 12px rgba(176, 255, 196, 0.25);
+  --m-shadow-xl: 0 16px 48px rgba(142, 220, 170, 0.22), 0 8px 20px rgba(176, 255, 196, 0.30);
+
+  /* タイポグラフィ — しっかり重め */
+  --m-font-weight-display: 700;
+  --m-font-weight-heading: 600;
+  --m-font-weight-body: 500;
+  --m-font-weight-small: 400;
+
+  /* Divider */
+  --m-divider-style: straight;
+
+  /* ボーダー */
+  --m-border-width: 1px;
+
+  /* グラデーション */
+  --m-gradient-primary: linear-gradient(135deg, #b0ffc4, #ccedff);
+  --m-gradient-accent: linear-gradient(135deg, #ffd4e8, #e0d4ff);
+}
+
+/* ============================================
+   ねむ（nemu）テーマ — 低コントラスト、淡い、目に優しい夜向け
+   ============================================ */
+[data-theme="nemu"] {
+  /* 角丸 — かなり丸い、やわらかい */
+  --m-radius-default: 20px;
+  --m-radius-button: 18px;
+  --m-radius-input: 18px;
+  --m-radius-card: 22px;
+
+  /* フィルター — なし */
+  --m-filter-default: none;
+  --m-filter-card: none;
+  --m-filter-button: none;
+
+  /* シャドウ — ほぼ見えないくらい薄い */
+  --m-shadow-sm: 0 2px 8px rgba(142, 220, 170, 0.03);
+  --m-shadow-md: 0 4px 16px rgba(142, 220, 170, 0.04);
+  --m-shadow-lg: 0 8px 24px rgba(142, 220, 170, 0.05);
+  --m-shadow-xl: 0 12px 32px rgba(142, 220, 170, 0.06);
+
+  /* タイポグラフィ — 軽め、やさしい */
+  --m-font-weight-display: 500;
+  --m-font-weight-heading: 400;
+  --m-font-weight-body: 300;
+  --m-font-weight-small: 300;
+
+  /* Divider */
+  --m-divider-style: straight;
+
+  /* ボーダー */
+  --m-border-width: 1px;
+
+  /* 透明度 — ミュートされた要素用 */
+  --m-opacity-muted: 0.6;
+}
+
+/* ============================================
    ダークモード
    ============================================ */
 @media (prefers-color-scheme: dark) {
