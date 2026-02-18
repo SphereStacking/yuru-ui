@@ -21,6 +21,10 @@ defineProps<{
           <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="2" seed="8" result="turbulence"/>
           <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
         </filter>
+        <filter id="wobbly-moko">
+          <feTurbulence type="turbulence" baseFrequency="0.018" numOctaves="3" seed="3" result="turbulence"/>
+          <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
       </defs>
     </svg>
     <slot />

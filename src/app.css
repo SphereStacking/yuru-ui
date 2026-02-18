@@ -226,6 +226,74 @@
 }
 
 /* ============================================
+   とげ（toge）テーマ — シャープ、角ばった、エッジの効いた
+   ============================================ */
+[data-theme="toge"] {
+  /* 角丸 — なし */
+  --m-radius-default: 0px;
+  --m-radius-button: 0px;
+  --m-radius-input: 0px;
+  --m-radius-card: 0px;
+
+  /* フィルター — なし */
+  --m-filter-default: none;
+  --m-filter-card: none;
+  --m-filter-button: none;
+
+  /* シャドウ — くっきりシャープ */
+  --m-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.12);
+  --m-shadow-md: 0 2px 6px rgba(0, 0, 0, 0.16);
+  --m-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.20);
+  --m-shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.24);
+
+  /* タイポグラフィ — 重め、力強い */
+  --m-font-weight-display: 800;
+  --m-font-weight-heading: 700;
+  --m-font-weight-body: 500;
+  --m-font-weight-small: 400;
+
+  /* Divider */
+  --m-divider-style: straight;
+
+  /* ボーダー */
+  --m-border-width: 1px;
+}
+
+/* ============================================
+   もこ（moko）テーマ — ふわふわもこもこ、雲みたいな超やわらか
+   ============================================ */
+[data-theme="moko"] {
+  /* 角丸 — 非対称で超大きい、blob的な形 */
+  --m-radius-default: 32px 38px 34px 40px / 38px 32px 40px 34px;
+  --m-radius-button: 30px 36px 32px 38px / 36px 30px 38px 32px;
+  --m-radius-input: 28px 34px 30px 36px / 34px 28px 36px 30px;
+  --m-radius-card: 34px 40px 36px 42px / 40px 34px 42px 36px;
+
+  /* フィルター — もこもこゆらぎ */
+  --m-filter-default: url(#wobbly-moko);
+  --m-filter-card: url(#wobbly-moko);
+  --m-filter-button: url(#wobbly-subtle);
+
+  /* シャドウ — ふんわり大きめ */
+  --m-shadow-sm: 0 4px 16px rgba(142, 220, 170, 0.10);
+  --m-shadow-md: 0 8px 32px rgba(142, 220, 170, 0.14);
+  --m-shadow-lg: 0 16px 48px rgba(142, 220, 170, 0.18);
+  --m-shadow-xl: 0 24px 64px rgba(142, 220, 170, 0.22);
+
+  /* タイポグラフィ — 軽め、ふわっと */
+  --m-font-weight-display: 500;
+  --m-font-weight-heading: 400;
+  --m-font-weight-body: 300;
+  --m-font-weight-small: 300;
+
+  /* Divider */
+  --m-divider-style: wavy;
+
+  /* ボーダー */
+  --m-border-width: 2px;
+}
+
+/* ============================================
    ダークモード
    ============================================ */
 @media (prefers-color-scheme: dark) {
